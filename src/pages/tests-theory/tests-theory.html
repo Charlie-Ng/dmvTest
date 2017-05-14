@@ -23,9 +23,8 @@
     </ion-item>
   </ion-list>
   <ion-buttons>
-    <button ion-button color="light"><ion-icon name="refresh"></ion-icon></button>
+    <button ion-button color="light" (click)="resetTestSet()"><ion-icon name="refresh"></ion-icon></button>
     <button [disabled]="!currentTheoryTest.userAnswer" ion-button (click)="goNextQuestion()" class="float-right">下一題</button>
-
   </ion-buttons>
 
 </ion-content>
