@@ -9,7 +9,7 @@ import { TestsPage } from '../pages/tests/tests'
 import { TheoryPage } from '../pages/theory/theory';
 import { SignsPage } from '../pages/signs/signs';
 
-import { AppService } from './app.service'
+import { AppService } from './app.service';
 
 @Component({
   templateUrl: 'app.html',

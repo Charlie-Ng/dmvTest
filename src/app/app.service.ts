@@ -5,6 +5,4 @@ export class AppService {
 
   testsSelectDialogOpen: boolean = false;
 
-
-
 }

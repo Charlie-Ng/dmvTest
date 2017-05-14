@@ -13,8 +13,19 @@
   </ion-navbar>
 </ion-header>
 
-
-
 <ion-content padding>
+  <p>{{currentTheoryTest.no}}. {{currentTheoryTest.question}}</p>
+
+  <ion-list radio-group [(ngModel)]="currentTheoryTest.userAnswer">
+    <ion-item *ngFor="let choice of currentTheoryTest.choices">
+      <ion-label text-wrap>{{choice.choice}}. {{choice.answer}}</ion-label>
+      <ion-radio [value]="choice.choice"></ion-radio>
+    </ion-item>
+  </ion-list>
+  <ion-buttons>
+    <button ion-button color="light"><ion-icon name="refresh"></ion-icon></button>
+    <button [disabled]="!currentTheoryTest.userAnswer" ion-button (click)="goNextQuestion()" class="float-right">下一題</button>
+
+  </ion-buttons>
 
 </ion-content>
