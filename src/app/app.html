@@ -1,0 +1,27 @@
+<ion-menu [content]="content" type="overlay" (ionClose)="menuClosed()">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>項目列</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list class="main-list">
+      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        {{p.title}}
+      </button>
+
+      <!-- practice master -->
+      <ion-item class="clickable" (click)="practiceMenuHondler()">學習</ion-item>
+      <ion-item-group submenu [class.visible]="showSubmenu">
+        <ion-item menuClose *ngFor="let studyPage of studyPages" (click)="openPage(studyPage)" class="clickable">
+          {{studyPage.title}}
+        </ion-item>
+      </ion-item-group>
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
