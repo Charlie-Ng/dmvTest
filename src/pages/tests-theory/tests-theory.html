@@ -15,16 +15,21 @@
 
 <ion-content padding>
   <p>{{currentTheoryTest.no}}. {{currentTheoryTest.question}}</p>
-
+  <hr />
   <ion-list radio-group [(ngModel)]="currentTheoryTest.userAnswer">
+
     <ion-item *ngFor="let choice of currentTheoryTest.choices">
       <ion-label text-wrap>{{choice.choice}}. {{choice.answer}}</ion-label>
       <ion-radio [value]="choice.choice"></ion-radio>
     </ion-item>
   </ion-list>
-  <ion-buttons>
-    <button ion-button color="light" (click)="resetTestSet()"><ion-icon name="refresh"></ion-icon></button>
-    <button [disabled]="!currentTheoryTest.userAnswer" ion-button (click)="goNextQuestion()" class="float-right">下一題</button>
-  </ion-buttons>
 
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons>
+      <button ion-button color="primary" (click)="resetTestSet()" class="shared-reset-icon"><ion-icon name="refresh"></ion-icon></button>
+      <button ion-button [disabled]="!currentTheoryTest.userAnswer" color="primary" (click)="goNextQuestion()" class="float-right shared-next-icon"><ion-icon name="arrow-round-forward"></ion-icon></button>
+    </ion-buttons>  </ion-toolbar>
+</ion-footer>
