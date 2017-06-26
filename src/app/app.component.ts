@@ -11,6 +11,7 @@ import { SignsPage } from '../pages/signs/signs';
 
 import { AppService } from './app.service';
 
+
 @Component({
   templateUrl: 'app.html',
   providers: [AppService]

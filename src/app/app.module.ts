@@ -15,6 +15,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AppService } from "./app.service";
 import { TestsService } from './app.tests.service';
+import { KeyValuesPipe } from "./key-values.pipe";
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { TestsService } from './app.tests.service';
     TheoryPage,
     SignsPage,
     TestsTheoryPage,
-    TestsSignsPage
+    TestsSignsPage,
+    KeyValuesPipe
   ],
   imports: [
     BrowserModule,
@@ -47,7 +49,7 @@ import { TestsService } from './app.tests.service';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AppService,
-    TestsService
+    TestsService,
     ]
 })
 export class AppModule {}

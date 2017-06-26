@@ -31,11 +31,11 @@ export class TestsPage {
     console.log('ionViewDidLoad TestsPage');
     if(!this.appService.testsSelectDialogOpen){
       this.appService.testsSelectDialogOpen = true;
-      this.presetSelection();
+      this.resetSelection();
     }
   }
 
-  presetSelection() {
+  resetSelection() {
     let alert = this.alertCtrl.create({
       title: '模擬測試',
       message: '要先測試那部分?',
@@ -45,12 +45,14 @@ export class TestsPage {
           text: '理論題',
           handler: () => {
             this.appService.testsSelectDialogOpen = false;
+            this.appService.testHaveBeenStarted = true;
             this.navCtrl.setRoot(TestsTheoryPage);
         }},
         {
           text: '圖示題',
           handler: () => {
             this.appService.testsSelectDialogOpen = false;
+            this.appService.testHaveBeenStarted = true;
             this.navCtrl.setRoot(TestsSignsPage);
           }},
         {

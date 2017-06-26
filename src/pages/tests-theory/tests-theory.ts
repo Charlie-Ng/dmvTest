@@ -15,8 +15,8 @@ import { TestsService } from '../../app/app.tests.service';
 })
 export class TestsTheoryPage {
 
-  theoryTestSet: Array<{no: number, question: string, choices: Array<{choice: string, answer: string}>, correctAnswer: string, userAnswer: string}>;
-  currentTheoryTest: {no: number, question: string, choices: Array<{choice: string, answer: string}>, correctAnswer: string, userAnswer: string};
+  theoryTestSet: Array<{no: number, question: string, choices: Array<{[key: string]: string}>, correctAnswer: string, userAnswer: string, hasSign: boolean, signName: string}>;
+  currentTheoryTest: {no: number, question: string, choices: Array<{[key: string]: string}>, correctAnswer: string, userAnswer: string, hasSign: boolean, signName: string};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private testsService: TestsService, public alertCtrl: AlertController) {
     this.theoryTestSet = this.testsService.newTheoryTestSet();

@@ -4,5 +4,6 @@ import {Injectable} from '@angular/core';
 export class AppService {
 
   testsSelectDialogOpen: boolean = false;
+  testHaveBeenStarted: boolean = false;
 
 }
