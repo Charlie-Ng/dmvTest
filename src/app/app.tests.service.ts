@@ -5,8 +5,6 @@ import {AppService} from './app.service';
 export class TestsService {
   // constructor at the end
 
-  correctAnswerCount: number = 0;
-
   theoryDataset: Array<{no: number, question: string, choices: Array<{[key: string]: string}>, correctAnswer: string, userAnswer: string, hasSign: boolean, signName: string}>;
   signDataset: Array<{no: number, question: string, choices: Array<{[key: string]: string}>, correctAnswer: string, userAnswer: string, hasSign: boolean, signName:string}>;
   theorySet: Array<{no: number, question: string, choices: Array<{[key: string]: string}>, correctAnswer: string, userAnswer: string, hasSign: boolean, signName: string}>;

@@ -19,9 +19,9 @@
   <ion-list radio-group [(ngModel)]="currentTheoryTest.userAnswer">
 
     <ion-item *ngFor="let choice of currentTheoryTest.choices | keyValues; let i = index" >
-      <ion-label text-wrap *ngIf="i === 0">a. {{choice.value}}</ion-label>
-      <ion-label text-wrap *ngIf="i === 1">b. {{choice.value}}</ion-label>
-      <ion-label text-wrap *ngIf="i === 2">c. {{choice.value}}</ion-label>
+      <ion-label text-wrap *ngIf="i === 0" [ngClass]="{'color-success': appService.firstCorrect, 'color-danger': appService.firstIncorrect}">a. {{choice.value}}</ion-label>
+      <ion-label text-wrap *ngIf="i === 1" [ngClass]="{'color-success': appService.secondCorrect, 'color-danger': appService.secondIncorrect}">b. {{choice.value}}</ion-label>
+      <ion-label text-wrap *ngIf="i === 2" [ngClass]="{'color-success': appService.thirdCorrect, 'color-danger': appService.thirdIncorrect}">c. {{choice.value}}</ion-label>
       <ion-radio [value]="choice.key" (click)="loadView(i)"></ion-radio>
     </ion-item>
   </ion-list>
@@ -37,14 +37,14 @@
             <label class="page-tests-icon-label">重新開始</label>
           </div>
         </button>
-        <button ion-button [disabled]="!currentTheoryTest.userAnswer || hasAnswered" (click)="confirmUserAnswer()" color="primary" class="shared-check">
+        <button ion-button [disabled]="!currentTheoryTest.userAnswer || appService.hasAnswered" (click)="confirmUserAnswer()" color="primary" class="shared-check">
           <div>
             <ion-icon name="checkmark-circle"></ion-icon>
             <label class="page-tests-icon-label">確認</label>
           </div>
         </button>
 
-        <button ion-button [disabled]="!hasAnswered" color="primary" (click)="goNextQuestion()" class="float-right shared-next-icon">
+        <button ion-button [disabled]="!appService.hasAnswered" color="primary" (click)="goNextQuestion()" class="float-right shared-next-icon">
           <div>
             <ion-icon name="arrow-round-forward"></ion-icon>
             <label class="page-tests-icon-label">下一題</label>

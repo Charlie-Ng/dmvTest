@@ -18,7 +18,6 @@ export class TestsTheoryPage {
 
   theoryTestSet: Array<{no: number, question: string, choices: Array<{[key: string]: string}>, correctAnswer: string, userAnswer: string, hasSign: boolean, signName: string}>;
   currentTheoryTest: {no: number, question: string, choices: Array<{[key: string]: string}>, correctAnswer: string, userAnswer: string, hasSign: boolean, signName: string};
-  hasAnswered: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private testsService: TestsService, public alertCtrl: AlertController, public appService: AppService, public ngZone: NgZone, public changeDetectorRef: ChangeDetectorRef) {
     if(!this.appService.testHaveBeenStarted) {
@@ -28,13 +27,12 @@ export class TestsTheoryPage {
       this.testsService.newTest();
       this.theoryTestSet = this.appService.lastTheorySet;
       this.currentTheoryTest = this.theoryTestSet[0];
-      this.hasAnswered = false;
+      this.appService.hasAnswered = false;
     }else {
         this.theoryTestSet = this.appService.lastTheorySet;
         this.currentTheoryTest = this.theoryTestSet[this.appService.lastTheoryTestIndex];
 
 
-        this.hasAnswered = false;
     }
   }
 
@@ -43,15 +41,15 @@ export class TestsTheoryPage {
 
   goNextQuestion() {
     this.ngZone.run(() => {
-
-      this.hasAnswered = false;
+      this.appService.resetCorrect();
+      this.appService.hasAnswered = false;
 
     let nextQuestionIndex = this.currentTheoryTest.no;
     this.appService.lastTheoryTestIndex = nextQuestionIndex;
     if(nextQuestionIndex < 36){
 
       if(this.currentTheoryTest.userAnswer === this.currentTheoryTest.correctAnswer) {
-        this.testsService.correctAnswerCount++;
+        this.appService.correctAnswerCount++;
       }
 
       this.currentTheoryTest = this.theoryTestSet[nextQuestionIndex];
@@ -65,15 +63,46 @@ export class TestsTheoryPage {
 
   confirmUserAnswer() {
     this.ngZone.run(() => {
-      this.hasAnswered = true;
+      this.appService.hasAnswered = true;
+
+      if(this.currentTheoryTest.userAnswer === this.currentTheoryTest.correctAnswer) {
+        // set green
+        if(this.appService.lastAnswerIndex === 0) {
+          this.appService.firstCorrect = true;
+        }else if(this.appService.lastAnswerIndex === 1){
+          this.appService.secondCorrect = true;
+        }else {
+          this.appService.thirdCorrect = true;
+        }
+      }else {
+        // set red
+        if(this.appService.lastAnswerIndex === 0) {
+          this.appService.firstIncorrect = true;
+        }else if(this.appService.lastAnswerIndex === 1){
+          this.appService.secondIncorrect = true;
+        }else {
+          this.appService.thirdIncorrect = true;
+        }
+
+        // set correct to green
+          if(Object.keys(this.currentTheoryTest.choices[0])[0]){
+            this.appService.firstCorrect = true;
+          }else if (Object.keys(this.currentTheoryTest.choices[1])[0]){
+            this.appService.secondCorrect = true;
+          }else {
+            this.appService.thirdCorrect = true;
+          }
+      }
+
     });
 
   }
 
-  loadView() {
+  loadView(index) {
     // this.ngZone.run(() => {
     // });
     this.changeDetectorRef.detectChanges();
+    this.appService.lastAnswerIndex = index;
   }
 
   resetTestSet() {
