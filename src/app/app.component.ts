@@ -13,8 +13,8 @@ import { AppService } from './app.service';
 
 
 @Component({
-  templateUrl: 'app.html',
-  providers: [AppService]
+  templateUrl: 'app.html'
+  // providers: [AppService]
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;

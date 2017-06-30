@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {AppService} from './app.service';
 
 @Injectable()
 export class TestsService {
@@ -60,7 +61,12 @@ export class TestsService {
 
   }
 
-  constructor() {
+  newTest() {
+    this.appService.lastTheorySet = this.newTheoryTestSet();
+    this.appService.lastSignSet = this.newSignTestSet();
+  }
+
+  constructor(public appService: AppService) {
     this.theorySet = [];
     this.signSet = [];
     this.theoryDataset = [

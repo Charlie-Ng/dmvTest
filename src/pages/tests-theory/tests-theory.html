@@ -16,13 +16,13 @@
 <ion-content padding>
   <p>{{currentTheoryTest.no}}. {{currentTheoryTest.question}}</p>
   <hr />
-  <ion-list radio-group [(ngModel)]="currentTheoryTest.correctAnswer">
+  <ion-list radio-group [(ngModel)]="currentTheoryTest.userAnswer">
 
-    <ion-item *ngFor="let choice of currentTheoryTest.choices | keyValues; let i = index">
+    <ion-item *ngFor="let choice of currentTheoryTest.choices | keyValues; let i = index" >
       <ion-label text-wrap *ngIf="i === 0">a. {{choice.value}}</ion-label>
       <ion-label text-wrap *ngIf="i === 1">b. {{choice.value}}</ion-label>
       <ion-label text-wrap *ngIf="i === 2">c. {{choice.value}}</ion-label>
-      <ion-radio [value]="choice.key"></ion-radio>
+      <ion-radio [value]="choice.key" (click)="loadView(i)"></ion-radio>
     </ion-item>
   </ion-list>
 
@@ -30,8 +30,11 @@
 
 <ion-footer>
   <ion-toolbar>
-    <ion-buttons>
-      <button ion-button color="primary" (click)="resetTestSet()" class="shared-reset-icon"><ion-icon name="refresh"></ion-icon></button>
-      <button ion-button [disabled]="!currentTheoryTest.userAnswer" color="primary" (click)="goNextQuestion()" class="float-right shared-next-icon"><ion-icon name="arrow-round-forward"></ion-icon></button>
-    </ion-buttons>  </ion-toolbar>
+    <ion-buttons class="text-align-center">
+      <button ion-button color="primary" (click)="resetTestSet()" class="float-left shared-reset-icon"><ion-icon name="refresh"></ion-icon></button>
+      <button ion-button [disabled]="!currentTheoryTest.userAnswer || hasAnswered" (click)="confirmUserAnswer()" color="primary" class="shared-check"><ion-icon name="checkmark-circle"></ion-icon></button>
+      <button ion-button [disabled]="!hasAnswered" color="primary" (click)="goNextQuestion()" class="float-right shared-next-icon"><ion-icon name="arrow-round-forward"></ion-icon></button>
+
+    </ion-buttons>
+  </ion-toolbar>
 </ion-footer>
