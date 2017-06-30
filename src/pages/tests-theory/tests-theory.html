@@ -31,9 +31,26 @@
 <ion-footer>
   <ion-toolbar>
     <ion-buttons class="text-align-center">
-      <button ion-button color="primary" (click)="resetTestSet()" class="float-left shared-reset-icon"><ion-icon name="refresh"></ion-icon></button>
-      <button ion-button [disabled]="!currentTheoryTest.userAnswer || hasAnswered" (click)="confirmUserAnswer()" color="primary" class="shared-check"><ion-icon name="checkmark-circle"></ion-icon></button>
-      <button ion-button [disabled]="!hasAnswered" color="primary" (click)="goNextQuestion()" class="float-right shared-next-icon"><ion-icon name="arrow-round-forward"></ion-icon></button>
+        <button ion-button color="primary" (click)="resetTestSet()" class="float-left shared-reset-icon">
+          <div>
+          <ion-icon name="refresh"></ion-icon>
+            <label class="page-tests-icon-label">重新開始</label>
+          </div>
+        </button>
+        <button ion-button [disabled]="!currentTheoryTest.userAnswer || hasAnswered" (click)="confirmUserAnswer()" color="primary" class="shared-check">
+          <div>
+            <ion-icon name="checkmark-circle"></ion-icon>
+            <label class="page-tests-icon-label">確認</label>
+          </div>
+        </button>
+
+        <button ion-button [disabled]="!hasAnswered" color="primary" (click)="goNextQuestion()" class="float-right shared-next-icon">
+          <div>
+            <ion-icon name="arrow-round-forward"></ion-icon>
+            <label class="page-tests-icon-label">下一題</label>
+          </div>
+        </button>
+
 
     </ion-buttons>
   </ion-toolbar>
