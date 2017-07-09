@@ -13,14 +13,14 @@ export class TestsService {
 
 
   newTheoryTestSet() {
-
     // generate theory random from 0 to 185, total is 186, and we need length 36
     let theoryRanLookup: {[key:number]: boolean} = {};
 
     let counter: number = 0;
+    let newTheorySet = [];
     while(1) {
       let ran = Math.floor(Math.random()*186);
-      if(counter === 36) {
+      if(counter === 2) {
         break;
       }
       if(!theoryRanLookup[ran]) {
@@ -28,11 +28,10 @@ export class TestsService {
         theoryRanLookup[ran] = true;
         let theoryData = Object.assign({}, this.theoryDataset[ran]);
         theoryData.no = counter;
-        this.theorySet.push(theoryData);
+        newTheorySet.push(theoryData);
       }
     }
-    return this.theorySet;
-    // generate sign random from 0 to 34, total is 35, and we need length 12
+    this.appService.lastTheorySet = newTheorySet;
 
   }
 
@@ -42,9 +41,10 @@ export class TestsService {
     let theoryRanLookup: {[key:number]: boolean} = {};
 
     let counter: number = 0;
+    let newSignSet = [];
     while(1) {
       let ran = Math.floor(Math.random()*35);
-      if(counter === 12) {
+      if(counter === 2) {
         break;
       }
       if(!theoryRanLookup[ran]) {
@@ -52,16 +52,16 @@ export class TestsService {
         theoryRanLookup[ran] = true;
         let signData = Object.assign({}, this.signDataset[ran]);
         signData.no = counter;
-        this.signSet.push(signData);
+        newSignSet.push(signData);
       }
     }
-    return this.signSet;
+    this.appService.lastSignSet = newSignSet;
 
   }
 
   newTest() {
-    this.appService.lastTheorySet = this.newTheoryTestSet();
-    this.appService.lastSignSet = this.newSignTestSet();
+    this.newTheoryTestSet();
+    this.newSignTestSet();
   }
 
   constructor(public appService: AppService) {

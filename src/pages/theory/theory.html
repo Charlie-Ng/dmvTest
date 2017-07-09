@@ -17,4 +17,29 @@
 
 <ion-content padding>
 
+    <p class="shared-question-text">{{currentTheoryStudy.no}}. {{currentTheoryStudy.question}}</p>
+    <div *ngIf="currentTheoryStudy.hasSign" class="text-align-center"><img [src]="'../../assets/signs/' + currentTheoryStudy.signName" height="120" width="120" /></div>
+    <ion-list radio-group [(ngModel)]="currentTheoryStudy.correctAnswer">
+
+      <ion-item *ngFor="let choice of currentTheoryStudy.choices | keyValues; let i = index">
+        <ion-label text-wrap *ngIf="i === 0" [ngClass]="{'color-success': appService.firstCorrect, 'color-danger': appService.firstIncorrect}">a. {{choice.value}}</ion-label>
+        <ion-label text-wrap *ngIf="i === 1" [ngClass]="{'color-success': appService.secondCorrect, 'color-danger': appService.secondIncorrect}">b. {{choice.value}}</ion-label>
+        <ion-label text-wrap *ngIf="i === 2" [ngClass]="{'color-success': appService.thirdCorrect, 'color-danger': appService.thirdIncorrect}">c. {{choice.value}}</ion-label>
+        <ion-radio [disabled]="true" [value]="choice.key" (click)="loadView(i)"></ion-radio>
+      </ion-item>
+    </ion-list>
+
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons class="text-align-center">
+      <button *ngIf="appService.currentTheoryIndex > 0" ion-button color="primary" (click)="previousQuestion()" class="float-left shared-reset-icon">
+        <div>
+          <ion-icon name="refresh"></ion-icon>
+          <label class="page-tests-icon-label">上一題</label>
+        </div>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

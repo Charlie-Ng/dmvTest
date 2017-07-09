@@ -6,6 +6,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { TestsPage } from '../pages/tests/tests'
+import { TestsTheoryPage } from '../pages/tests-theory/tests-theory';
+import { TestsSignsPage } from '../pages/tests-signs/tests-signs';
 import { TheoryPage } from '../pages/theory/theory';
 import { SignsPage } from '../pages/signs/signs';
 
@@ -67,7 +69,13 @@ export class MyApp {
 
   menuClosed() {
     if(!this.appService.testsSelectDialogOpen && this.currentPage.title === '模擬測驗') {
-      this.nav.setRoot(this.currentPage.component);
+      if(this.appService.lastOpenTest === "theory") {
+        this.nav.setRoot(TestsTheoryPage);
+      }else if(this.appService.lastOpenTest === 'sign'){
+        this.nav.setRoot(TestsSignsPage);
+      }else{
+        this.nav.setRoot(TestsPage);
+      }
     }
   }
 
