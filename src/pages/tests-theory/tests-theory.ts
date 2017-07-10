@@ -52,14 +52,14 @@ export class TestsTheoryPage {
 
     let nextQuestionIndex = this.currentTheoryTest.no;
     this.appService.lastTheoryTestIndex = nextQuestionIndex;
-    if(nextQuestionIndex < 2){
+    if(nextQuestionIndex < 36){
 
       if(this.currentTheoryTest.userAnswer === this.currentTheoryTest.correctAnswer) {
         this.appService.correctTheoryAnswerCount++;
       }
 
       this.currentTheoryTest = this.theoryTestSet[nextQuestionIndex];
-      if(nextQuestionIndex + 1 === 2) {
+      if(nextQuestionIndex + 1 === 36) {
         this.appService.isLastQuestion = true;
       }
 

@@ -44,7 +44,7 @@ export class MyApp {
 
     this.studyPages = [
       { title: '理論題', component: TheoryPage },
-      { title: '圖示題', component: SignsPage }
+      { title: '圖標題', component: SignsPage }
     ];
 
 

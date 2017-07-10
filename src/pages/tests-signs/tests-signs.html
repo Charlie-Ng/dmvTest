@@ -17,7 +17,7 @@
 
 <ion-content padding>
   <div padding *ngIf="!appService.finishedSignTest">
-    <p class="shared-question-text">{{currentSignTest.no}}. {{currentSignTest.question}}</p>
+    <p class="font-size-16">{{currentSignTest.no}}. {{currentSignTest.question}}</p>
     <ion-list radio-group [(ngModel)]="currentSignTest.userAnswer">
 
       <ion-item *ngFor="let choice of currentSignTest.choices | keyValues; let i = index">
@@ -30,7 +30,7 @@
         <ion-label text-wrap *ngIf="i === 2" [ngClass]="{'color-success': appService.thirdCorrect, 'color-danger': appService.thirdIncorrect}">
           <b class="tests-signs-question-no">c.</b> <img [src]="'../../assets/signs/' + choice.value" height="120" width="120" />
         </ion-label>
-        <ion-radio [value]="choice.key" (click)="loadView(i)"></ion-radio>
+        <ion-radio [value]="choice.key" [disabled]="appService.hasAnswered" (click)="loadView(i)"></ion-radio>
       </ion-item>
     </ion-list>
 
@@ -48,7 +48,7 @@
   <div padding class="text-align-center" *ngIf="appService.finishedAllTests">
     <p>48題模擬測驗總結: </p>
     <p>正確: {{appService.correctSignAnswerCount + appService.correctTheoryAnswerCount}}</p>
-    <p>錯誤: {{12 - appService.correctSignAnswerCount - appService.correctTheoryAnswerCount}}.</p>
+    <p>錯誤: {{48 - appService.correctSignAnswerCount - appService.correctTheoryAnswerCount}}.</p>
 
     <p>36題理論題: </p>
     <p>正確: {{appService.correctTheoryAnswerCount}}.</p>

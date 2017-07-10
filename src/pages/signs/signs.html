@@ -9,7 +9,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>圖示題</ion-title>
+    <ion-title>圖標題 ({{currentSignStudy.no}}/35)</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -17,4 +17,50 @@
 
 <ion-content padding>
 
+  <p class="font-size-16">{{currentSignStudy.no}}. {{currentSignStudy.question}}</p>
+  <ion-list radio-group [(ngModel)]="currentSignStudy.correctAnswer">
+
+    <ion-item *ngFor="let choice of currentSignStudy.choices | keyValues; let i = index">
+      <ion-label text-wrap *ngIf="i === 0">
+        <b class="tests-signs-question-no">a.</b> <img [src]="'../../assets/signs/' + choice.value" height="120" width="120" />
+      </ion-label>
+      <ion-label text-wrap *ngIf="i === 1">
+        <b class="tests-signs-question-no">b.</b> <img [src]="'../../assets/signs/' + choice.value" height="120" width="120" />
+      </ion-label>
+      <ion-label text-wrap *ngIf="i === 2">
+        <b class="tests-signs-question-no">c.</b> <img [src]="'../../assets/signs/' + choice.value" height="120" width="120" />
+      </ion-label>
+      <ion-radio [disabled]="true" [value]="choice.key"></ion-radio>
+    </ion-item>
+  </ion-list>
+
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+
+    <ion-buttons class="text-align-center">
+      <button [disabled]="appService.currentSignIndex === 0" ion-button color="primary" (click)="previousQuestion()" class="float-left font-size-20">
+        <div>
+          <ion-icon name="arrow-round-back"></ion-icon>
+          <label class="page-tests-icon-label">上一題</label>
+        </div>
+      </button>
+
+      <button ion-button color="primary" (click)="jumpToQuestion()" class="font-size-20">
+        <div>
+          <ion-icon name="share-alt"></ion-icon>
+          <label class="page-tests-icon-label">跳至</label>
+        </div>
+      </button>
+
+      <button [disabled]="appService.currentSignIndex === 34" ion-button color="primary" (click)="nextQuestion()" class="float-right font-size-20">
+        <div>
+          <ion-icon name="arrow-round-forward"></ion-icon>
+          <label class="page-tests-icon-label">下一題</label>
+        </div>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
+

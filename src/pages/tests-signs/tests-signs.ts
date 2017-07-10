@@ -48,13 +48,9 @@ export class TestsSignsPage {
       this.appService.resetCorrect();
       this.appService.hasAnswered = false;
 
-      if(this.appService.lastSignTestIndex + 1 === 2) {
-        this.appService.isLastQuestion = false;
-      }
-
       let nextQuestionIndex = this.currentSignTest.no;
       this.appService.lastSignTestIndex = nextQuestionIndex;
-      if(nextQuestionIndex < 2){
+      if(nextQuestionIndex < 12){
 
         if(this.currentSignTest.userAnswer === this.currentSignTest.correctAnswer) {
           this.appService.correctSignAnswerCount++;
@@ -62,7 +58,7 @@ export class TestsSignsPage {
 
         this.currentSignTest = this.signTestSet[nextQuestionIndex];
 
-        if(nextQuestionIndex + 1 === 2) {
+        if(nextQuestionIndex + 1 === 12) {
           this.appService.isLastQuestion = true;
         }
 

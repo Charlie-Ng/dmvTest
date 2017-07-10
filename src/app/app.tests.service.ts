@@ -19,10 +19,10 @@ export class TestsService {
     let counter: number = 0;
     let newTheorySet = [];
     while(1) {
-      let ran = Math.floor(Math.random()*186);
-      if(counter === 2) {
+      if(counter === 36) {
         break;
       }
+      let ran = Math.floor(Math.random()*186);
       if(!theoryRanLookup[ran]) {
         counter++;
         theoryRanLookup[ran] = true;
@@ -43,10 +43,10 @@ export class TestsService {
     let counter: number = 0;
     let newSignSet = [];
     while(1) {
-      let ran = Math.floor(Math.random()*35);
-      if(counter === 2) {
+      if(counter === 12) {
         break;
       }
+      let ran = Math.floor(Math.random()*35);
       if(!theoryRanLookup[ran]) {
         counter++;
         theoryRanLookup[ran] = true;

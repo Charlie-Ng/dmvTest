@@ -16,7 +16,6 @@ import { TestsService } from '../../app/app.tests.service';
 })
 export class TheoryPage {
 
-  theoryStudySet: Array<{no: number, question: string, choices: Array<{[key: string]: string}>, correctAnswer: string, userAnswer: string, hasSign: boolean, signName: string}>;
   currentTheoryStudy: {no: number, question: string, choices: Array<{[key: string]: string}>, correctAnswer: string, userAnswer: string, hasSign: boolean, signName: string};
   alertInputs: any;
 
@@ -73,9 +72,11 @@ export class TheoryPage {
           {
             text: "確定",
             handler: data => {
-              // data is the index we want to jump to
-              this.appService.currentTheoryIndex = data;
-              this.currentTheoryStudy = this.testsService.theoryDataset[this.appService.currentTheoryIndex];
+              this.ngZone.run(() => {
+                // data is the index we want to jump to
+                this.appService.currentTheoryIndex = data;
+                this.currentTheoryStudy = this.testsService.theoryDataset[this.appService.currentTheoryIndex];
+              });
             }
           }
         ]
