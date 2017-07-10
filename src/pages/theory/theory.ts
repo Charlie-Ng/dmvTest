@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component, NgZone} from '@angular/core';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { AppService} from '../../app/app.service';
 import { TestsService } from '../../app/app.tests.service';
 
@@ -18,13 +18,72 @@ export class TheoryPage {
 
   theoryStudySet: Array<{no: number, question: string, choices: Array<{[key: string]: string}>, correctAnswer: string, userAnswer: string, hasSign: boolean, signName: string}>;
   currentTheoryStudy: {no: number, question: string, choices: Array<{[key: string]: string}>, correctAnswer: string, userAnswer: string, hasSign: boolean, signName: string};
+  alertInputs: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private appService: AppService, private testsService: TestsService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private appService: AppService, private testsService: TestsService, private ngZone: NgZone, private alertCtrl: AlertController) {
     this.currentTheoryStudy = this.testsService.theoryDataset[this.appService.currentTheoryIndex];
+    this.alertInputs = this.generateQuestionPager();
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TheoryPage');
+    // console.log('ionViewDidLoad TheoryPage');
+  }
+
+  previousQuestion() {
+    this.ngZone.run(()=>{
+      this.appService.currentTheoryIndex--;
+      this.currentTheoryStudy = this.testsService.theoryDataset[this.appService.currentTheoryIndex];
+    });
+  }
+
+  nextQuestion() {
+    this.ngZone.run(() => {
+      this.appService.currentTheoryIndex++;
+      this.currentTheoryStudy = this.testsService.theoryDataset[this.appService.currentTheoryIndex];
+    });
+  }
+
+  generateQuestionPager() {
+    let inputs: any = [];
+    for(let i = 0; i <= 18; i++) {
+      let oneInput: any = {};
+      let questionNo = i * 10;
+      if(questionNo === 0){
+        questionNo = 1;
+      }
+      oneInput.type = "radio";
+      oneInput.label = "第 " + questionNo + " 題";
+      oneInput.value = questionNo - 1;
+      inputs.push(oneInput);
+    }
+    return inputs;
+  }
+
+  jumpToQuestion() {
+    this.ngZone.run(() => {
+      let alert = this.alertCtrl.create({
+        title: '跳至',
+        enableBackdropDismiss: true,
+        inputs: this.alertInputs,
+        buttons : [
+          {
+            text: "取消",
+            role: "cancel"
+          },
+          {
+            text: "確定",
+            handler: data => {
+              // data is the index we want to jump to
+              this.appService.currentTheoryIndex = data;
+              this.currentTheoryStudy = this.testsService.theoryDataset[this.appService.currentTheoryIndex];
+            }
+          }
+        ]
+
+      });
+
+      alert.present();
+    });
   }
 
 }

@@ -61,27 +61,27 @@
 <ion-footer>
   <ion-toolbar>
     <ion-buttons class="text-align-center">
-        <button *ngIf="!appService.finishedAllTests" ion-button color="primary" (click)="resetTestSet()" class="float-left shared-reset-icon">
+        <button *ngIf="!appService.finishedAllTests" ion-button color="primary" (click)="resetTestSet()" class="float-left font-size-20">
           <div>
           <ion-icon name="refresh"></ion-icon>
             <label class="page-tests-icon-label">重新開始</label>
           </div>
         </button>
-        <button ion-button *ngIf="!appService.finishedTheoryTest" [disabled]="!currentTheoryTest.userAnswer || appService.hasAnswered" (click)="confirmUserAnswer()" color="primary" class="shared-check">
+        <button ion-button *ngIf="!appService.finishedTheoryTest" [disabled]="!currentTheoryTest.userAnswer || appService.hasAnswered" (click)="confirmUserAnswer()" color="primary" class="font-size-20">
           <div>
             <ion-icon name="checkmark-circle"></ion-icon>
             <label class="page-tests-icon-label">確認</label>
           </div>
         </button>
 
-        <button *ngIf="!appService.isLastQuestion && !appService.finishedTheoryTest" ion-button [disabled]="!appService.hasAnswered" color="primary" (click)="goNextQuestion()" class="float-right shared-next-icon">
+        <button *ngIf="!appService.isLastQuestion && !appService.finishedTheoryTest" ion-button [disabled]="!appService.hasAnswered" color="primary" (click)="goNextQuestion()" class="float-right font-size-20">
           <div>
             <ion-icon name="arrow-round-forward"></ion-icon>
             <label class="page-tests-icon-label">下一題</label>
           </div>
         </button>
 
-        <button *ngIf="appService.isLastQuestion && !appService.finishedTheoryTest" ion-button [disabled]="!appService.hasAnswered" color="primary" (click)="viewTheoryResult()" class="float-right shared-exit-icon">
+        <button *ngIf="appService.isLastQuestion && !appService.finishedTheoryTest" ion-button [disabled]="!appService.hasAnswered" color="primary" (click)="viewTheoryResult()" class="float-right font-size-20">
           <div>
             <ion-icon name="exit"></ion-icon>
             <label class="page-tests-icon-label">看結果</label>

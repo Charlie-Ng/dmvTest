@@ -33,11 +33,26 @@
 
 <ion-footer>
   <ion-toolbar>
+
     <ion-buttons class="text-align-center">
-      <button *ngIf="appService.currentTheoryIndex > 0" ion-button color="primary" (click)="previousQuestion()" class="float-left shared-reset-icon">
+      <button [disabled]="appService.currentTheoryIndex === 0" ion-button color="primary" (click)="previousQuestion()" class="float-left font-size-20">
         <div>
-          <ion-icon name="refresh"></ion-icon>
+          <ion-icon name="arrow-round-back"></ion-icon>
           <label class="page-tests-icon-label">上一題</label>
+        </div>
+      </button>
+
+      <button ion-button color="primary" (click)="jumpToQuestion()" class="font-size-20">
+        <div>
+          <ion-icon name="share-alt"></ion-icon>
+          <label class="page-tests-icon-label">跳至</label>
+        </div>
+      </button>
+
+      <button [disabled]="appService.currentTheoryIndex === 185" ion-button color="primary" (click)="nextQuestion()" class="float-right font-size-20">
+        <div>
+          <ion-icon name="arrow-round-forward"></ion-icon>
+          <label class="page-tests-icon-label">下一題</label>
         </div>
       </button>
     </ion-buttons>
