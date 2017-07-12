@@ -22,12 +22,14 @@
     <ion-list radio-group [(ngModel)]="currentTheoryStudy.correctAnswer">
 
       <ion-item *ngFor="let choice of currentTheoryStudy.choices | keyValues; let i = index">
+        <ion-radio [disabled]="true" [value]="choice.key"></ion-radio>
+
         <ion-label text-wrap *ngIf="i === 0">a. {{choice.value}}</ion-label>
         <ion-label text-wrap *ngIf="i === 1">b. {{choice.value}}</ion-label>
         <ion-label text-wrap *ngIf="i === 2">c. {{choice.value}}</ion-label>
-        <ion-radio [disabled]="true" [value]="choice.key"></ion-radio>
       </ion-item>
     </ion-list>
+
 
 </ion-content>
 

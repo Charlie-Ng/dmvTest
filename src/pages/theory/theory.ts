@@ -1,4 +1,4 @@
-import {Component, NgZone} from '@angular/core';
+import {Component, NgZone, ChangeDetectorRef} from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { AppService} from '../../app/app.service';
 import { TestsService } from '../../app/app.tests.service';
@@ -19,7 +19,13 @@ export class TheoryPage {
   currentTheoryStudy: {no: number, question: string, choices: Array<{[key: string]: string}>, correctAnswer: string, userAnswer: string, hasSign: boolean, signName: string};
   alertInputs: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private appService: AppService, private testsService: TestsService, private ngZone: NgZone, private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public appService: AppService,
+              public testsService: TestsService,
+              private ngZone: NgZone,
+              private alertCtrl: AlertController,
+              public changeDetectorRef: ChangeDetectorRef) {
     this.currentTheoryStudy = this.testsService.theoryDataset[this.appService.currentTheoryIndex];
     this.alertInputs = this.generateQuestionPager();
   }
@@ -31,15 +37,23 @@ export class TheoryPage {
   previousQuestion() {
     this.ngZone.run(()=>{
       this.appService.currentTheoryIndex--;
-      this.currentTheoryStudy = this.testsService.theoryDataset[this.appService.currentTheoryIndex];
+      // temp solution to trigger view reload
+      this.currentTheoryStudy = Object.assign({});
+      setTimeout(() => {
+        this.currentTheoryStudy = this.testsService.theoryDataset[this.appService.currentTheoryIndex];
+      });
     });
   }
 
   nextQuestion() {
-    this.ngZone.run(() => {
-      this.appService.currentTheoryIndex++;
-      this.currentTheoryStudy = this.testsService.theoryDataset[this.appService.currentTheoryIndex];
-    });
+      this.ngZone.run(() => {
+        this.appService.currentTheoryIndex++;
+        // temp solution to trigger view reload
+        this.currentTheoryStudy = Object.assign({});
+        setTimeout(() => {
+          this.currentTheoryStudy = this.testsService.theoryDataset[this.appService.currentTheoryIndex];
+        });
+      });
   }
 
   generateQuestionPager() {
@@ -49,6 +63,7 @@ export class TheoryPage {
       let questionNo = i * 10;
       if(questionNo === 0){
         questionNo = 1;
+        oneInput.checked = true;
       }
       oneInput.type = "radio";
       oneInput.label = "第 " + questionNo + " 題";
@@ -75,7 +90,10 @@ export class TheoryPage {
               this.ngZone.run(() => {
                 // data is the index we want to jump to
                 this.appService.currentTheoryIndex = data;
-                this.currentTheoryStudy = this.testsService.theoryDataset[this.appService.currentTheoryIndex];
+                this.currentTheoryStudy = Object.assign({});
+                setTimeout(() => {
+                  this.currentTheoryStudy = this.testsService.theoryDataset[this.appService.currentTheoryIndex];
+                });
               });
             }
           }

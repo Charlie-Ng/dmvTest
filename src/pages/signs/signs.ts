@@ -31,14 +31,27 @@ export class SignsPage {
   previousQuestion() {
     this.ngZone.run(()=>{
       this.appService.currentSignIndex--;
-      this.currentSignStudy = this.testsService.signDataset[this.appService.currentSignIndex];
+      // temp solution to trigger view reload
+      this.currentSignStudy = Object.assign({});
+      setTimeout(() => {
+        this.ngZone.run(() => {
+          this.currentSignStudy = this.testsService.signDataset[this.appService.currentSignIndex];
+        });
+      });
     });
   }
 
   nextQuestion() {
     this.ngZone.run(() => {
       this.appService.currentSignIndex++;
-      this.currentSignStudy = this.testsService.signDataset[this.appService.currentSignIndex];
+      // temp solution to trigger view reload
+      this.currentSignStudy = Object.assign({});
+      setTimeout(() => {
+        this.ngZone.run(() => {
+
+          this.currentSignStudy = this.testsService.signDataset[this.appService.currentSignIndex];
+        });
+      });
     });
   }
 
@@ -49,6 +62,7 @@ export class SignsPage {
       let questionNo = i * 10;
       if(questionNo === 0){
         questionNo = 1;
+        oneInput.checked = true;
       }
       oneInput.type = "radio";
       oneInput.label = "第 " + questionNo + " 題";
@@ -75,7 +89,10 @@ export class SignsPage {
               this.ngZone.run(()=>{
                 // data is the index we want to jump to
                 this.appService.currentSignIndex = data;
-                this.currentSignStudy = this.testsService.signDataset[this.appService.currentSignIndex];
+                this.currentSignStudy = Object.assign({});
+                setTimeout(() => {
+                  this.currentSignStudy = this.testsService.signDataset[this.appService.currentSignIndex];
+                });
               });
             }
           }
