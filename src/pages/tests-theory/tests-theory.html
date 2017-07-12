@@ -9,12 +9,86 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>理論模擬測驗</ion-title>
+    <ion-title>理論模擬測驗 ({{currentTheoryTest.no}}/36)</ion-title>
   </ion-navbar>
 </ion-header>
 
-
-
 <ion-content padding>
+  <div padding *ngIf="!appService.finishedTheoryTest">
+    <p class="font-size-16">{{currentTheoryTest.no}}. {{currentTheoryTest.question}}</p>
+    <div *ngIf="currentTheoryTest.hasSign" class="text-align-center"><img [src]="'../../assets/signs/' + currentTheoryTest.signName" height="120" width="120" /></div>
+    <ion-list radio-group [(ngModel)]="currentTheoryTest.userAnswer">
+
+      <ion-item *ngFor="let choice of currentTheoryTest.choices | keyValues; let i = index">
+        <ion-label text-wrap *ngIf="i === 0" [ngClass]="{'color-success': appService.firstCorrect, 'color-danger': appService.firstIncorrect}">a. {{choice.value}}</ion-label>
+        <ion-label text-wrap *ngIf="i === 1" [ngClass]="{'color-success': appService.secondCorrect, 'color-danger': appService.secondIncorrect}">b. {{choice.value}}</ion-label>
+        <ion-label text-wrap *ngIf="i === 2" [ngClass]="{'color-success': appService.thirdCorrect, 'color-danger': appService.thirdIncorrect}">c. {{choice.value}}</ion-label>
+        <ion-radio [value]="choice.key" [disabled]="appService.hasAnswered" (click)="loadView(i)"></ion-radio>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <div padding class="text-align-center" *ngIf="appService.finishedTheoryTest && !appService.finishedAllTests">
+    <p>36題理論總結: </p>
+    <p>正確: {{appService.correctTheoryAnswerCount}}.</p>
+    <p>錯誤: {{36 - appService.correctTheoryAnswerCount}}.</p>
+    <ion-buttons>
+      <button ion-button color="primary" (click)="startSignTest()">開始圖標題</button>
+    </ion-buttons>
+  </div>
+
+  <div padding class="text-align-center" *ngIf="appService.finishedAllTests">
+    <p>48題模擬測驗總結: </p>
+    <p>正確: {{appService.correctSignAnswerCount + appService.correctTheoryAnswerCount}}</p>
+    <p>錯誤: {{48 - appService.correctSignAnswerCount - appService.correctTheoryAnswerCount}}.</p>
+
+    <p>36題理論題: </p>
+    <p>正確: {{appService.correctTheoryAnswerCount}}.</p>
+    <p>錯誤: {{36 - appService.correctTheoryAnswerCount}}.</p>
+
+    <p>12題圖標題: </p>
+    <p>正確: {{appService.correctSignAnswerCount}}.</p>
+    <p>錯誤: {{12 - appService.correctSignAnswerCount}}.</p>
+
+    <ion-buttons>
+      <button ion-button color="primary" (click)="resetAllTests()">重新開始</button>
+    </ion-buttons>
+
+  </div>
 
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons class="text-align-center">
+        <button *ngIf="!appService.finishedAllTests" ion-button color="primary" (click)="resetTestSet()" class="float-left font-size-20">
+          <div>
+          <ion-icon name="refresh"></ion-icon>
+            <label class="page-tests-icon-label">重新開始</label>
+          </div>
+        </button>
+        <button ion-button *ngIf="!appService.finishedTheoryTest" [disabled]="!currentTheoryTest.userAnswer || appService.hasAnswered" (click)="confirmUserAnswer()" color="primary" class="font-size-20">
+          <div>
+            <ion-icon name="checkmark-circle"></ion-icon>
+            <label class="page-tests-icon-label">確認</label>
+          </div>
+        </button>
+
+        <button *ngIf="!appService.isLastQuestion && !appService.finishedTheoryTest" ion-button [disabled]="!appService.hasAnswered" color="primary" (click)="goNextQuestion()" class="float-right font-size-20">
+          <div>
+            <ion-icon name="arrow-round-forward"></ion-icon>
+            <label class="page-tests-icon-label">下一題</label>
+          </div>
+        </button>
+
+        <button *ngIf="appService.isLastQuestion && !appService.finishedTheoryTest" ion-button [disabled]="!appService.hasAnswered" color="primary" (click)="viewTheoryResult()" class="float-right font-size-20">
+          <div>
+            <ion-icon name="exit"></ion-icon>
+            <label class="page-tests-icon-label">看結果</label>
+          </div>
+        </button>
+
+
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, NgZone, ChangeDetectorRef} from '@angular/core';
+import { IonicPage, NavController, NavParams, AlertController} from 'ionic-angular';
+import { TestsService } from '../../app/app.tests.service';
+import { AppService} from '../../app/app.service';
+import { TestsPage } from '../tests/tests'
+import {TestsSignsPage} from "../tests-signs/tests-signs";
 
 /**
  * Generated class for the TestsTheoryPage page.
@@ -10,15 +14,162 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 @IonicPage()
 @Component({
   selector: 'page-tests-theory',
-  templateUrl: 'tests-theory.html',
+  templateUrl: 'tests-theory.html'
 })
 export class TestsTheoryPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  theoryTestSet: Array<{no: number, question: string, choices: Array<{[key: string]: string}>, correctAnswer: string, userAnswer: string, hasSign: boolean, signName: string}>;
+  currentTheoryTest: {no: number, question: string, choices: Array<{[key: string]: string}>, correctAnswer: string, userAnswer: string, hasSign: boolean, signName: string};
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private testsService: TestsService, public alertCtrl: AlertController, public appService: AppService, public ngZone: NgZone, public changeDetectorRef: ChangeDetectorRef) {
+    if(!this.appService.testHaveBeenStarted) {
+        this.appService.testHaveBeenStarted = true;
+        // this.appService.lastTheorySet = this.testsService.newTheoryTestSet();
+        // this.appService.lastSignSet = this.testsService.newSignTestSet();
+        this.testsService.newTest();
+        this.theoryTestSet = this.appService.lastTheorySet;
+        this.currentTheoryTest = this.theoryTestSet[0];
+        this.appService.hasAnswered = false;
+    }else {
+        debugger;
+        this.theoryTestSet = this.appService.lastTheorySet;
+        this.currentTheoryTest = this.theoryTestSet[this.appService.lastTheoryTestIndex];
+    }
+
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TestsTheoryPage');
   }
+
+  goNextQuestion() {
+    this.ngZone.run(() => {
+
+      if(this.appService.isLastQuestion) {
+        this.appService.finishedSignTest = true;
+      }
+      this.appService.resetCorrect();
+      this.appService.hasAnswered = false;
+
+    let nextQuestionIndex = this.currentTheoryTest.no;
+    this.appService.lastTheoryTestIndex = nextQuestionIndex;
+    if(nextQuestionIndex < 36){
+
+      if(this.currentTheoryTest.userAnswer === this.currentTheoryTest.correctAnswer) {
+        this.appService.correctTheoryAnswerCount++;
+      }
+
+      this.currentTheoryTest = this.theoryTestSet[nextQuestionIndex];
+      if(nextQuestionIndex + 1 === 36) {
+        this.appService.isLastQuestion = true;
+      }
+
+    }
+    });
+  }
+
+  viewTheoryResult() {
+    this.ngZone.run(() => {
+      if(this.appService.isLastQuestion) {
+        this.appService.finishedTheoryTest = true;
+      }
+      if(this.appService.finishedTheoryTest && this.appService.finishedSignTest) {
+        this.appService.finishedAllTests = true;
+      }
+    });
+  }
+
+  confirmUserAnswer() {
+    this.ngZone.run(() => {
+      this.appService.hasAnswered = true;
+
+      if(this.currentTheoryTest.userAnswer === this.currentTheoryTest.correctAnswer) {
+        // set green
+        if(this.appService.lastAnswerIndex === 0) {
+          this.appService.firstCorrect = true;
+        }else if(this.appService.lastAnswerIndex === 1){
+          this.appService.secondCorrect = true;
+        }else {
+          this.appService.thirdCorrect = true;
+        }
+      }else {
+        // set red
+        if(this.appService.lastAnswerIndex === 0) {
+          this.appService.firstIncorrect = true;
+        }else if(this.appService.lastAnswerIndex === 1){
+          this.appService.secondIncorrect = true;
+        }else {
+          this.appService.thirdIncorrect = true;
+        }
+
+        // set correct to green
+          if(Object.keys(this.currentTheoryTest.choices[0])[0] === this.currentTheoryTest.correctAnswer){
+            this.appService.firstCorrect = true;
+          }else if (Object.keys(this.currentTheoryTest.choices[1])[0] === this.currentTheoryTest.correctAnswer){
+            this.appService.secondCorrect = true;
+          }else {
+            this.appService.thirdCorrect = true;
+          }
+      }
+
+    });
+
+  }
+
+  loadView(index) {
+    this.changeDetectorRef.detectChanges();
+    this.appService.lastAnswerIndex = index;
+  }
+
+  startSignTest() {
+    this.appService.resetTestCommon();
+    this.appService.resetCorrect();
+    this.navCtrl.setRoot(TestsSignsPage);
+  }
+
+  resetTestSet() {
+    this.ngZone.run(() => {
+      let alert = this.alertCtrl.create({
+        title: '請選擇',
+        enableBackdropDismiss: true,
+        buttons: [
+          {
+            text: '重新開始理論題',
+            handler: () => {
+                this.appService.resetTheory();
+                this.appService.resetTestCommon();
+                this.appService.resetCorrect();
+                this.testsService.newTheoryTestSet();
+              this.theoryTestSet = this.appService.lastTheorySet;
+              this.currentTheoryTest = this.theoryTestSet[0];
+            }},
+          {
+            text: '重新開始全部',
+            handler: () => {
+              this.appService.resetAll();
+              this.navCtrl.setRoot(TestsPage);
+
+            }},
+          {
+            text: '取消',
+            handler: () => {
+
+            }}
+        ]
+      });
+
+      alert.present();
+    });
+
+  }
+
+  resetAllTests() {
+    this.ngZone.run(()=>{
+      this.appService.resetAll();
+      this.navCtrl.setRoot(TestsPage);
+    });
+  }
+
+
+
 
 }

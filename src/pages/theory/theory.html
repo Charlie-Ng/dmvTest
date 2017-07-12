@@ -9,7 +9,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>理論題</ion-title>
+    <ion-title>理論題 ({{currentTheoryStudy.no}}/186)</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -17,4 +17,44 @@
 
 <ion-content padding>
 
+    <p class="font-size-16">{{currentTheoryStudy.no}}. {{currentTheoryStudy.question}}</p>
+    <div *ngIf="currentTheoryStudy.hasSign" class="text-align-center"><img [src]="'../../assets/signs/' + currentTheoryStudy.signName" height="120" width="120" /></div>
+    <ion-list radio-group [(ngModel)]="currentTheoryStudy.correctAnswer">
+
+      <ion-item *ngFor="let choice of currentTheoryStudy.choices | keyValues; let i = index">
+        <ion-label text-wrap *ngIf="i === 0">a. {{choice.value}}</ion-label>
+        <ion-label text-wrap *ngIf="i === 1">b. {{choice.value}}</ion-label>
+        <ion-label text-wrap *ngIf="i === 2">c. {{choice.value}}</ion-label>
+        <ion-radio [disabled]="true" [value]="choice.key"></ion-radio>
+      </ion-item>
+    </ion-list>
+
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+
+    <ion-buttons class="text-align-center">
+      <button [disabled]="appService.currentTheoryIndex === 0" ion-button color="primary" (click)="previousQuestion()" class="float-left font-size-20">
+        <div>
+          <ion-icon name="arrow-round-back"></ion-icon>
+          <label class="page-tests-icon-label">上一題</label>
+        </div>
+      </button>
+
+      <button ion-button color="primary" (click)="jumpToQuestion()" class="font-size-20">
+        <div>
+          <ion-icon name="share-alt"></ion-icon>
+          <label class="page-tests-icon-label">跳至</label>
+        </div>
+      </button>
+
+      <button [disabled]="appService.currentTheoryIndex === 185" ion-button color="primary" (click)="nextQuestion()" class="float-right font-size-20">
+        <div>
+          <ion-icon name="arrow-round-forward"></ion-icon>
+          <label class="page-tests-icon-label">下一題</label>
+        </div>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

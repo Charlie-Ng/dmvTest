@@ -6,14 +6,17 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { TestsPage } from '../pages/tests/tests'
+import { TestsTheoryPage } from '../pages/tests-theory/tests-theory';
+import { TestsSignsPage } from '../pages/tests-signs/tests-signs';
 import { TheoryPage } from '../pages/theory/theory';
 import { SignsPage } from '../pages/signs/signs';
 
-import { AppService } from './app.service'
+import { AppService } from './app.service';
+
 
 @Component({
-  templateUrl: 'app.html',
-  providers: [AppService]
+  templateUrl: 'app.html'
+  // providers: [AppService]
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
@@ -41,7 +44,7 @@ export class MyApp {
 
     this.studyPages = [
       { title: '理論題', component: TheoryPage },
-      { title: '圖示題', component: SignsPage }
+      { title: '圖標題', component: SignsPage }
     ];
 
 
@@ -66,7 +69,13 @@ export class MyApp {
 
   menuClosed() {
     if(!this.appService.testsSelectDialogOpen && this.currentPage.title === '模擬測驗') {
-      this.nav.setRoot(this.currentPage.component);
+      if(this.appService.lastOpenTest === "theory") {
+        this.nav.setRoot(TestsTheoryPage);
+      }else if(this.appService.lastOpenTest === 'sign'){
+        this.nav.setRoot(TestsSignsPage);
+      }else{
+        this.nav.setRoot(TestsPage);
+      }
     }
   }
 

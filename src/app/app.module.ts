@@ -11,10 +11,11 @@ import { SignsPage } from '../pages/signs/signs';
 import { TestsTheoryPage } from '../pages/tests-theory/tests-theory';
 import { TestsSignsPage } from '../pages/tests-signs/tests-signs';
 
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AppService } from "./app.service";
+import { TestsService } from './app.tests.service';
+import { KeyValuesPipe } from "./key-values.pipe";
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { AppService } from "./app.service";
     TheoryPage,
     SignsPage,
     TestsTheoryPage,
-    TestsSignsPage
+    TestsSignsPage,
+    KeyValuesPipe
   ],
   imports: [
     BrowserModule,
@@ -46,7 +48,8 @@ import { AppService } from "./app.service";
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AppService
+    AppService,
+    TestsService,
     ]
 })
 export class AppModule {}
