@@ -1,4 +1,4 @@
-import {Component, NgZone, ChangeDetectorRef} from '@angular/core';
+import {Component, NgZone} from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { AppService} from '../../app/app.service';
 import { TestsService } from '../../app/app.tests.service';
@@ -24,8 +24,7 @@ export class TheoryPage {
               public appService: AppService,
               public testsService: TestsService,
               private ngZone: NgZone,
-              private alertCtrl: AlertController,
-              public changeDetectorRef: ChangeDetectorRef) {
+              private alertCtrl: AlertController) {
     this.currentTheoryStudy = this.testsService.theoryDataset[this.appService.currentTheoryIndex];
     this.alertInputs = this.generateQuestionPager();
   }

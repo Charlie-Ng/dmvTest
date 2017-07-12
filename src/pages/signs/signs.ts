@@ -34,9 +34,7 @@ export class SignsPage {
       // temp solution to trigger view reload
       this.currentSignStudy = Object.assign({});
       setTimeout(() => {
-        this.ngZone.run(() => {
           this.currentSignStudy = this.testsService.signDataset[this.appService.currentSignIndex];
-        });
       });
     });
   }
@@ -47,10 +45,7 @@ export class SignsPage {
       // temp solution to trigger view reload
       this.currentSignStudy = Object.assign({});
       setTimeout(() => {
-        this.ngZone.run(() => {
-
           this.currentSignStudy = this.testsService.signDataset[this.appService.currentSignIndex];
-        });
       });
     });
   }
