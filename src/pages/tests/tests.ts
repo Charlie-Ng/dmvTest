@@ -26,10 +26,7 @@ export class TestsPage {
     public appService: AppService,
     public ngZone: NgZone,
     public app: App) {
-  }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TestsPage');
     if(!this.appService.testsSelectDialogOpen && !this.appService.testHaveBeenStarted){
       this.ngZone.run(() => {
         this.appService.testsSelectDialogOpen = true;
@@ -38,7 +35,7 @@ export class TestsPage {
     }else if(this.appService.lastOpenTest === "theory"){
 
       // this.navCtrl.setRoot(TestsTheoryPage);
-        this.navCtrl.setRoot(TestsTheoryPage);
+      this.navCtrl.setRoot(TestsTheoryPage);
 
 
     }else{ //sign
@@ -46,6 +43,27 @@ export class TestsPage {
       this.navCtrl.setRoot(TestsSignsPage);
 
     }
+  }
+
+  ionViewDidLoad() {
+    // maybe move this logic to constructor?
+    console.log('ionViewDidLoad TestsPage');
+    // if(!this.appService.testsSelectDialogOpen && !this.appService.testHaveBeenStarted){
+    //   this.ngZone.run(() => {
+    //     this.appService.testsSelectDialogOpen = true;
+    //     this.resetSelection();
+    //   });
+    // }else if(this.appService.lastOpenTest === "theory"){
+    //
+    //   // this.navCtrl.setRoot(TestsTheoryPage);
+    //     this.navCtrl.setRoot(TestsTheoryPage);
+    //
+    //
+    // }else{ //sign
+    //
+    //   this.navCtrl.setRoot(TestsSignsPage);
+    //
+    // }
   }
 
   resetSelection() {

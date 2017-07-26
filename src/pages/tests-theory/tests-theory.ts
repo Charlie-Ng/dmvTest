@@ -26,15 +26,16 @@ export class TestsTheoryPage {
         this.appService.testHaveBeenStarted = true;
         // this.appService.lastTheorySet = this.testsService.newTheoryTestSet();
         // this.appService.lastSignSet = this.testsService.newSignTestSet();
+
         this.testsService.newTest();
         this.theoryTestSet = this.appService.lastTheorySet;
         this.currentTheoryTest = this.theoryTestSet[0];
         this.appService.hasAnswered = false;
     }else {
-        debugger;
         this.theoryTestSet = this.appService.lastTheorySet;
         this.currentTheoryTest = this.theoryTestSet[this.appService.lastTheoryTestIndex];
     }
+    this.appService.lastOpenTest = "theory";
 
   }
 
@@ -59,7 +60,7 @@ export class TestsTheoryPage {
       }
 
       this.currentTheoryTest = this.theoryTestSet[nextQuestionIndex];
-      if(nextQuestionIndex + 1 === 36) {
+      if(nextQuestionIndex + 1 === 3) {
         this.appService.isLastQuestion = true;
       }
 
@@ -116,11 +117,44 @@ export class TestsTheoryPage {
   }
 
   loadView(index) {
-    this.changeDetectorRef.detectChanges();
-    this.appService.lastAnswerIndex = index;
+    this.ngZone.run(() => {
+      this.appService.lastAnswerIndex = index;
+      this.appService.hasAnswered = true;
+
+      if(this.currentTheoryTest.userAnswer === this.currentTheoryTest.correctAnswer) {
+        // set green
+        if(this.appService.lastAnswerIndex === 0) {
+          this.appService.firstCorrect = true;
+        }else if(this.appService.lastAnswerIndex === 1){
+          this.appService.secondCorrect = true;
+        }else {
+          this.appService.thirdCorrect = true;
+        }
+      }else {
+        // set red
+        if(this.appService.lastAnswerIndex === 0) {
+          this.appService.firstIncorrect = true;
+        }else if(this.appService.lastAnswerIndex === 1){
+          this.appService.secondIncorrect = true;
+        }else {
+          this.appService.thirdIncorrect = true;
+        }
+
+        // set correct to green
+        if(Object.keys(this.currentTheoryTest.choices[0])[0] === this.currentTheoryTest.correctAnswer){
+          this.appService.firstCorrect = true;
+        }else if (Object.keys(this.currentTheoryTest.choices[1])[0] === this.currentTheoryTest.correctAnswer){
+          this.appService.secondCorrect = true;
+        }else {
+          this.appService.thirdCorrect = true;
+        }
+      }
+    });
+
   }
 
   startSignTest() {
+    this.appService.hasSeenTheFirstResult = true;
     this.appService.resetTestCommon();
     this.appService.resetCorrect();
     this.navCtrl.setRoot(TestsSignsPage);

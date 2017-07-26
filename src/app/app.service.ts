@@ -23,6 +23,7 @@ export class AppService {
   finishedSignTest: boolean = false;
   finishedTheoryTest: boolean = false;
   finishedAllTests: boolean = false;
+  hasSeenTheFirstResult: boolean = false;
 
   isLastQuestion: boolean =false;
 
@@ -74,6 +75,7 @@ export class AppService {
     this.lastOpenTest = "";
     this.testHaveBeenStarted = false;
     this.finishedAllTests = false;
+    this.hasSeenTheFirstResult = false;
   }
 
 }

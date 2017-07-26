@@ -28,7 +28,7 @@
     </ion-list>
   </div>
 
-  <div padding class="text-align-center" *ngIf="appService.finishedTheoryTest && !appService.finishedAllTests">
+  <div padding class="text-align-center" *ngIf="appService.finishedTheoryTest && !appService.finishedAllTests && !appService.hasSeenTheFirstResult">
     <p>36題理論總結: </p>
     <p>正確: {{appService.correctTheoryAnswerCount}}.</p>
     <p>錯誤: {{36 - appService.correctTheoryAnswerCount}}.</p>
@@ -67,12 +67,12 @@
             <label class="page-tests-icon-label">重新開始</label>
           </div>
         </button>
-        <button ion-button *ngIf="!appService.finishedTheoryTest" [disabled]="!currentTheoryTest.userAnswer || appService.hasAnswered" (click)="confirmUserAnswer()" color="primary" class="font-size-20">
-          <div>
-            <ion-icon name="checkmark-circle"></ion-icon>
-            <label class="page-tests-icon-label">確認</label>
-          </div>
-        </button>
+        <!--<button ion-button *ngIf="!appService.finishedTheoryTest" [disabled]="!currentTheoryTest.userAnswer || appService.hasAnswered" (click)="confirmUserAnswer()" color="primary" class="font-size-20">-->
+          <!--<div>-->
+            <!--<ion-icon name="checkmark-circle"></ion-icon>-->
+            <!--<label class="page-tests-icon-label">確認</label>-->
+          <!--</div>-->
+        <!--</button>-->
 
         <button *ngIf="!appService.isLastQuestion && !appService.finishedTheoryTest" ion-button [disabled]="!appService.hasAnswered" color="primary" (click)="goNextQuestion()" class="float-right font-size-20">
           <div>

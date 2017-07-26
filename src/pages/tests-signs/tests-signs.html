@@ -36,7 +36,7 @@
 
   </div>
 
-  <div padding class="text-align-center" *ngIf="appService.finishedSignTest && !appService.finishedAllTests">
+  <div padding class="text-align-center" *ngIf="appService.finishedSignTest && !appService.finishedAllTests && !appService.hasSeenTheFirstResult">
     <p>12題圖標題總結: </p>
     <p>正確: {{appService.correctSignAnswerCount}}.</p>
     <p>錯誤: {{12 - appService.correctSignAnswerCount}}.</p>
@@ -75,12 +75,12 @@
           <label class="page-tests-icon-label">重新開始</label>
         </div>
       </button>
-      <button ion-button *ngIf="!appService.finishedSignTest" [disabled]="!currentSignTest.userAnswer || appService.hasAnswered" (click)="confirmUserAnswer()" color="primary" class="font-size-20">
-        <div>
-          <ion-icon name="checkmark-circle"></ion-icon>
-          <label class="page-tests-icon-label">確認</label>
-        </div>
-      </button>
+      <!--<button ion-button *ngIf="!appService.finishedSignTest" [disabled]="!currentSignTest.userAnswer || appService.hasAnswered" (click)="confirmUserAnswer()" color="primary" class="font-size-20">-->
+        <!--<div>-->
+          <!--<ion-icon name="checkmark-circle"></ion-icon>-->
+          <!--<label class="page-tests-icon-label">確認</label>-->
+        <!--</div>-->
+      <!--</button>-->
 
       <button *ngIf="!appService.isLastQuestion && !appService.finishedSignTest" ion-button [disabled]="!appService.hasAnswered" color="primary" (click)="goNextQuestion()" class="float-right font-size-20">
         <div>

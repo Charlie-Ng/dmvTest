@@ -34,9 +34,9 @@ export class TestsSignsPage {
     }else {
       this.signTestSet = this.appService.lastSignSet;
       this.currentSignTest = this.signTestSet[this.appService.lastSignTestIndex];
-
-
     }
+    this.appService.lastOpenTest = "sign";
+
   }
 
   ionViewDidLoad() {
@@ -117,8 +117,41 @@ export class TestsSignsPage {
   }
 
   loadView(index) {
-    this.changeDetectorRef.detectChanges();
-    this.appService.lastAnswerIndex = index;
+
+    this.ngZone.run(() => {
+      this.appService.lastAnswerIndex = index;
+      this.appService.hasAnswered = true;
+
+      if(this.currentSignTest.userAnswer === this.currentSignTest.correctAnswer) {
+        // set green
+        if(this.appService.lastAnswerIndex === 0) {
+          this.appService.firstCorrect = true;
+        }else if(this.appService.lastAnswerIndex === 1){
+          this.appService.secondCorrect = true;
+        }else {
+          this.appService.thirdCorrect = true;
+        }
+      }else {
+        // set red
+        if(this.appService.lastAnswerIndex === 0) {
+          this.appService.firstIncorrect = true;
+        }else if(this.appService.lastAnswerIndex === 1){
+          this.appService.secondIncorrect = true;
+        }else {
+          this.appService.thirdIncorrect = true;
+        }
+
+        // set correct to green
+        if(Object.keys(this.currentSignTest.choices[0])[0]){
+          this.appService.firstCorrect = true;
+        }else if (Object.keys(this.currentSignTest.choices[1])[0]){
+          this.appService.secondCorrect = true;
+        }else {
+          this.appService.thirdCorrect = true;
+        }
+      }
+
+    });
   }
 
   startTheoryTest() {
