@@ -4,13 +4,12 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { TestsPage } from '../pages/tests/tests'
 import { TestsTheoryPage } from '../pages/tests-theory/tests-theory';
 import { TestsSignsPage } from '../pages/tests-signs/tests-signs';
 import { TheoryPage } from '../pages/theory/theory';
 import { SignsPage } from '../pages/signs/signs';
-
+import { ContactPage} from '../pages/contact/contact';
 import { AppService } from './app.service';
 
 
@@ -26,6 +25,7 @@ export class MyApp {
   pages: Array<{title: string, component: any}>;
   studyPages: Array<{title: string, component: any}>;
   currentPage: any;
+  contactPage: {title: string, component: any};
 
   // practice menu trigger
   showSubmenu: boolean = false;
@@ -36,7 +36,6 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: '簡介', component: HomePage },
-      { title: 'List', component: ListPage },
       { title: '模擬測驗', component: TestsPage }
     ];
 
@@ -46,6 +45,8 @@ export class MyApp {
       { title: '理論題', component: TheoryPage },
       { title: '圖標題', component: SignsPage }
     ];
+
+    this.contactPage = {title: '聯絡我們', component: ContactPage};
 
 
   }
