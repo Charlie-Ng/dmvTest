@@ -9,7 +9,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>理論模擬測驗 ({{currentTheoryTest.no}}/36)</ion-title>
+    <ion-title class="shared-title-padding">理論模擬測驗 ({{currentTheoryTest.no}}/36)</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -19,7 +19,7 @@
     <div *ngIf="currentTheoryTest.hasSign" class="text-align-center"><img [src]="'../../assets/signs/' + currentTheoryTest.signName" height="120" width="120" /></div>
     <ion-list radio-group [(ngModel)]="currentTheoryTest.userAnswer">
 
-      <ion-item *ngFor="let choice of currentTheoryTest.choices | keyValues; let i = index">
+      <ion-item *ngFor="let choice of currentTheoryTest.choices | keyValues; let i = index" class="page-tests-theory-large-padding">
         <ion-label text-wrap *ngIf="i === 0" [ngClass]="{'color-success': appService.firstCorrect, 'color-danger': appService.firstIncorrect}">a. {{choice.value}}</ion-label>
         <ion-label text-wrap *ngIf="i === 1" [ngClass]="{'color-success': appService.secondCorrect, 'color-danger': appService.secondIncorrect}">b. {{choice.value}}</ion-label>
         <ion-label text-wrap *ngIf="i === 2" [ngClass]="{'color-success': appService.thirdCorrect, 'color-danger': appService.thirdIncorrect}">c. {{choice.value}}</ion-label>
@@ -84,7 +84,7 @@
         <button *ngIf="appService.isLastQuestion && !appService.finishedTheoryTest" ion-button [disabled]="!appService.hasAnswered" color="primary" (click)="viewTheoryResult()" class="float-right font-size-20">
           <div>
             <ion-icon name="exit"></ion-icon>
-            <label class="page-tests-icon-label">看結果</label>
+            <label class="page-tests--icon-label">看結果</label>
           </div>
         </button>
 

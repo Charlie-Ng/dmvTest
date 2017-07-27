@@ -1,3 +1,11 @@
 .radio-md.radio-disabled, .item-md.item-radio-disabled ion-label, .radio-ios.radio-disabled, .item-ios.item-radio-disabled ion-label {
   opacity: 1 !important;
 }
+
+@media screen and (max-width: 767px) {
+  .shared-title-padding {
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+  }
+
+}

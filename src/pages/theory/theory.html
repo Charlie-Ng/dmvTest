@@ -9,7 +9,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>理論題 ({{currentTheoryStudy.no}}/186)</ion-title>
+    <ion-title class="shared-title-padding">理論題 ({{currentTheoryStudy.no}}/186)</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -21,7 +21,7 @@
     <div *ngIf="currentTheoryStudy.hasSign" class="text-align-center"><img [src]="'../../assets/signs/' + currentTheoryStudy.signName" height="120" width="120" /></div>
     <ion-list radio-group [(ngModel)]="currentTheoryStudy.correctAnswer">
 
-      <ion-item *ngFor="let choice of currentTheoryStudy.choices | keyValues; let i = index">
+      <ion-item *ngFor="let choice of currentTheoryStudy.choices | keyValues; let i = index" class="page-theory-large-padding">
         <ion-radio [disabled]="true" [value]="choice.key"></ion-radio>
 
         <ion-label text-wrap *ngIf="i === 0">a. {{choice.value}}</ion-label>
