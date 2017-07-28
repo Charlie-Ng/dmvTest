@@ -37,6 +37,9 @@ export class AppService {
   currentTheoryIndex: number = 0;
   currentSignIndex: number = 0;
 
+  // traditional, simplified
+  isTraditional: boolean = true;
+
   resetCorrect() {
     this.firstCorrect = false;
     this.firstIncorrect = false;

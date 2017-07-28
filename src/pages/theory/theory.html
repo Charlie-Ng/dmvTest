@@ -9,7 +9,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title class="shared-title-padding">理論題 ({{currentTheoryStudy.no}}/186)</ion-title>
+    <ion-title class="shared-title-padding">{{appService.isTraditional ? "理論題": "理论题"}} ({{currentTheoryStudy.no}}/186)</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -40,7 +40,7 @@
       <button [disabled]="appService.currentTheoryIndex === 0" ion-button color="primary" (click)="previousQuestion()" class="float-left font-size-20">
         <div>
           <ion-icon name="arrow-round-back"></ion-icon>
-          <label class="page-tests-icon-label">上一題</label>
+          <label class="page-tests-icon-label">{{appService.isTraditional ? "上一題": "上一题"}}</label>
         </div>
       </button>
 
@@ -54,7 +54,7 @@
       <button [disabled]="appService.currentTheoryIndex === 185" ion-button color="primary" (click)="nextQuestion()" class="float-right font-size-20">
         <div>
           <ion-icon name="arrow-round-forward"></ion-icon>
-          <label class="page-tests-icon-label">下一題</label>
+          <label class="page-tests-icon-label">{{appService.isTraditional ? "下一題": "下一题"}}</label>
         </div>
       </button>
     </ion-buttons>

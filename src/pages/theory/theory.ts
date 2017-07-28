@@ -25,7 +25,11 @@ export class TheoryPage {
               public testsService: TestsService,
               private ngZone: NgZone,
               private alertCtrl: AlertController) {
-    this.currentTheoryStudy = this.testsService.theoryDataset[this.appService.currentTheoryIndex];
+    if(this.appService.isTraditional) {
+      this.currentTheoryStudy = this.testsService.theoryDatasetTraditional[this.appService.currentTheoryIndex];
+    }else{
+      this.currentTheoryStudy = this.testsService.theoryDatasetSimplified[this.appService.currentTheoryIndex];
+    }
     this.alertInputs = this.generateQuestionPager();
   }
 
@@ -39,7 +43,11 @@ export class TheoryPage {
       // temp solution to trigger view reload
       this.currentTheoryStudy = Object.assign({});
       setTimeout(() => {
-        this.currentTheoryStudy = this.testsService.theoryDataset[this.appService.currentTheoryIndex];
+        if(this.appService.isTraditional) {
+          this.currentTheoryStudy = this.testsService.theoryDatasetTraditional[this.appService.currentTheoryIndex];
+        }else{
+          this.currentTheoryStudy = this.testsService.theoryDatasetSimplified[this.appService.currentTheoryIndex];
+        }
       });
     });
   }
@@ -50,7 +58,11 @@ export class TheoryPage {
         // temp solution to trigger view reload
         this.currentTheoryStudy = Object.assign({});
         setTimeout(() => {
-          this.currentTheoryStudy = this.testsService.theoryDataset[this.appService.currentTheoryIndex];
+          if(this.appService.isTraditional) {
+            this.currentTheoryStudy = this.testsService.theoryDatasetTraditional[this.appService.currentTheoryIndex];
+          }else{
+            this.currentTheoryStudy = this.testsService.theoryDatasetSimplified[this.appService.currentTheoryIndex];
+          }
         });
       });
   }
@@ -65,7 +77,7 @@ export class TheoryPage {
         oneInput.checked = true;
       }
       oneInput.type = "radio";
-      oneInput.label = "第 " + questionNo + " 題";
+      oneInput.label = this.appService.isTraditional ? "第 " + questionNo + " 題" : "第 " + questionNo + " 题";
       oneInput.value = questionNo - 1;
       inputs.push(oneInput);
     }
@@ -84,14 +96,18 @@ export class TheoryPage {
             role: "cancel"
           },
           {
-            text: "確定",
+            text: this.appService.isTraditional ? "確定" : "确定",
             handler: data => {
               this.ngZone.run(() => {
                 // data is the index we want to jump to
                 this.appService.currentTheoryIndex = data;
                 this.currentTheoryStudy = Object.assign({});
                 setTimeout(() => {
-                  this.currentTheoryStudy = this.testsService.theoryDataset[this.appService.currentTheoryIndex];
+                  if(this.appService.isTraditional) {
+                    this.currentTheoryStudy = this.testsService.theoryDatasetTraditional[this.appService.currentTheoryIndex];
+                  }else{
+                    this.currentTheoryStudy = this.testsService.theoryDatasetSimplified[this.appService.currentTheoryIndex];
+                  }
                 });
               });
             }

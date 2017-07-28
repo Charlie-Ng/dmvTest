@@ -20,7 +20,11 @@ export class SignsPage {
   alertInputs: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private appService: AppService, private testsService: TestsService, private ngZone: NgZone, private alertCtrl: AlertController) {
-    this.currentSignStudy = this.testsService.signDataset[this.appService.currentSignIndex];
+    if(this.appService.isTraditional) {
+      this.currentSignStudy = this.testsService.signDatasetTraditional[this.appService.currentSignIndex];
+    }else{
+      this.currentSignStudy = this.testsService.signDatasetSimplified[this.appService.currentSignIndex];
+    }
     this.alertInputs = this.generateQuestionPager();
   }
 
@@ -34,7 +38,11 @@ export class SignsPage {
       // temp solution to trigger view reload
       this.currentSignStudy = Object.assign({});
       setTimeout(() => {
-          this.currentSignStudy = this.testsService.signDataset[this.appService.currentSignIndex];
+        if(this.appService.isTraditional) {
+          this.currentSignStudy = this.testsService.signDatasetTraditional[this.appService.currentSignIndex];
+        }else{
+          this.currentSignStudy = this.testsService.signDatasetSimplified[this.appService.currentSignIndex];
+        }
       });
     });
   }
@@ -45,7 +53,11 @@ export class SignsPage {
       // temp solution to trigger view reload
       this.currentSignStudy = Object.assign({});
       setTimeout(() => {
-          this.currentSignStudy = this.testsService.signDataset[this.appService.currentSignIndex];
+        if(this.appService.isTraditional) {
+          this.currentSignStudy = this.testsService.signDatasetTraditional[this.appService.currentSignIndex];
+        }else{
+          this.currentSignStudy = this.testsService.signDatasetSimplified[this.appService.currentSignIndex];
+        }
       });
     });
   }
@@ -60,7 +72,11 @@ export class SignsPage {
         oneInput.checked = true;
       }
       oneInput.type = "radio";
-      oneInput.label = "第 " + questionNo + " 題";
+      if(this.appService.isTraditional) {
+        oneInput.label = "第 " + questionNo + " 題";
+      }else{
+        oneInput.label = "第 " + questionNo + " 题";
+      }
       oneInput.value = questionNo - 1;
       inputs.push(oneInput);
     }
@@ -69,6 +85,7 @@ export class SignsPage {
 
   jumpToQuestion() {
     this.ngZone.run(() => {
+
       let alert = this.alertCtrl.create({
         title: '跳至',
         enableBackdropDismiss: true,
@@ -79,14 +96,18 @@ export class SignsPage {
             role: "cancel"
           },
           {
-            text: "確定",
+            text: this.appService.isTraditional ? "確認" : "确认",
             handler: data => {
               this.ngZone.run(()=>{
                 // data is the index we want to jump to
                 this.appService.currentSignIndex = data;
                 this.currentSignStudy = Object.assign({});
                 setTimeout(() => {
-                  this.currentSignStudy = this.testsService.signDataset[this.appService.currentSignIndex];
+                  if(this.appService.isTraditional) {
+                    this.currentSignStudy = this.testsService.signDatasetTraditional[this.appService.currentSignIndex];
+                  }else{
+                    this.currentSignStudy = this.testsService.signDatasetSimplified[this.appService.currentSignIndex];
+                  }
                 });
               });
             }

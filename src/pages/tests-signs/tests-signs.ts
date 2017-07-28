@@ -163,11 +163,11 @@ export class TestsSignsPage {
   resetTestSet() {
     this.ngZone.run(() => {
       let alert = this.alertCtrl.create({
-        title: '請選擇',
+        title: this.appService.isTraditional ? '請選擇': "请选择",
         enableBackdropDismiss: true,
         buttons: [
           {
-            text: '重新開始圖標題',
+            text: this.appService.isTraditional ? '重新開始圖標題' : "重新开始图标题",
             handler: () => {
               this.appService.resetTheory();
               this.appService.resetTestCommon();
@@ -178,7 +178,7 @@ export class TestsSignsPage {
 
             }},
           {
-            text: '重新開始全部',
+            text: this.appService.isTraditional ? '重新開始全部' : "重新开始全部",
             handler: () => {
               this.appService.resetAll();
               this.navCtrl.setRoot(TestsPage);
