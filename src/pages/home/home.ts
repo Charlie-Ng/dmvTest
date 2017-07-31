@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import {NavController, LoadingController, AlertController, MenuController} from 'ionic-angular';
+import { Http } from '@angular/http';
 import { AppService} from '../../app/app.service';
 import { TestsTheoryPage } from '../tests-theory/tests-theory';
 import { TestsSignsPage } from "../tests-signs/tests-signs";
+
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'page-home',
@@ -11,7 +14,22 @@ import { TestsSignsPage } from "../tests-signs/tests-signs";
 export class HomePage {
   currentPage: any;
 
-  constructor(public navCtrl: NavController, public appService: AppService, public loadingCtrl: LoadingController, public alertCtrl: AlertController, public menuCtrl: MenuController) {
+  httpTest: any;
+
+  constructor(public navCtrl: NavController,
+              public appService: AppService,
+              public loadingCtrl: LoadingController,
+              public alertCtrl: AlertController,
+              public menuCtrl: MenuController,
+              public http: Http) {
+
+    // this.http.get('http://chinesedmvapis.azurewebsites.net/api/testnumber').map(res => res.json())
+    //   .subscribe(data => {
+    //     this.httpTest = data;
+    //   },
+    //   err => {
+    //     console.log(err)
+    //   });
   }
 
   changeLanguage() {
