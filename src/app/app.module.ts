@@ -1,15 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { TestsPage } from '../pages/tests/tests'
 import { TheoryPage } from '../pages/theory/theory';
 import { SignsPage } from '../pages/signs/signs';
 import { TestsTheoryPage } from '../pages/tests-theory/tests-theory';
 import { TestsSignsPage } from '../pages/tests-signs/tests-signs';
+import { ContactPage} from '../pages/contact/contact';
+import { StudyDropdownPage } from '../pages/study-dropdown/study-dropdown'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -21,28 +23,31 @@ import { KeyValuesPipe } from "./key-values.pipe";
   declarations: [
     MyApp,
     HomePage,
-    ListPage,
     TestsPage,
     TheoryPage,
     SignsPage,
     TestsTheoryPage,
     TestsSignsPage,
-    KeyValuesPipe
+    ContactPage,
+    KeyValuesPipe,
+    StudyDropdownPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    HttpModule,
+    IonicModule.forRoot(MyApp,{tabsPlacement: 'top'})
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage,
     TestsPage,
     TheoryPage,
     SignsPage,
     TestsTheoryPage,
-    TestsSignsPage
+    ContactPage,
+    TestsSignsPage,
+    StudyDropdownPage
   ],
   providers: [
     StatusBar,

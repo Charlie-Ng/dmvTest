@@ -1,23 +1,27 @@
 <ion-menu [content]="content" type="overlay" (ionClose)="menuClosed()">
   <ion-header>
     <ion-toolbar>
-      <ion-title>項目列</ion-title>
+      <ion-title>{{appService.isTraditional? "項目列" : "项目列" }}</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
     <ion-list class="main-list">
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
+        {{appService.isTraditional ? p.title: p.titleSimplified}}
       </button>
 
       <!-- practice master -->
-      <ion-item class="clickable" (click)="practiceMenuHondler()">學習</ion-item>
+      <ion-item class="clickable" (click)="practiceMenuHondler()">{{appService.isTraditional? "學習" : "学习" }}</ion-item>
       <ion-item-group submenu [class.visible]="showSubmenu">
         <ion-item menuClose *ngFor="let studyPage of studyPages" (click)="openPage(studyPage)" class="clickable">
-          {{studyPage.title}}
+          {{appService.isTraditional ? studyPage.title : studyPage.titleSimplified}}
         </ion-item>
       </ion-item-group>
+
+      <button menuClose ion-item (click)="openPage(contactPage)">
+        {{appService.isTraditional ? contactPage.title : contactPage.titleSimplified}}
+      </button>
     </ion-list>
   </ion-content>
 

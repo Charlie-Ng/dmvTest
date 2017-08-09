@@ -1,16 +1,56 @@
 <ion-header>
-  <ion-navbar>
+
+  <ion-navbar class="responsive-small-screen">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{homePageTitle}}</ion-title>
+    <ion-title class="shared-title-padding">{{appService.isTraditional ? "主頁" : "主页"}}</ion-title>
   </ion-navbar>
-</ion-header>
 
+
+  <ion-navbar class="text-align-right responsive-big-screen">
+    <ion-title class="shared-title-big-screen">{{appService.isTraditional ? "主頁" : "主页"}}</ion-title>
+    <button ion-button outline>
+      <ion-icon name="home"></ion-icon>
+      &nbsp;{{appService.isTraditional ? "主頁" : "主页"}}
+    </button>
+    <button ion-button outline (click)="openTest()">
+      <ion-icon name="clipboard"></ion-icon>
+      &nbsp;{{appService.isTraditional ? "模擬測驗" : "模拟测验"}}
+    </button>
+    <button ion-button outline (click)="presentPopover($event)">
+      <ion-icon name="book"></ion-icon>
+      &nbsp;{{appService.isTraditional? "學習" : "学习" }}
+    </button>
+    <button ion-button outline (click)="openContact()">
+      <ion-icon name="information-circle"></ion-icon>
+      &nbsp;{{appService.isTraditional ? "聯絡我們" : "联络我们"}}
+    </button>
+  </ion-navbar>
+
+</ion-header>
 <ion-content padding>
-  <h3>California DMV 筆試練習測試</h3>
+
+  <h3 class="text-align-center">{{appService.isTraditional ? "加州 DMV 筆試測驗練習" : "加州 DMV 笔试测验练习"}}</h3>
 
   <p>
-    內容內容內容內容內容內容內容內容內容內容內容內容內容
+    {{appService.isTraditional ? "此程式提供加州DMV模擬測驗題目，包括理論題和圖標題，還有總題庫學習。所有題目來自互聯網，如有錯誤，歡迎向我們報錯，我們會立即更改，謝謝。":
+    "此程式提供加州DMV模拟测验题目，包括理论题和图标题，还有总题库学习。所有题目来自互联网，如有错误，欢迎向我们报错，我们会立即更改，谢谢。"}}
   </p>
+
+  <p>
+    {{appService.isTraditional ? "注意: DMV筆試，初次申請者，不可超過6個錯。換領駕照申請者，不可超過3個錯誤。" : "注意: DMV笔试，初次申请者，不可超过6个错。换领驾照申请者，不可超过3个错误。"}}
+  </p>
+
+  <!--<div text-center>-->
+    <!--<button ion-button round (click)="startTest()">{{appService.isTraditional ? "開始測驗" : "开始测验"}}</button>-->
+
+    <!--</div>-->
+  <p class="responsive-small-screen">{{appService.isTraditional ? "請點擊左上  " : "请点击左上  "}}<ion-icon name="menu"></ion-icon>{{appService.isTraditional ? "  開始" : "  开始"}}</p>
+
+
+  <ion-fab bottom right>
+    <button ion-fab class="font-size-20 page-home-language-btn" (click)="changeLanguage()">{{appService.isTraditional ?"简":"繁"}}</button>
+  </ion-fab>
+
 </ion-content>

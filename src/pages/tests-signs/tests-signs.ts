@@ -1,10 +1,15 @@
 import { Component, NgZone, ChangeDetectorRef} from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, PopoverController } from 'ionic-angular';
 import { TestsService } from '../../app/app.tests.service';
 import { AppService} from '../../app/app.service';
 import { TestsPage } from '../tests/tests'
 import {TestsTheoryPage} from "../tests-theory/tests-theory";
 
+import {StudyDropdownPage} from "../study-dropdown/study-dropdown";
+import {SignsPage} from "../signs/signs";
+import {TheoryPage} from "../theory/theory";
+import {ContactPage} from "../contact/contact";
+import {HomePage} from "../home/home";
 
 /**
  * Generated class for the TestsSignsPage page.
@@ -18,10 +23,39 @@ import {TestsTheoryPage} from "../tests-theory/tests-theory";
   templateUrl: 'tests-signs.html',
 })
 export class TestsSignsPage {
+
+  pages: Array<{title: string, titleSimplified: string, component: any}>;
+  studyPages: Array<{title: string, titleSimplified: string, component: any}>;
+  currentPage: any;
+  contactPage: {title: string, titleSimplified: string, component: any};
+
+
   signTestSet: Array<{no: number, question: string, choices: Array<{[key: string]: string}>, correctAnswer: string, userAnswer: string, hasSign: boolean, signName: string}>;
   currentSignTest: {no: number, question: string, choices: Array<{[key: string]: string}>, correctAnswer: string, userAnswer: string, hasSign: boolean, signName: string};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private testsService: TestsService, public alertCtrl: AlertController, public appService: AppService, public ngZone: NgZone, public changeDetectorRef: ChangeDetectorRef) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private testsService: TestsService,
+              public alertCtrl: AlertController,
+              public appService: AppService,
+              public ngZone: NgZone,
+              public changeDetectorRef: ChangeDetectorRef,
+              public popoverCtrl: PopoverController) {
+
+    this.pages = [
+      { title: "主頁", titleSimplified: "主页", component: HomePage },
+      { title: '模擬測驗', titleSimplified: "模拟测验", component: TestsPage }
+    ];
+
+    this.currentPage = this.pages[0];
+
+    this.studyPages = [
+      { title: '理論題', titleSimplified: "理论题", component: TheoryPage },
+      { title: '圖標題', titleSimplified: "图标题", component: SignsPage }
+    ];
+
+    this.contactPage = {title: '聯絡我們', titleSimplified: "联络我们", component: ContactPage};
+
     if(!this.appService.testHaveBeenStarted) {
       this.appService.testHaveBeenStarted = true;
       // this.appService.lastSignSet = this.testsService.newsignTestSet();
@@ -34,9 +68,9 @@ export class TestsSignsPage {
     }else {
       this.signTestSet = this.appService.lastSignSet;
       this.currentSignTest = this.signTestSet[this.appService.lastSignTestIndex];
-
-
     }
+    this.appService.lastOpenTest = "sign";
+
   }
 
   ionViewDidLoad() {
@@ -117,8 +151,41 @@ export class TestsSignsPage {
   }
 
   loadView(index) {
-    this.changeDetectorRef.detectChanges();
-    this.appService.lastAnswerIndex = index;
+
+    this.ngZone.run(() => {
+      this.appService.lastAnswerIndex = index;
+      this.appService.hasAnswered = true;
+
+      if(this.currentSignTest.userAnswer === this.currentSignTest.correctAnswer) {
+        // set green
+        if(this.appService.lastAnswerIndex === 0) {
+          this.appService.firstCorrect = true;
+        }else if(this.appService.lastAnswerIndex === 1){
+          this.appService.secondCorrect = true;
+        }else {
+          this.appService.thirdCorrect = true;
+        }
+      }else {
+        // set red
+        if(this.appService.lastAnswerIndex === 0) {
+          this.appService.firstIncorrect = true;
+        }else if(this.appService.lastAnswerIndex === 1){
+          this.appService.secondIncorrect = true;
+        }else {
+          this.appService.thirdIncorrect = true;
+        }
+
+        // set correct to green
+        if(Object.keys(this.currentSignTest.choices[0])[0]){
+          this.appService.firstCorrect = true;
+        }else if (Object.keys(this.currentSignTest.choices[1])[0]){
+          this.appService.secondCorrect = true;
+        }else {
+          this.appService.thirdCorrect = true;
+        }
+      }
+
+    });
   }
 
   startTheoryTest() {
@@ -130,11 +197,11 @@ export class TestsSignsPage {
   resetTestSet() {
     this.ngZone.run(() => {
       let alert = this.alertCtrl.create({
-        title: '請選擇',
+        title: this.appService.isTraditional ? '請選擇': "请选择",
         enableBackdropDismiss: true,
         buttons: [
           {
-            text: '重新開始圖標題',
+            text: this.appService.isTraditional ? '重新開始圖標題' : "重新开始图标题",
             handler: () => {
               this.appService.resetTheory();
               this.appService.resetTestCommon();
@@ -145,7 +212,7 @@ export class TestsSignsPage {
 
             }},
           {
-            text: '重新開始全部',
+            text: this.appService.isTraditional ? '重新開始全部' : "重新开始全部",
             handler: () => {
               this.appService.resetAll();
               this.navCtrl.setRoot(TestsPage);
@@ -169,6 +236,29 @@ export class TestsSignsPage {
       this.appService.resetAll();
       this.navCtrl.setRoot(TestsPage);
     });
+  }
+
+  presentPopover(myEvent) {
+
+    let popover = this.popoverCtrl.create(StudyDropdownPage, {}, {cssClass: "study-dropdown"});
+    popover.present({
+      ev: myEvent
+    });
+  }
+
+  openHome() {
+    this.currentPage = this.pages[0];
+    this.navCtrl.setRoot(HomePage);
+  }
+
+  openTest() {
+    this.currentPage = this.pages[1];
+    this.navCtrl.setRoot(TestsPage);
+  }
+
+  openContact() {
+    this.currentPage = this.contactPage;
+    this.navCtrl.setRoot(ContactPage);
   }
 
 

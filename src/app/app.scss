@@ -15,6 +15,7 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
+// top level css to override ionic 2 css
 .main-list {
   ion-item-group[submenu] {
     display: block;
@@ -31,3 +32,23 @@
     }
   }
 }
+
+.study-dropdown {
+  height: 160px;
+
+  & .popover-content {
+    margin-top: 38px;
+    margin-left: -14px;
+    width: 100px;
+  }
+
+  & ion-list {
+    margin-bottom: 0px;
+  }
+
+  & ion-backdrop {
+    padding: 100%;
+  }
+}
+
+

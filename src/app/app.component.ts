@@ -4,28 +4,26 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { TestsPage } from '../pages/tests/tests'
 import { TestsTheoryPage } from '../pages/tests-theory/tests-theory';
 import { TestsSignsPage } from '../pages/tests-signs/tests-signs';
 import { TheoryPage } from '../pages/theory/theory';
 import { SignsPage } from '../pages/signs/signs';
-
+import { ContactPage} from '../pages/contact/contact';
 import { AppService } from './app.service';
-
 
 @Component({
   templateUrl: 'app.html'
-  // providers: [AppService]
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = HomePage;
 
-  pages: Array<{title: string, component: any}>;
-  studyPages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, titleSimplified: string, component: any}>;
+  studyPages: Array<{title: string, titleSimplified: string, component: any}>;
   currentPage: any;
+  contactPage: {title: string, titleSimplified: string, component: any};
 
   // practice menu trigger
   showSubmenu: boolean = false;
@@ -35,17 +33,18 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: '簡介', component: HomePage },
-      { title: 'List', component: ListPage },
-      { title: '模擬測驗', component: TestsPage }
+      { title: "主頁", titleSimplified: "主页", component: HomePage },
+      { title: '模擬測驗', titleSimplified: "模拟测验", component: TestsPage }
     ];
 
     this.currentPage = this.pages[0];
 
     this.studyPages = [
-      { title: '理論題', component: TheoryPage },
-      { title: '圖標題', component: SignsPage }
+      { title: '理論題', titleSimplified: "理论题", component: TheoryPage },
+      { title: '圖標題', titleSimplified: "图标题", component: SignsPage }
     ];
+
+    this.contactPage = {title: '聯絡我們', titleSimplified: "联络我们", component: ContactPage};
 
 
   }
@@ -68,7 +67,7 @@ export class MyApp {
   }
 
   menuClosed() {
-    if(!this.appService.testsSelectDialogOpen && this.currentPage.title === '模擬測驗') {
+    if(!this.appService.testsSelectDialogOpen && (this.currentPage.title === '模擬測驗' || this.currentPage.title === "模拟测验")) {
       if(this.appService.lastOpenTest === "theory") {
         this.nav.setRoot(TestsTheoryPage);
       }else if(this.appService.lastOpenTest === 'sign'){

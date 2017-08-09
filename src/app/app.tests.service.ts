@@ -7,6 +7,13 @@ export class TestsService {
 
   theoryDataset: Array<{no: number, question: string, choices: Array<{[key: string]: string}>, correctAnswer: string, userAnswer: string, hasSign: boolean, signName: string}>;
   signDataset: Array<{no: number, question: string, choices: Array<{[key: string]: string}>, correctAnswer: string, userAnswer: string, hasSign: boolean, signName:string}>;
+
+  theoryDatasetTraditional: Array<{no: number, question: string, choices: Array<{[key: string]: string}>, correctAnswer: string, userAnswer: string, hasSign: boolean, signName:string}>;
+  signDatasetTraditional: Array<{no: number, question: string, choices: Array<{[key: string]: string}>, correctAnswer: string, userAnswer: string, hasSign: boolean, signName:string}>;
+
+  theoryDatasetSimplified: Array<{no: number, question: string, choices: Array<{[key: string]: string}>, correctAnswer: string, userAnswer: string, hasSign: boolean, signName:string}>;
+  signDatasetSimplified: Array<{no: number, question: string, choices: Array<{[key: string]: string}>, correctAnswer: string, userAnswer: string, hasSign: boolean, signName:string}>;
+
   theorySet: Array<{no: number, question: string, choices: Array<{[key: string]: string}>, correctAnswer: string, userAnswer: string, hasSign: boolean, signName: string}>;
   signSet: Array<{no: number, question: string, choices: Array<{[key: string]: string}>, correctAnswer: string, userAnswer: string, hasSign: boolean, signName: string}>;
 
@@ -26,7 +33,12 @@ export class TestsService {
       if(!theoryRanLookup[ran]) {
         counter++;
         theoryRanLookup[ran] = true;
-        let theoryData = Object.assign({}, this.theoryDataset[ran]);
+        let theoryData;
+        if(this.appService.isTraditional) {
+          theoryData = Object.assign({}, this.theoryDatasetTraditional[ran]);
+        }else{
+          theoryData = Object.assign({}, this.theoryDatasetSimplified[ran]);
+        }
         theoryData.no = counter;
         newTheorySet.push(theoryData);
       }
@@ -50,7 +62,12 @@ export class TestsService {
       if(!theoryRanLookup[ran]) {
         counter++;
         theoryRanLookup[ran] = true;
-        let signData = Object.assign({}, this.signDataset[ran]);
+        let signData;
+        if(this.appService.isTraditional){
+          signData = Object.assign({}, this.signDatasetTraditional[ran]);
+        }else{
+          signData = Object.assign({}, this.signDatasetSimplified[ran]);
+        }
         signData.no = counter;
         newSignSet.push(signData);
       }
@@ -67,7 +84,7 @@ export class TestsService {
   constructor(public appService: AppService) {
     this.theorySet = [];
     this.signSet = [];
-    this.theoryDataset = [
+    this.theoryDatasetTraditional = [
       {
         "no": 1,
         "question": "顯示輪椅的藍色信號意思是",
@@ -3603,8 +3620,3544 @@ export class TestsService {
         "signName": ""
       }
     ];
+    this.theoryDatasetSimplified = [
+      {
+        "no": 1,
+        "question": "显示轮椅的蓝色信号意思是",
+        "choices": [
+          {
+            "c": "只允许有停车证的残疾人士停车"
+          },
+          {
+            "a": "如果您人在车中等候，是可以暂时停车"
+          },
+          {
+            "b": "所有残疾人士停车，即使没有停车证"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": true,
+        "signName": "sign_93.png"
+      },
+      {
+        "no": 2,
+        "question": "您在一条四车道高速公路最左车道上驾驶，但速度低于车流。您后面的一位司机希望开快一些。您应",
+        "choices": [
+          {
+            "c": "只有在后面有三辆或更多车辆时改换车道"
+          },
+          {
+            "a": "如果按照法定的限速开车则无需改换车道"
+          },
+          {
+            "b": "应当改换车道，不论您的车速是多少​​"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 3,
+        "question": "在下雨天、下雪天或雾天打开车灯",
+        "choices": [
+          {
+            "a": "设定在远光灯"
+          },
+          {
+            "c": "向其他人警告恶劣状况"
+          },
+          {
+            "b": "以便其他司机能够看到您"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 4,
+        "question": " 您看见前方发生了意外，您是第一个停车帮忙的人，您应在何处停下您的车",
+        "choices": [
+          {
+            "a": "在您过了意外地点之后"
+          },
+          {
+            "c": "靠近车道边缘，以帮助您后面的车流慢下来"
+          },
+          {
+            "b": "在您到达意外地点之前"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 5,
+        "question": "如果您持有有条件的驾驶执照",
+        "choices": [
+          {
+            "c": "您驾驶执照上会有年龄限制"
+          },
+          {
+            "b": "您换领执照有特别时限"
+          },
+          {
+            "a": "您必须在驾车时遵循特别限制"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 6,
+        "question": "您必须使用安全带",
+        "choices": [
+          {
+            "b": "除非您正在内部停车场上驾驶"
+          },
+          {
+            "c": "无论您何时驾驶或乘坐机动车"
+          },
+          {
+            "a": "除非您坐在轻型卡车／野营车的后面"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 7,
+        "question": "行驶的车辆时，您必须系上安全带",
+        "choices": [
+          {
+            "c": "如果您的车配备安全带"
+          },
+          {
+            "a": "除非车辆没有配备气囊"
+          },
+          {
+            "b": "除非您乘坐在小卡车或野营车后面"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 8,
+        "question": "如果你对面的来车已经开始在您面前左转，您应该",
+        "choices": [
+          {
+            "b": "向右打方向盘来绕过它"
+          },
+          {
+            "c": "减速或停车以防发生车祸"
+          },
+          {
+            "a": "按喇叭警告来车司机并保持车速"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 9,
+        "question": "如果您打算从斜形停车位倒车退出。您务必应当慢速倒车并",
+        "choices": [
+          {
+            "c": "在倒车时回头向后看"
+          },
+          {
+            "a": "在倒车时查看后视镜"
+          },
+          {
+            "b": "在倒车时查看侧视镜"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 10,
+        "question": "下列有关酒精饮料和驾车的陈述中，哪一项是正确的？",
+        "choices": [
+          {
+            "b": "只要您血液中酒精浓度在法律规定限度之下， 不会影响驾车"
+          },
+          {
+            "a": "驾驶前饮用咖啡，将有助于您去除血液内酒精"
+          },
+          {
+            "c": " 酒精会影响您的判断力和自控力，勿饮酒精是安全驾车"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 11,
+        "question": "如果您因为酒醉被捕，并拒绝接受血液酒精浓度测试",
+        "choices": [
+          {
+            "a": "您的驾驶执照将被至少吊销一年"
+          },
+          {
+            "c": "您有权在接受测试之前与律师讨论"
+          },
+          {
+            "b": "您不会被强迫抽血"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 12,
+        "question": "一辆校车在您相同的道路旁停下。车上有红灯闪动。您应该",
+        "choices": [
+          {
+            "c": "停车直到校车开始移动，即使有红灯闪动"
+          },
+          {
+            "a": "先停下，然后在安全时继续行驶"
+          },
+          {
+            "b": "只要红灯闪动就一直停着"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 13,
+        "question": "您应该何时使用前灯",
+        "choices": [
+          {
+            "c": "任何您看不清其他车辆的时候"
+          },
+          {
+            "b": "日落一小时后"
+          },
+          {
+            "a": "在任何您无法看见前方至少一英里的时候"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 14,
+        "question": "这个标志表示",
+        "choices": [
+          {
+            "a": "前方交通为双向"
+          },
+          {
+            "c": "前方两英哩有分隔式公路"
+          },
+          {
+            "b": "两个车道与您同方向行驶"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": true,
+        "signName": "sign_50.png"
+      },
+      {
+        "no": 15,
+        "question": "何时您不应该行使您的合法先行权",
+        "choices": [
+          {
+            "b": "当其他驾驶者想开得更快时"
+          },
+          {
+            "c": "永远也不要，因为这样做会使其他驾驶者迷惑"
+          },
+          {
+            "a": "当这样做有助于防止车祸时"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 16,
+        "question": "阻塞十字路口是违法的",
+        "choices": [
+          {
+            "c": "在任何情况下"
+          },
+          {
+            "b": "除非部份横向车辆能绕过您"
+          },
+          {
+            "a": "除非您有先行权"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 17,
+        "question": "如果夜间的对面来车亮着远光灯，您应当怎么办",
+        "choices": [
+          {
+            "c": "减速并向自己的车道正前方看"
+          },
+          {
+            "a": "向对方司机快速闪动您自己的远光灯"
+          },
+          {
+            "b": "向右线或道路的右边看"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 18,
+        "question": "安全地带是让乘客从这里上下公共汽车或有轨电车。您在下列状况不可以通过安全地带",
+        "choices": [
+          {
+            "b": "乘客正从公共汽车或有轨电车内走出"
+          },
+          {
+            "c": "任何时间任何理由都不能通过"
+          },
+          {
+            "a": "全部下车乘客走到便道之前"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 19,
+        "question": "您何时可穿越黄色双实线去超过另一辆车",
+        "choices": [
+          {
+            "c": "当您知道无车向您驶来"
+          },
+          {
+            "b": "任何情况下都不可"
+          },
+          {
+            "a": "当一辆慢车拒绝使用让车道"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 20,
+        "question": "转弯车道之上有信号表示仅仅在左转绿灯箭头亮起时允许左转或掉头。信号的意思是",
+        "choices": [
+          {
+            "b": "任何绿灯亮起都允许任何左转或掉头"
+          },
+          {
+            "c": "左转箭头亮起时允许左转或掉头"
+          },
+          {
+            "a": "您必须左转或掉头"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": true,
+        "signName": "sign_58.png"
+      },
+      {
+        "no": 21,
+        "question": "关于雾天驾车的最好忠告是不要驾车，但是如果您必须在雾天驾车，您应该",
+        "choices": [
+          {
+            "b": "有规律地使用您的紧急讯号闪灯"
+          },
+          {
+            "a": "只打开泊车灯"
+          },
+          {
+            "c": "打开您的前灯"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 22,
+        "question": "您的行驶方向只有一条车道，您前方的司机常常无缘无故减速。 在这种情况下，《加州司机手册》建议",
+        "choices": [
+          {
+            "a": "加快速度，尽快超越这个司机"
+          },
+          {
+            "c": "向这个司机迅速闪动您的车头灯"
+          },
+          {
+            "b": "保证在自己和这个司机之间有很大距离"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 23,
+        "question": "公路是最滑溜的",
+        "choices": [
+          {
+            "b": "在小雨中"
+          },
+          {
+            "c": "在一段干燥日子后首次开始下雨时"
+          },
+          {
+            "a": "在大暴雨期间"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 24,
+        "question": "您正驶离高速公路，看见坡道是一个弯曲的下坡，您应该",
+        "choices": [
+          {
+            "c": "进入弯道时才踩煞车"
+          },
+          {
+            "a": "驶入弯道前，减慢至安全时速"
+          },
+          {
+            "b": "减慢至高速公路上标志的时速"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 25,
+        "question": "这个标志表示",
+        "choices": [
+          {
+            "a": "前方的路对任何方向的来车均关闭"
+          },
+          {
+            "b": "前方的路对您的方向的来车关闭"
+          },
+          {
+            "c": "停下，然后安全时再前行"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": true,
+        "signName": "sign_38.png"
+      },
+      {
+        "no": 26,
+        "question": "在商业区掉头",
+        "choices": [
+          {
+            "c": "在交叉路口是合法的，除非有信号禁止掉头"
+          },
+          {
+            "b": "只要商业机构是教堂、公寓或俱乐部，就是合法的"
+          },
+          {
+            "a": "永远是非法的，因为掉头危险"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 27,
+        "question": "一辆车突然驶入您面前，造成危险状况。您应该先采取下述哪种行动",
+        "choices": [
+          {
+            "c": "拐进旁边车道"
+          },
+          {
+            "b": "脚松离油门"
+          },
+          {
+            "a": "按喇叭并用力踩煞车"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 28,
+        "question": "为防止车辆在光滑路面上打滑，您应该",
+        "choices": [
+          {
+            "c": "驶入弯道或通过交叉路口时减速"
+          },
+          {
+            "b": "如果可能，在铺有树叶或碎石的路面上行驶"
+          },
+          {
+            "a": "从陡坡向下行驶时，改换为慢档"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 29,
+        "question": "如果您的车在较滑的路面打滑，您应该",
+        "choices": [
+          {
+            "b": "立即用力踩刹车"
+          },
+          {
+            "c": "停止踩刹车"
+          },
+          {
+            "a": "连续轻踩轻放刹车"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 30,
+        "question": "在一个没有棚栏或管制器的铁路交叉路口，您离交叉路口100英 尺之内，但是您在两边都不能看见400英尺处的铁轨，此处的限速是",
+        "choices": [
+          {
+            "c": "时速25英里"
+          },
+          {
+            "a": "时速10英里"
+          },
+          {
+            "b": "时速15英里"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 31,
+        "question": "您在驾车时何时只需打开泊车灯",
+        "choices": [
+          {
+            "a": "在有雾的天气里"
+          },
+          {
+            "b": "日落后30分钟或日出前30分钟"
+          },
+          {
+            "c": "在任何情况下都不可以"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 32,
+        "question": "“默许法＂(Implied Consent law)表明您已经同意",
+        "choices": [
+          {
+            "b": "检查您的车里是否有酒精"
+          },
+          {
+            "c": "现场做一个清醒度测试"
+          },
+          {
+            "a": "化验您血液中的酒精含量"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 33,
+        "question": "您如何为紧急车辆让路",
+        "choices": [
+          {
+            "c": "立即停车，不论什么情况"
+          },
+          {
+            "a": "尽量停靠在道路右沿，然后停下"
+          },
+          {
+            "b": "转入右车道，慢慢驾驶，直到紧急车辆过去"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 34,
+        "question": "您几乎要通过交叉路口时，才意识到应左转而不是向前。此时您应该",
+        "choices": [
+          {
+            "a": "停在交叉路口，等至安全时左拐"
+          },
+          {
+            "c": "倒车，观察是否有其它车辆，然后左拐"
+          },
+          {
+            "b": "继续行驶至下一个交叉路口，然后找到一条返回路线"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 35,
+        "question": "您被牵涉到车祸中，有人受伤。您必须向谁作出书面车祸报告",
+        "choices": [
+          {
+            "a": "加州公路巡逻队(CHP)"
+          },
+          {
+            "c": "您的保险公司"
+          },
+          {
+            "b": "车辆管理局(DMV)"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 36,
+        "question": "街角正在过马路的行人有先行权",
+        "choices": [
+          {
+            "b": "仅在有管制的交叉路口"
+          },
+          {
+            "a": "仅当街上划有人行横道"
+          },
+          {
+            "c": "不论有无标明人行横道"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 37,
+        "question": "您在开车时如果血液酒精浓度超过法定限制",
+        "choices": [
+          {
+            "b": "您的呼吸测醉结果是不能用于将您定罪"
+          },
+          {
+            "c": "您的车会被立即没收，而不论您的驾驶执照状况"
+          },
+          {
+            "a": "您将会收到一项命令，您的驾驶特权会被吊销"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 38,
+        "question": "关于雾天驾车的最好忠告是不要驾车，但是如果您必须在雾天驾 车，您应该使用",
+        "choices": [
+          {
+            "a": "低灯"
+          },
+          {
+            "c": "仅用雾灯"
+          },
+          {
+            "b": "高灯"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 39,
+        "question": "以下何处绝对不可泊车",
+        "choices": [
+          {
+            "c": "离铁轨二十英尺处"
+          },
+          {
+            "b": "在残障者专用泊车位旁边的标有交叉斜线的空间"
+          },
+          {
+            "a": "在小山上"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 40,
+        "question": "下列哪一个情况下不得穿过道路中间的双黄色实线",
+        "choices": [
+          {
+            "a": "超越其他车辆时"
+          },
+          {
+            "b": "左转"
+          },
+          {
+            "c": "进入私人车道时"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 41,
+        "question": "路沿如漆成红色，意思是停下或停车",
+        "choices": [
+          {
+            "c": "仅限紧急车辆"
+          },
+          {
+            "b": "仅有残疾人车辆是允许的"
+          },
+          {
+            "a": "是不允许的，但巴士除外，这时会有路标"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 42,
+        "question": "您在什么时候可以只亮着停车灯开车",
+        "choices": [
+          {
+            "a": "日落后30分钟或日出前30分钟"
+          },
+          {
+            "b": "任何情况下都不可以"
+          },
+          {
+            "c": "在低能见度的有雾日子"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 43,
+        "question": "什么叫安全地段",
+        "choices": [
+          {
+            "b": "高速公路分隔物旁边的空车道"
+          },
+          {
+            "a": "专留给行人的空间"
+          },
+          {
+            "c": "在分隔式公路上的中央地带"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 44,
+        "question": "黄色的路缘表示",
+        "choices": [
+          {
+            "a": "只可以装卸物品或上下乘客"
+          },
+          {
+            "c": "仅允许商业车辆"
+          },
+          {
+            "b": "有限泊车，但是公共汽车可以用"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 45,
+        "question": "如果在开车时发现没有办法促使自己保持清醒，您应该",
+        "choices": [
+          {
+            "a": "喝咖啡"
+          },
+          {
+            "b": "调高收音机音量"
+          },
+          {
+            "c": "下公路休息"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 46,
+        "question": "右转时，开始于右手车道，结束于：",
+        "choices": [
+          {
+            "a": "离路缘最近的车道"
+          },
+          {
+            "b": "任何可行驶的车道"
+          },
+          {
+            "c": "左车道"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 47,
+        "question": "在以下情况下，您应当扩大您的汽车与前面的车辆之间的距离",
+        "choices": [
+          {
+            "b": "后面的车盯得很紧而拥挤"
+          },
+          {
+            "c": "行车速度低于公布的限速"
+          },
+          {
+            "a": "跟随小轿车"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 48,
+        "question": "您刚被判决犯有在酒精影响下驾车，法官判您监禁48小时，此外，您可能：",
+        "choices": [
+          {
+            "a": "要付罚款"
+          },
+          {
+            "b": "失去驾驶执照长达18个月"
+          },
+          {
+            "c": "车辆被扣留60天"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 49,
+        "question": "骑自行车者必须",
+        "choices": [
+          {
+            "b": "与车流同向而行"
+          },
+          {
+            "a": "与车流相向而行"
+          },
+          {
+            "c": "若无自行车道则在人行道上骑"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 50,
+        "question": "如果在铁路旁停下，您可在下列情况穿过铁路",
+        "choices": [
+          {
+            "c": "只有在火车完全消失时"
+          },
+          {
+            "b": "火车通过您的道路后即可"
+          },
+          {
+            "a": "只有在您能够看清两侧方向时"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 51,
+        "question": "交通灯是红色的，但是治安官叫您往前开，您该怎么办",
+        "choices": [
+          {
+            "a": "变换车道，缓慢行驶"
+          },
+          {
+            "b": "照治安官说的做"
+          },
+          {
+            "c": "等候绿灯"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 52,
+        "question": "这标志表示",
+        "choices": [
+          {
+            "b": "前方有侧路"
+          },
+          {
+            "c": "您有先行权"
+          },
+          {
+            "a": "另一条车道正在汇入您车道"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": true,
+        "signName": "sign_103.png"
+      },
+      {
+        "no": 53,
+        "question": "一个黄色菱形信号显示一个左转箭头。这一信号的意思是",
+        "choices": [
+          {
+            "c": "只能在出现绿色箭头时左转"
+          },
+          {
+            "b": "您不能左转"
+          },
+          {
+            "a": "道路左转"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": true,
+        "signName": "sign_102.png"
+      },
+      {
+        "no": 54,
+        "question": "您绝不可将车泊在",
+        "choices": [
+          {
+            "a": "标有交叉斜线的空间"
+          },
+          {
+            "c": "自行车车道"
+          },
+          {
+            "b": "离铁轨二十英尺远"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 55,
+        "question": "如果没有限制线，应当将车停在那里？",
+        "choices": [
+          {
+            "c": "过人行道后"
+          },
+          {
+            "a": "刚过转弯处"
+          },
+          {
+            "b": "在转弯处"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 56,
+        "question": "您可以驶过路上标出的双线来超越另一辆车，如果在您路这边的线是",
+        "choices": [
+          {
+            "b": "实线"
+          },
+          {
+            "c": "黄线双实线"
+          },
+          {
+            "a": "虚线"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 57,
+        "question": " 当您没有看见四周有车时，为什么还需要发出讯号",
+        "choices": [
+          {
+            "c": "您只需在换车道时才发出讯"
+          },
+          {
+            "a": "一辆您没有看见的车可能会撞上您"
+          },
+          {
+            "b": "如果路上没有别人，您就不必发出讯号"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 58,
+        "question": "\"不要行走\"信号闪亮后，一名行人开始过街，这名行人在街中间时，您行车方向的交通信号灯变成绿色，您应该",
+        "choices": [
+          {
+            "b": "如果行人不在您的车道上，继续驾车"
+          },
+          {
+            "a": "继续驾车，但经过行人时应多加小心"
+          },
+          {
+            "c": "等待，直至行人越过街道"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 59,
+        "question": "您打算在一条私人车道上左转。您打算转入的道路在街道中间有一条车道。该车道外沿有一条实线，内沿…一条虚线。您",
+        "choices": [
+          {
+            "b": "必须使用该车道，然后并入正常车流"
+          },
+          {
+            "a": "可转入该车道，然后并入正常车流"
+          },
+          {
+            "c": "在左转时不得转入该车道"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": true,
+        "signName": "sign_101.png"
+      },
+      {
+        "no": 60,
+        "question": "在街角的行人有先行权",
+        "choices": [
+          {
+            "a": "仅当街上划有人行横道"
+          },
+          {
+            "b": "只限在有管制的交叉路口"
+          },
+          {
+            "c": "不论是否标明人行横道"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 61,
+        "question": "您可以驶过路上标出的双线来超越另一辆车，如果在您路这边的是",
+        "choices": [
+          {
+            "c": "黄色双实线"
+          },
+          {
+            "b": "实线"
+          },
+          {
+            "a": "虚线"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 62,
+        "question": "您在一个交叉路口停车，看望横向街道的视线被建筑物、灌木丛或路旁停车挡住，您应该",
+        "choices": [
+          {
+            "b": "开始驶过，但做好在其它车辆出现时立即停车的准备"
+          },
+          {
+            "a": "看见横向交通也有\"停\"的交通标志，再开始驶过"
+          },
+          {
+            "c": "通过交叉路口前，缓慢驾车，直至看清交通状况"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 63,
+        "question": "您什么时候可以绕过铁路平交道安全栅栏",
+        "choices": [
+          {
+            "a": "任何情况下都不可以"
+          },
+          {
+            "b": "在您能够清楚看到两边方向时"
+          },
+          {
+            "c": "安全棚栏好像功能不正常时"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 64,
+        "question": "您刚撞上了您前面那辆车的尾部，您可能是",
+        "choices": [
+          {
+            "b": "在车流中穿梭进出"
+          },
+          {
+            "a": "跟得太近了"
+          },
+          {
+            "c": "太频繁地看后视镜"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 65,
+        "question": "您把车停下。您打算左转，但是附近有对面来车。您应当",
+        "choices": [
+          {
+            "c": "转弯，因为您有优先权"
+          },
+          {
+            "b": "让路给对面车辆"
+          },
+          {
+            "a": "如果附近没有行人则立即转弯"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 66,
+        "question": "以下哪种作法最有助于改善交通流畅",
+        "choices": [
+          {
+            "c": "取消缓冲空间"
+          },
+          {
+            "a": "提高限速"
+          },
+          {
+            "b": "使用公共交通"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 67,
+        "question": "您何时应放弃您的法定优先权",
+        "choices": [
+          {
+            "b": "有助于预防事故"
+          },
+          {
+            "c": "永远不，这将使其他驾车人感到困惑"
+          },
+          {
+            "a": "您要避免其他驾驶人的无故挑衅"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 68,
+        "question": "大卡车行驶时，很多时候与前面的车辆保持较大的空间。这额外的空间是为",
+        "choices": [
+          {
+            "b": "卡车驾驶人用于停车"
+          },
+          {
+            "a": "其它车辆并入下坡道时使用"
+          },
+          {
+            "c": "其它驾驶人准备减速时使用"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 69,
+        "question": "驾驶者手册建议在高速公路上变换车道至少要提前___秒钟发出讯号",
+        "choices": [
+          {
+            "b": "5"
+          },
+          {
+            "c": "7"
+          },
+          {
+            "a": "3"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 70,
+        "question": "以下哪个是发现驾车危险的好方法",
+        "choices": [
+          {
+            "a": "集中注意您车内的反光镜"
+          },
+          {
+            "c": "扫视您车辆的前方"
+          },
+          {
+            "b": "集中注意您前面的车辆"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 71,
+        "question": "这个标志表明",
+        "choices": [
+          {
+            "c": "开慢车的人有先行权"
+          },
+          {
+            "b": "在任何时候都在右车道开"
+          },
+          {
+            "a": "如果您比其他人驾驶得慢，就请一直在右车道开"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": true,
+        "signName": "sign_49.png"
+      },
+      {
+        "no": 72,
+        "question": "这个标志表示",
+        "choices": [
+          {
+            "c": "时速较慢车流应移至右道"
+          },
+          {
+            "a": "靠右行车"
+          },
+          {
+            "b": "换到右车道"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": true,
+        "signName": "sign_46.png"
+      },
+      {
+        "no": 73,
+        "question": "当交通讯号灯出故障时，您应该",
+        "choices": [
+          {
+            "a": "停车，然后安全时继续行驶"
+          },
+          {
+            "b": "减速，如有必要就停车"
+          },
+          {
+            "c": "如果有其他车辆在场才停车"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 74,
+        "question": "转弯前最后_____英尺要发出讯号",
+        "choices": [
+          {
+            "b": "70"
+          },
+          {
+            "a": "50"
+          },
+          {
+            "c": "100"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 75,
+        "question": "以下有关盲点的说法哪一个是正确的",
+        "choices": [
+          {
+            "b": "装有两个外面的反光镜的车辆没有盲点"
+          },
+          {
+            "c": "在换到右车道时从右肩向后看，在换到左车道时从左肩向后看"
+          },
+          {
+            "a": "您只在换到左边或右边的车道时才需要转过头 来从您右肩向后看"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 76,
+        "question": "自卫性驾车是",
+        "choices": [
+          {
+            "a": "仅看您前面的车辆"
+          },
+          {
+            "b": "在您与您前面的车之间保持距离"
+          },
+          {
+            "c": "保持移动您的目光，寻找可能的意外"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 77,
+        "question": "闪亮煞车灯，或打开紧急闪光灯，如果您",
+        "choices": [
+          {
+            "c": "正在停车场倒车"
+          },
+          {
+            "a": "需要警告其他驾驶人前方有车祸"
+          },
+          {
+            "b": "驾车时速比车流慢得多"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 78,
+        "question": "您刚刚与路缘平行地将车泊好。车轮必须离路缘_____英寸之内",
+        "choices": [
+          {
+            "c": "18"
+          },
+          {
+            "a": "12"
+          },
+          {
+            "b": "16"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 79,
+        "question": "在单向街道上左转进入单向街道时，使用",
+        "choices": [
+          {
+            "c": "中央左转车道"
+          },
+          {
+            "a": "只要安全可使用任何车道"
+          },
+          {
+            "b": "最靠近左边路缘的车道"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 80,
+        "question": "住宅区内，一辆车正从对面向您开来。两辆车同时要经过一辆停在路边的车。您应该驶向",
+        "choices": [
+          {
+            "b": "更靠近停在路边的车，而不是靠近对面来车"
+          },
+          {
+            "c": "停在路边的车和对面来车中间"
+          },
+          {
+            "a": "更靠近对面来车，而不是靠近停在路边的车"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 81,
+        "question": "观察后面交通的最重要时间有三个，它们分别是在您进行下列哪三个动作之前",
+        "choices": [
+          {
+            "b": "倒车、换车道和快速减速"
+          },
+          {
+            "c": "换车道、穿越交叉路口和快速减速"
+          },
+          {
+            "a": "倒车、急转弯和穿越交叉路口"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 82,
+        "question": "出现浓雾或沙尘时最好怎么办",
+        "choices": [
+          {
+            "b": "不要开得太慢，因为其他司机可能会撞上您"
+          },
+          {
+            "a": "在情况改善前不要开车"
+          },
+          {
+            "c": "轮流打开远光灯和近光灯，以提升能见度"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 83,
+        "question": "您在车中载有打开盖子的酒精容器时驾车是否合法?",
+        "choices": [
+          {
+            "b": "是，如果该容器在车后箱内"
+          },
+          {
+            "a": "是，一律不合法"
+          },
+          {
+            "c": "是，如果该容器在车后座"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 84,
+        "question": "十字路口上有一个停车标志，您应该先在何处停车",
+        "choices": [
+          {
+            "c": "在人行横道"
+          },
+          {
+            "b": "驶到您能够看见横向交通为止"
+          },
+          {
+            "a": "过了人行横道"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 85,
+        "question": "基本速度法例是什么",
+        "choices": [
+          {
+            "c": "路上交通车流的速度"
+          },
+          {
+            "b": "绝对不能开得比标明的限速更快"
+          },
+          {
+            "a": "绝对不能以超出当时情况所许可的安全速度驾车"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 86,
+        "question": "前方的校车停下，校车的红灯闪亮，您必须",
+        "choices": [
+          {
+            "b": "停车，直至校车的红灯停止闪亮"
+          },
+          {
+            "a": "停车，直至认为全部学生已经下车"
+          },
+          {
+            "c": "转换车道，缓慢驾车并小心经过"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 87,
+        "question": "你何时穿越黄色双实线去超过另一辆车",
+        "choices": [
+          {
+            "c": "当您知道无车向您驶来"
+          },
+          {
+            "b": "任何情况下都不可"
+          },
+          {
+            "a": "当一辆慢车拒绝使用让车道"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 88,
+        "question": "您在一条左转车道之上看到一个信号说，\"左转在绿灯亮时让行\"，这信号的是什么意思",
+        "choices": [
+          {
+            "a": "您只能在绿灯亮时左转"
+          },
+          {
+            "c": "您必须等到信号灯全绿时左转"
+          },
+          {
+            "b": "您可在绿灯亮起并且安全时左转"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": true,
+        "signName": "sign_52.png"
+      },
+      {
+        "no": 89,
+        "question": "为什么您的乘客应该系安全带",
+        "choices": [
+          {
+            "c": "不要求乘客系安全带"
+          },
+          {
+            "b": "这是法律规定"
+          },
+          {
+            "a": "它能帮助防止车祸"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 90,
+        "question": "除非另有标志说明，在住宅区限速是多少",
+        "choices": [
+          {
+            "a": "每小时35哩"
+          },
+          {
+            "b": "每小时25哩"
+          },
+          {
+            "c": "每小时30哩"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 91,
+        "question": "您在有分隔带的街道上开车，但您的方向有几条车道。如果您需要掉头，您应当从那条车道开始掉头？",
+        "choices": [
+          {
+            "c": "左车道"
+          },
+          {
+            "b": "任何车道"
+          },
+          {
+            "a": "中间车道"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 92,
+        "question": "这个标志表示",
+        "choices": [
+          {
+            "a": "右边车道将要终止"
+          },
+          {
+            "c": "前方有限制区"
+          },
+          {
+            "b": "前方有休息区"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": true,
+        "signName": "sign_97.png"
+      },
+      {
+        "no": 93,
+        "question": "下列有关摩托车那一种说法是正确的",
+        "choices": [
+          {
+            "c": "应当扩大跟随摩托车的距离"
+          },
+          {
+            "b": "摩托车不得共用车道"
+          },
+          {
+            "a": "摩托车比较小，开车人很容易看到"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 94,
+        "question": "您正在接近交通信号灯正在闪动的红灯的交叉路口。您应当怎么办？",
+        "choices": [
+          {
+            "c": "先在交叉路口前停下，直至等到绿灯亮起再继续行驶"
+          },
+          {
+            "a": "除非有看到其他车辆，否则在进入交叉路口时可继续行驶"
+          },
+          {
+            "b": "在进入交叉路口之前停下，安全时再继续行驶"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 95,
+        "question": "在“上下班高峰时间＂阻塞十字路口的交通是",
+        "choices": [
+          {
+            "a": "不允许的，除非您有先行权"
+          },
+          {
+            "c": "在任何情况下均不允许"
+          },
+          {
+            "b": "不允许的，除非横向行驶的部份车辆能绕过您"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 96,
+        "question": "您如果卖车，则必须在5日以内通知",
+        "choices": [
+          {
+            "a": "您的保险公司"
+          },
+          {
+            "b": "您的银行或信用卡联盟"
+          },
+          {
+            "c": "车辆管理局(DMV)"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 97,
+        "question": "您撞了一辆泊着的车，您找不到车主，您必须怎么办",
+        "choices": [
+          {
+            "b": "回家后打电话给您的保险公司"
+          },
+          {
+            "a": "在那辆车上留一字条"
+          },
+          {
+            "c": "等车主回来"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 98,
+        "question": "您绝不可将车泊在",
+        "choices": [
+          {
+            "b": "离铁轨二十英尺远"
+          },
+          {
+            "c": "自行车车道"
+          },
+          {
+            "a": "标有交叉斜线的空间 ."
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 99,
+        "question": "您与您左边的驾驶者同时到达交叉路口，谁该先走",
+        "choices": [
+          {
+            "a": "您先走"
+          },
+          {
+            "c": "谁发出转弯讯号谁先走"
+          },
+          {
+            "b": "您左边的驾驶者先走"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 100,
+        "question": "如果您的车子开始在水面飘滑，您应当",
+        "choices": [
+          {
+            "c": "逐渐减速，不要踩刹车"
+          },
+          {
+            "b": "用力踩刹车，以防止您的车子打滑"
+          },
+          {
+            "a": "保持一定车速，以便获得更好的牵引力"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 101,
+        "question": "您正在接近交叉路口。信号灯是闪动的黄灯。您应",
+        "choices": [
+          {
+            "c": "减速并小心通过"
+          },
+          {
+            "b": "在通过交叉路口前停下"
+          },
+          {
+            "a": "保持速度，但是当心其他车辆"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 102,
+        "question": " 以下有关安全带的说法哪个是正确的",
+        "choices": [
+          {
+            "c": "年满一岁且体重超过二十磅的小孩应该系上安全带乘坐前座"
+          },
+          {
+            "b": "在装有乘客座位安全充气袋的车里，婴儿不应该乘坐前座"
+          },
+          {
+            "a": "对12岁或以下的小孩而言，通常后座不是车中最安全的座位"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 103,
+        "question": "准备开车时应当小心向前方观察10到15秒",
+        "choices": [
+          {
+            "c": "以及早发现隐患"
+          },
+          {
+            "b": "因为这是法律规定"
+          },
+          {
+            "a": "以避免使用侧视镜"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 104,
+        "question": "您在一条四车道高速公的车道上开车。如果要从最右边下高速公路，您应",
+        "choices": [
+          {
+            "c": "在开始每次改换车道之前减速"
+          },
+          {
+            "a": "观察右边所有车道并小心地一次穿过所有车道"
+          },
+          {
+            "b": "每次改换一条车道，直到您进入正确的车道"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 105,
+        "question": "加州驾驶手册上列出两种阻塞交通的主要驾驶行为是",
+        "choices": [
+          {
+            "c": "无经验驾驶和驾驶时漫不经心"
+          },
+          {
+            "b": "追尾和并道"
+          },
+          {
+            "a": "驾驶时东张西望和不必要地更换车道"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 106,
+        "question": "如果后方的车跟得太近，您应该",
+        "choices": [
+          {
+            "c": "示意后方紧跟的车超您的车"
+          },
+          {
+            "a": "突然刹车，警告后方车跟太紧"
+          },
+          {
+            "b": "小心增加您的车前方的空间"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 107,
+        "question": "如果您的车将从后方遭到撞击，您应当",
+        "choices": [
+          {
+            "b": "踩住刹车不放"
+          },
+          {
+            "a": "准备好在撞车后刹车"
+          },
+          {
+            "c": "挂上空档，关掉发动机"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 108,
+        "question": "您必须在机动车辆使用的车道上当心骑自行车者，因为他们",
+        "choices": [
+          {
+            "b": "有权与您共用道路"
+          },
+          {
+            "c": "有先行权"
+          },
+          {
+            "a": "必须朝迎面开来的车辆骑"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 109,
+        "question": "您在沿路沿向下坡停车时，应当将车轮转到那个方向",
+        "choices": [
+          {
+            "c": "与路沿平行"
+          },
+          {
+            "a": "向右，面向路沿"
+          },
+          {
+            "b": "向左，背向路沿"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 110,
+        "question": "这标志表示",
+        "choices": [
+          {
+            "b": "您不能从您这个方向进入道路"
+          },
+          {
+            "c": "只有安全时才可进入"
+          },
+          {
+            "a": "前方道路对任何方向的车辆都关闭"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": true,
+        "signName": "sign_39.png"
+      },
+      {
+        "no": 111,
+        "question": "您在停车时，以下哪一情况是要将前车轮转向路沿",
+        "choices": [
+          {
+            "a": "面向下坡"
+          },
+          {
+            "b": "面向上坡"
+          },
+          {
+            "c": "在平路上"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 112,
+        "question": "黄线是用于分离开",
+        "choices": [
+          {
+            "c": "常规车道和共乘车道"
+          },
+          {
+            "a": "单向公路的各条车道"
+          },
+          {
+            "b": "双向公路的正反两个方向"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 113,
+        "question": "通常，您知道您处在一辆卡车的盲点内，如果",
+        "choices": [
+          {
+            "b": "您在它后面六英尺以外"
+          },
+          {
+            "c": "您一直靠近该车辆的右前轮"
+          },
+          {
+            "a": "您看不见该车辆的反光镜"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 114,
+        "question": "除非另有标明，在有小孩的学校地段的限速为",
+        "choices": [
+          {
+            "a": "时速15英哩"
+          },
+          {
+            "c": "时速25英哩"
+          },
+          {
+            "b": "时速20英哩"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 115,
+        "question": "有关大型卡车的以下说法哪一个是正确的",
+        "choices": [
+          {
+            "a": "大卡车需要较长时间才能完全停下"
+          },
+          {
+            "c": "大卡车比客车更容易操纵"
+          },
+          {
+            "b": "所有大卡车都有气动刹车，因此能够迅速停下"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 116,
+        "question": "下列哪种情况，在察看了行人和其他车辆之后，您可以在红灯时右转",
+        "choices": [
+          {
+            "c": "只要您先减速，任何时候都可以"
+          },
+          {
+            "b": "仅在有标志表明这样做是可以时"
+          },
+          {
+            "a": "在您停车之后，并且没有任何禁止该转弯的标志"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 117,
+        "question": "两排双黄色实线距离两英尺或更宽",
+        "choices": [
+          {
+            "a": "只有在进入私人车道时才能够穿过"
+          },
+          {
+            "b": "应当看成是实心的墙壁，而不得穿过"
+          },
+          {
+            "c": "意思是这是开始或结束左转的车道"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 118,
+        "question": " 您正驶近绿灯，但有车流挡住了交叉路口。您最好应该",
+        "choices": [
+          {
+            "b": "如果不能通过交叉路口，不要驶进"
+          },
+          {
+            "c": "继续驶进交叉路口，并等候过往车流净空"
+          },
+          {
+            "a": "将车部份驶进交叉路口，以便确立您的优先权"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 119,
+        "question": "漆成白色的路缘表示",
+        "choices": [
+          {
+            "c": "您可以让乘客上下车"
+          },
+          {
+            "b": "公共汽车可以用这区边上客"
+          },
+          {
+            "a": "您可以装卸物品"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 120,
+        "question": "在交叉路口左转弯，您应该",
+        "choices": [
+          {
+            "b": "转弯前，观察交叉路口两个方向的车流"
+          },
+          {
+            "a": "转弯前，永远将车完全停住"
+          },
+          {
+            "c": "将车开到交叉路口中间，然后缓慢并入车流"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 121,
+        "question": "您通常应当在下列情况减速",
+        "choices": [
+          {
+            "a": "如果看到前方相隔几辆车的刹车灯亮起"
+          },
+          {
+            "c": "经过受管制的车祸现场"
+          },
+          {
+            "b": "在高速公路上准备或正在超越大卡车"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 122,
+        "question": "一个黄色菱形信号显示箭头绕过一个障碍物。这信号的意思是",
+        "choices": [
+          {
+            "a": "前方道路可能比较滑"
+          },
+          {
+            "b": "前方的公路有分隔带"
+          },
+          {
+            "c": "前方道路有障碍物"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": true,
+        "signName": "sign_3.png"
+      },
+      {
+        "no": 123,
+        "question": "安全倒车包括下列所有各项，只有一个例外",
+        "choices": [
+          {
+            "b": "在上车之前查看车辆的后面"
+          },
+          {
+            "a": "倒车时向右边回头看"
+          },
+          {
+            "c": "倒车之前轻按喇叭"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 124,
+        "question": "您何时可为了右转而汇入自行车道",
+        "choices": [
+          {
+            "a": "转弯前不超过200英尺"
+          },
+          {
+            "b": "在任何情况下都不可以"
+          },
+          {
+            "c": "转弯前不超过100英尺"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 125,
+        "question": "您应该在夜间使用远光灯/高灯",
+        "choices": [
+          {
+            "c": "只要合法安全即可使用"
+          },
+          {
+            "a": "尽量少用"
+          },
+          {
+            "b": "只在没有照明或较昏暗的街道上使用"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 126,
+        "question": "您正在驶近一个十字路口，驾驶者手册建议你",
+        "choices": [
+          {
+            "b": "向左看，向右看，向左看，在驶出前再看一下右边"
+          },
+          {
+            "a": "向左看，向右看，在驶出前再看一下左边"
+          },
+          {
+            "c": "向正前方看，在驶出前再看一下左边"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 127,
+        "question": "这个标志表示",
+        "choices": [
+          {
+            "a": "如果有其他车辆在场就停车"
+          },
+          {
+            "c": "在限制线两英尺前停车"
+          },
+          {
+            "b": "每次都要停车"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": true,
+        "signName": "sign_36.png"
+      },
+      {
+        "no": 128,
+        "question": "一辆大卡车在一条三车道公路的中间车道行驶。您打算超越大卡车。最好的超车方法是：",
+        "choices": [
+          {
+            "a": "从左边很快超连，然后开到大卡车前方"
+          },
+          {
+            "c": "从右边很快超车，然后开到大卡车前方"
+          },
+          {
+            "b": "很慢地从左边超车，然后开到大卡车前方"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 129,
+        "question": "超越另一辆车后，以下那种状况时才能安全返回原车道",
+        "choices": [
+          {
+            "b": "您转过头，看见后面有车"
+          },
+          {
+            "c": "可以从后视镜看见被超越车辆的两个前车灯"
+          },
+          {
+            "a": "被超越车辆驾驶人给您发出信号，提示您转回原车道"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 130,
+        "question": "您可以驶离路面超越另一辆车",
+        "choices": [
+          {
+            "b": "如果您行车方向有两条或更多条车道"
+          },
+          {
+            "a": "如果前方车辆正左拐弯"
+          },
+          {
+            "c": "任何状况下都不可以"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 131,
+        "question": "安全带何时没有效果",
+        "choices": [
+          {
+            "b": "时速超过40英里时"
+          },
+          {
+            "a": "低速时"
+          },
+          {
+            "c": "安全带永远是有效的"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 132,
+        "question": "在转弯之前务必小心注意摩托车，因为",
+        "choices": [
+          {
+            "b": "摩托车在交叉路口总是拥有优先权"
+          },
+          {
+            "a": "摩托车必须占用一整条车道"
+          },
+          {
+            "c": "摩托车比较小，因此不太容易看到"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 133,
+        "question": "这标志表示",
+        "choices": [
+          {
+            "b": "另一条车道正在汇入您的车道"
+          },
+          {
+            "c": "前方有分隔式公路"
+          },
+          {
+            "a": "右车道将要终止"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": true,
+        "signName": "sign_1.png"
+      },
+      {
+        "no": 134,
+        "question": "您在倒车时应当",
+        "choices": [
+          {
+            "c": "依赖侧视镜和后视镜"
+          },
+          {
+            "a": "依赖后视镜"
+          },
+          {
+            "b": "从后车窗向外看"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 135,
+        "question": "这个标志表示",
+        "choices": [
+          {
+            "c": "前方右面有侧路"
+          },
+          {
+            "a": "另一条路与您的路相交"
+          },
+          {
+            "b": "另一条车道正在汇入您的车道"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": true,
+        "signName": "sign_14.png"
+      },
+      {
+        "no": 136,
+        "question": "以下哪种做法能帮助您避免被人从后面撞上",
+        "choices": [
+          {
+            "a": "在任何时候都打开泊车灯"
+          },
+          {
+            "b": "在转弯前至少100英尺就发出讯号"
+          },
+          {
+            "c": "在转弯前至少200英尺就使用您的紧急闪光灯"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 137,
+        "question": "在开车时若往车前方观看，您应该",
+        "choices": [
+          {
+            "c": "来回远近都要观看"
+          },
+          {
+            "b": "只需要看前那辆车"
+          },
+          {
+            "a": "随时保持直视"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 138,
+        "question": "这标志表示",
+        "choices": [
+          {
+            "b": "您不能左转"
+          },
+          {
+            "c": "您不能进入侧路"
+          },
+          {
+            "a": "您不能做U形回转"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": true,
+        "signName": "sign_42.png"
+      },
+      {
+        "no": 139,
+        "question": "下列那一种换线方法是正确的",
+        "choices": [
+          {
+            "b": "打信号，回头查看，然后换线"
+          },
+          {
+            "c": "换线前打信号，然后迅速换线"
+          },
+          {
+            "a": "打信号，查看镜子，然后换线"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 140,
+        "question": "您在公布限速为每小时65哩的高速公路最左车道上以每小时55哩速度驾驶。在下列情况下，您可能会因为车开得太慢而收到罚单",
+        "choices": [
+          {
+            "c": "绝不可能，因为开车比其他人更慢总是更加安全"
+          },
+          {
+            "b": "如果您阻挡正常和合理的车流"
+          },
+          {
+            "a": "如果道路或气象状况要求您开得这么慢"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 141,
+        "question": "您想汇入高速公路车流，您的驾驶速度应该是",
+        "choices": [
+          {
+            "a": "法定高速公路的限速"
+          },
+          {
+            "b": "与高速公路车流相同的速度"
+          },
+          {
+            "c": "比高速公路车流的速度每小时慢10英里"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 142,
+        "question": "转弯或转线时，您应该持续打信号灯，因为",
+        "choices": [
+          {
+            "a": "完成转弯或转线动作前，关闭信号灯是违法的"
+          },
+          {
+            "b": "让其他驾驶人知道您准备转弯或转线"
+          },
+          {
+            "c": "完成转弯或转线动作之前关闭信号灯是危险的"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 143,
+        "question": "以下有关其他司机的那一种说法是正确的？",
+        "choices": [
+          {
+            "c": "在任何情况下，绝不能假设其他司机会给您让路"
+          },
+          {
+            "a": "驾驶卡车的司机是专业人员，他们会特别小心，造成的风险较小"
+          },
+          {
+            "b": "发出转弯信号的司机总是要向所表示的转弯信号方向转弯"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 144,
+        "question": "在一条狭窄的双车道路上跟在您后面有五辆或更多的车辆，您应该",
+        "choices": [
+          {
+            "c": "在安全时驶离路面，让他们超过您"
+          },
+          {
+            "a": "当他们试图超过您时就加速"
+          },
+          {
+            "b": "继续驾驶，不要理他们"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 145,
+        "question": "您在处于绿色箭头管制的转弯车道中。以下那一项是正确的？",
+        "choices": [
+          {
+            "a": "任何路口的所有车辆和行人都必须让路给您转弯"
+          },
+          {
+            "b": "对面所有来车和行人被红灯拦住"
+          },
+          {
+            "c": "您可以不查看交通情况就顺着箭头方向转弯"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 146,
+        "question": "前方有铁路交叉路口，您看见有红灯在闪烁，警告您有火车驶 来，您必须",
+        "choices": [
+          {
+            "a": "停车，然后安全时再前行"
+          },
+          {
+            "b": "慢下来，然后再过去"
+          },
+          {
+            "c": "仅在您看见有火车驶来时才停车"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 147,
+        "question": "您在一条两车道上行驶。您在左车道行驶，有许多辆车从右边超车。您应当",
+        "choices": [
+          {
+            "c": "在安全时改换到右车道"
+          },
+          {
+            "b": "停在左边路肩上让他们超连"
+          },
+          {
+            "a": "继续在自己的车道行驶，以使不阻挡车流"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 148,
+        "question": "这一车道用于",
+        "choices": [
+          {
+            "a": "在交通允许下开始或终止左转"
+          },
+          {
+            "c": "在交通允许下右转"
+          },
+          {
+            "b": "在交通允许下超过其他车辆"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": true,
+        "signName": "sign_104.png"
+      },
+      {
+        "no": 149,
+        "question": "行车速度低于车流可能会",
+        "choices": [
+          {
+            "b": "增加发生车祸的可能性"
+          },
+          {
+            "c": "对发生车祸的可能性没有影响"
+          },
+          {
+            "a": "减少发生车祸的可能性"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 150,
+        "question": "冰冻天气里，在下雪或下雨之后，哪一种地方最容易打滑",
+        "choices": [
+          {
+            "c": "柏油路面而不是水泥路面"
+          },
+          {
+            "b": "背阴地带的路面"
+          },
+          {
+            "a": "山顶"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 151,
+        "question": "有关死角的以下那一种说法是正确的",
+        "choices": [
+          {
+            "a": "无论换左线还是右线都只需要向右边回头看"
+          },
+          {
+            "b": "换左线时向左边回头看，换右线时向右边回头看"
+          },
+          {
+            "c": "车外配备两面镜子的车辆是没有死角的"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 152,
+        "question": "在下列情况下，小卡车后面可以有合法乘客",
+        "choices": [
+          {
+            "a": "小卡车侧板至少有24英寸高"
+          },
+          {
+            "b": "小卡车平板上有一个车座用螺丝钉在车身上"
+          },
+          {
+            "c": "小卡车后面配备了安全带"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 153,
+        "question": "察看您后面的车流",
+        "choices": [
+          {
+            "b": "将帮助您知道是否有人尾随您太紧"
+          },
+          {
+            "c": "不是个好主意。您应该注意您前面的车流"
+          },
+          {
+            "a": "只在您减速时才有用"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 154,
+        "question": "如没有特别说明或标示，商业区一般限速是多少？",
+        "choices": [
+          {
+            "a": "每小时25哩"
+          },
+          {
+            "c": "每小时35哩"
+          },
+          {
+            "b": "每小时20哩"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 155,
+        "question": "交通信号灯的红箭头指向右边，表示您可以",
+        "choices": [
+          {
+            "a": "减速和观察车流后拐向右边"
+          },
+          {
+            "c": "完全停车后，再拐向右边"
+          },
+          {
+            "b": "先等红箭头变成绿色后拐向右边"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 156,
+        "question": "您在公路上行驶，突然您的轮胎泄了气，您需要停下车求人帮 忙，您应在何处将车停下",
+        "choices": [
+          {
+            "a": "在右手车道"
+          },
+          {
+            "b": "离开路面"
+          },
+          {
+            "c": "在任何离您车前部200英尺远的别人能看见您车子的地方"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 157,
+        "question": "以下有关修路工人的说法哪一个是不正确的",
+        "choices": [
+          {
+            "b": "白色标志告诉您已关闭的道路，前方正在修路"
+          },
+          {
+            "c": "在建筑地段的某些违规将加倍罚款"
+          },
+          {
+            "a": "修路设备是漆成橘黄色的"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 158,
+        "question": "以下有关轻型有轨车辆的说法哪一个是正确的",
+        "choices": [
+          {
+            "b": "轻型有轨车辆可以先占交通讯号"
+          },
+          {
+            "a": "在公共道路上，轻型有轨车辆的责任与其他车辆不同"
+          },
+          {
+            "c": "您必须总是从右边超过轻型有轨车辆"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 159,
+        "question": "如果您不幸卷入车祸，除了向对方出示您的驾照，您还必须提供什么资料给对方？",
+        "choices": [
+          {
+            "a": "只要出示您的经济责任证明"
+          },
+          {
+            "c": "您的经济责任，车辆登记证明和目前居住地址"
+          },
+          {
+            "b": "您的经济责任和车辆登记证明"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 160,
+        "question": "如果您发生车祸，车祸中出现人员伤亡或造成500元以上的损 失，您必须通知执法部门，并写一份书面报告给",
+        "choices": [
+          {
+            "b": "加州高速公路巡罗队"
+          },
+          {
+            "a": "您的保险公司"
+          },
+          {
+            "c": "车辆管理局(DMV)"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 161,
+        "question": "漆成篮色的路沿表示",
+        "choices": [
+          {
+            "c": "车上挂有残疾人标识牌的人可以停车"
+          },
+          {
+            "a": "如果您在车内等候，可以暂时停车"
+          },
+          {
+            "b": "车上未挂残疾标识牌的残疾人可以停车"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 162,
+        "question": "黄色双实线的意思是",
+        "choices": [
+          {
+            "c": "您可以赶上和超过另一辆车"
+          },
+          {
+            "a": "无论怎样您也不可以横穿该线"
+          },
+          {
+            "b": "您可以进入私人车道"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 163,
+        "question": "21岁或以上人士开车时血液酒精浓度达到多少或超过为非法。",
+        "choices": [
+          {
+            "a": "0.08%"
+          },
+          {
+            "c": "0.05%"
+          },
+          {
+            "b": "0.10%"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 164,
+        "question": "漆成绿色的路缘表示",
+        "choices": [
+          {
+            "a": "只可在限定的时间内停车或泊车"
+          },
+          {
+            "b": "乘客上下车地段"
+          },
+          {
+            "c": "仅限救急车辆泊车"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 165,
+        "question": "在同一条机动车道上，您必须注意观察骑脚车的人。因为他们",
+        "choices": [
+          {
+            "a": "骑车时必须面对迎面来车"
+          },
+          {
+            "c": "有权与您共享车道"
+          },
+          {
+            "b": "通常有优先权"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 166,
+        "question": "您在红色交通信号灯前等候右转，您的车辆右侧有一位行人等候穿越马路，信号灯变绿时，谁有优先权",
+        "choices": [
+          {
+            "b": "您只有在人行道没有标志时有优先权"
+          },
+          {
+            "a": "行人有优先权"
+          },
+          {
+            "c": "您有优先权，因为您的信号灯是绿色"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 167,
+        "question": "这种形状的桔黄色标志表示",
+        "choices": [
+          {
+            "b": "行驶缓慢的机动车"
+          },
+          {
+            "a": "机动车有优先权"
+          },
+          {
+            "c": "前方交通有危险状况"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": true,
+        "signName": "sign_81.png"
+      },
+      {
+        "no": 168,
+        "question": "您是否应该比其他车辆开得较慢",
+        "choices": [
+          {
+            "b": "是，开慢比开得太快要安全"
+          },
+          {
+            "a": "否，您开得太慢会阻塞交通"
+          },
+          {
+            "c": "是，这样可以使其他车辆也开得慢一点"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 169,
+        "question": "在没有人行横道的十字路口，谁有先行权",
+        "choices": [
+          {
+            "a": "车辆，但是应该慢下来"
+          },
+          {
+            "b": "行人，但仅在有标明的人行横道上"
+          },
+          {
+            "c": "永远是行人"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 170,
+        "question": "盲点交叉路口的限速是",
+        "choices": [
+          {
+            "a": "时速10英里"
+          },
+          {
+            "b": "时速15英里"
+          },
+          {
+            "c": "时速25英里"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 171,
+        "question": "在高速公路上驾车时，应注视远方",
+        "choices": [
+          {
+            "b": "因为您需1/4哩距离才能完全停车"
+          },
+          {
+            "a": "以便及早发现危险状况"
+          },
+          {
+            "c": "因为有助您跟上车流"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 172,
+        "question": "您在车祸中使人受伤，谁应该填写事故报告",
+        "choices": [
+          {
+            "c": "您的汽车俱乐部"
+          },
+          {
+            "a": "您"
+          },
+          {
+            "b": "警察"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 173,
+        "question": "在街角的行人有先行权",
+        "choices": [
+          {
+            "b": "仅在有管制的交叉路口"
+          },
+          {
+            "c": "不论是否标明人行横道"
+          },
+          {
+            "a": "仅当街上划有人行横道"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 174,
+        "question": "以下有关驾车和服用药物的说法哪一种是正确的",
+        "choices": [
+          {
+            "a": "大多数治头痛或感冒的药能使人昏昏欲睡"
+          },
+          {
+            "c": "处方药品在任何时候服用都是安全的"
+          },
+          {
+            "b": "药物和酒精能同时使用"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 175,
+        "question": "进入交叉路是非法的，如果",
+        "choices": [
+          {
+            "b": "黄色信号灯在闪动，您没有首先停下"
+          },
+          {
+            "c": "信号灯是黄色，您不能安全停下"
+          },
+          {
+            "a": "在信号灯变成红色之前您来不及完全穿过"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 176,
+        "question": "以下哪种情况过十字路口是违法",
+        "choices": [
+          {
+            "a": "讯号灯是黄灯"
+          },
+          {
+            "c": "黄灯在闪烁，您没有先停下"
+          },
+          {
+            "b": "在灯变红之前您无法完全穿过街道"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 177,
+        "question": "这个信号表示",
+        "choices": [
+          {
+            "a": "除非看见对面没有来车,否则不要超越"
+          },
+          {
+            "c": "不能因任何理由超越其它车辆"
+          },
+          {
+            "b": "除非超车时不会发生危险，否则不要超越"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": true,
+        "signName": "sign_44.png"
+      },
+      {
+        "no": 178,
+        "question": "如果在没有信号管制的交叉路口，您在进入交叉路口之前没有看到车辆穿过，则限速是多少",
+        "choices": [
+          {
+            "b": "每小时15哩"
+          },
+          {
+            "c": "每小时10哩"
+          },
+          {
+            "a": "每小时25哩"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 179,
+        "question": "当您离开您的车道去超另一辆车时，以下何时您可以知道您有足够的空间回到原来的行车道",
+        "choices": [
+          {
+            "c": "当您在另外那辆车前面的两秒钟后"
+          },
+          {
+            "a": "当您超过了另外那辆车的前保险杠"
+          },
+          {
+            "b": "当您从后视镜中看见了该车的前部"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 180,
+        "question": "下列哪个驾驶时速是正确的",
+        "choices": [
+          {
+            "a": "加州法律没有最低时速限制"
+          },
+          {
+            "b": "时速越快，控制车的能力越低"
+          },
+          {
+            "c": "当您以两倍的时速行驶时(通常驾车时速的两倍)，您也需要两倍的停车空间"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 181,
+        "question": "以下有关滑溜路面的说法有哪一种是正确的",
+        "choices": [
+          {
+            "c": "热天下雨的最初几分钟，路面并不滑溜"
+          },
+          {
+            "a": "在寒冷潮湿的日子，建筑物或树木的阴影能隐藏 有冰的地方"
+          },
+          {
+            "b": "桥梁和上跨通道最晚结冻"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 182,
+        "question": "您可以驶离路面来超车",
+        "choices": [
+          {
+            "b": "如果您前面的车辆正在左转"
+          },
+          {
+            "c": "任何情况下都不可以"
+          },
+          {
+            "a": "如果与您同方向的有两个或以上的车道"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": true,
+        "signName": "sign_2.png"
+      },
+      {
+        "no": 183,
+        "question": "不带路沿的坡形街道有两条车道，如果要停车，您应该",
+        "choices": [
+          {
+            "c": "将前车轮转向右，朝向路边"
+          },
+          {
+            "b": "将车停得稍带一点角度，后车轮靠近路边"
+          },
+          {
+            "a": "将车前轮转向左边，离开路边"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 184,
+        "question": "道路上公布的限速是每小时55哩。如下雨或道路潮湿时，您应该",
+        "choices": [
+          {
+            "a": "保持每小时55哩的速度"
+          },
+          {
+            "b": "在限速以下5到10哩的速度行驶"
+          },
+          {
+            "c": "在限速以下20到25哩的速度行驶"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 185,
+        "question": "以下哪个是合法的U形回转",
+        "choices": [
+          {
+            "c": "在消防站前面"
+          },
+          {
+            "a": "在公路有转弯空地的地方"
+          },
+          {
+            "b": "在路中转弯处前150英尺"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 186,
+        "question": "下列有关双重泊车的说法哪一个是正确的",
+        "choices": [
+          {
+            "a": "它在任何情况下都是违法的"
+          },
+          {
+            "c": "它是违法的，除非您等在车中"
+          },
+          {
+            "b": "如果您是在送货则是许可的"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      }
+    ];
 
-    this.signDataset = [
+    this.signDatasetTraditional = [
       {
         "no": 1,
         "question": "以下哪個標誌告訴您，此處是鬆土帶（沒有鋪柏油）？",
@@ -4254,6 +7807,673 @@ export class TestsService {
       {
         "no": 35,
         "question": "以下哪個標誌告訴您，此處不准作任何轉彎？",
+        "choices": [
+          {
+            "c": "sign_114.png"
+          },
+          {
+            "b": "sign_40.png"
+          },
+          {
+            "a": "sign_13.png"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      }
+    ];
+    this.signDatasetSimplified = [
+      {
+        "no": 1,
+        "question": "以下哪个标志告诉您，此处是松土带（没有铺柏油）？",
+        "choices": [
+          {
+            "b": "sign_76.png"
+          },
+          {
+            "a": "sign_60.png"
+          },
+          {
+            "c": "sign_50.png"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 2,
+        "question": "以下哪个标志告诉您，当绿色箭头亮起时，你可以做什么？",
+        "choices": [
+          {
+            "a": "sign_58.png"
+          },
+          {
+            "b": "sign_62.png"
+          },
+          {
+            "c": "sign_16.png"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 3,
+        "question": "以下哪个标志告诉您，前面道路中间有分界道？",
+        "choices": [
+          {
+            "b": "sign_105.png"
+          },
+          {
+            "a": "sign_24.png"
+          },
+          {
+            "c": "sign_27.png"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 4,
+        "question": "以下哪个标志告诉您，此处不准作U形转弯？",
+        "choices": [
+          {
+            "c": "sign_42.png"
+          },
+          {
+            "b": "sign_40.png"
+          },
+          {
+            "a": "sign_32.png"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 5,
+        "question": "以下哪个标志告诉您，前面有左转弯？",
+        "choices": [
+          {
+            "b": "sign_40.png"
+          },
+          {
+            "c": "sign_35.png"
+          },
+          {
+            "a": "sign_102.png"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 6,
+        "question": "以下哪个标志告诉您，此处不要作左或右转弯？",
+        "choices": [
+          {
+            "b": "sign_61.png"
+          },
+          {
+            "c": "sign_13.png"
+          },
+          {
+            "a": "sign_60.png"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 7,
+        "question": "以下哪个标志告诉您，前面道路施工？",
+        "choices": [
+          {
+            "c": "sign_27.png"
+          },
+          {
+            "b": "sign_72.png"
+          },
+          {
+            "a": "sign_71.png"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 8,
+        "question": "以下哪个标志告诉您，如果你正在右线道上行驶，你必须向右转弯？",
+        "choices": [
+          {
+            "a": "sign_65.png"
+          },
+          {
+            "c": "sign_61.png"
+          },
+          {
+            "b": "sign_70.png"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 9,
+        "question": "以下哪个标志告诉您，前面道路关闭？",
+        "choices": [
+          {
+            "c": "sign_38.png"
+          },
+          {
+            "a": "sign_22.png"
+          },
+          {
+            "b": "sign_106.png"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 10,
+        "question": "以下哪个标志告诉您，潮湿时路滑？",
+        "choices": [
+          {
+            "c": "sign_107.png"
+          },
+          {
+            "a": "sign_105.png"
+          },
+          {
+            "b": "sign_29.png"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 11,
+        "question": "以下哪个标志告诉您，松软肩道？",
+        "choices": [
+          {
+            "c": "sign_105.png"
+          },
+          {
+            "b": "sign_25.png"
+          },
+          {
+            "a": "sign_23.png"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 12,
+        "question": "以下哪个标志告诉您，车辆将从右方驶入此街道？",
+        "choices": [
+          {
+            "a": "sign_48.png"
+          },
+          {
+            "b": "sign_4.png"
+          },
+          {
+            "c": "sign_103.png"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 13,
+        "question": "以下哪个标志告诉您，要留意学生在此横过街道？",
+        "choices": [
+          {
+            "c": "sign_55.png"
+          },
+          {
+            "a": "sign_20.png"
+          },
+          {
+            "b": "sign_30.png"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 14,
+        "question": "以下哪个标志告诉您，要开始慢驶？",
+        "choices": [
+          {
+            "a": "sign_37.png"
+          },
+          {
+            "c": "sign_49.png"
+          },
+          {
+            "b": "sign_108.png"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 15,
+        "question": "以下哪个标志告诉您，此处有沙石落下？",
+        "choices": [
+          {
+            "b": "sign_28.png"
+          },
+          {
+            "c": "sign_24.png"
+          },
+          {
+            "a": "sign_21.png"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 16,
+        "question": "以下哪个标志告诉您，在右边线道上的车辆必须在出口处驶离公路？",
+        "choices": [
+          {
+            "a": "sign_59.png"
+          },
+          {
+            "b": "sign_65.png"
+          },
+          {
+            "c": "sign_35.png"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 17,
+        "question": "以下哪个标志告诉您，前面有窄桥？",
+        "choices": [
+          {
+            "b": "sign_21.png"
+          },
+          {
+            "c": "sign_28.png"
+          },
+          {
+            "a": "sign_25.png"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 18,
+        "question": "以下哪个标志告诉您，要绕道行驶？",
+        "choices": [
+          {
+            "b": "sign_33.png"
+          },
+          {
+            "a": "sign_84.png"
+          },
+          {
+            "c": "sign_70.png"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 19,
+        "question": "以下哪个标志告诉您，慢行车辆应该怎样做？",
+        "choices": [
+          {
+            "b": "sign_62.png"
+          },
+          {
+            "c": "sign_64.png"
+          },
+          {
+            "a": "sign_54.png"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 20,
+        "question": "以下哪个标志告诉您，前面有超车线道？",
+        "choices": [
+          {
+            "a": "sign_14.png"
+          },
+          {
+            "b": "sign_1.png"
+          },
+          {
+            "c": "sign_109.png"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 21,
+        "question": "以下哪个标志告诉您，当红灯亮时，车辆不准作任何转变？",
+        "choices": [
+          {
+            "a": "sign_110.png"
+          },
+          {
+            "b": "sign_10.png"
+          },
+          {
+            "c": "sign_8.png"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 22,
+        "question": "以下哪个标志告诉您，前面有十字路口？",
+        "choices": [
+          {
+            "c": "sign_2.png"
+          },
+          {
+            "b": "sign_103.png"
+          },
+          {
+            "a": "sign_34.png"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 23,
+        "question": "以下哪个标志告诉您，车辆慢行，前面道路施工中？",
+        "choices": [
+          {
+            "b": "sign_56.png"
+          },
+          {
+            "a": "sign_106.png"
+          },
+          {
+            "c": "sign_111.png"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 24,
+        "question": "以下哪个标志告诉您，要留意横过街道的行人？",
+        "choices": [
+          {
+            "c": "sign_80.png"
+          },
+          {
+            "b": "sign_20.png"
+          },
+          {
+            "a": "sign_30.png"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 25,
+        "question": "以下哪个标志告诉您，要准备停车？",
+        "choices": [
+          {
+            "b": "sign_37.png"
+          },
+          {
+            "c": "sign_112.png"
+          },
+          {
+            "a": "sign_12.png"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 26,
+        "question": "以下哪个标志告诉您，此处水淹？",
+        "choices": [
+          {
+            "c": "sign_26.png"
+          },
+          {
+            "b": "sign_107.png"
+          },
+          {
+            "a": "sign_71.png"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 27,
+        "question": "以下哪个标志告诉您，前面有铁平交道？",
+        "choices": [
+          {
+            "b": "sign_29.png"
+          },
+          {
+            "c": "sign_32.png"
+          },
+          {
+            "a": "sign_10.png"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 28,
+        "question": "以下哪个标志告诉您，在此处必须作右转弯？",
+        "choices": [
+          {
+            "c": "sign_61.png"
+          },
+          {
+            "b": "sign_48.png"
+          },
+          {
+            "a": "sign_45.png"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 29,
+        "question": "以下哪个标志告诉您，前面必须停车？",
+        "choices": [
+          {
+            "a": "sign_17.png"
+          },
+          {
+            "c": "sign_44.png"
+          },
+          {
+            "b": "sign_8.png"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 30,
+        "question": "以下哪个标志告诉您，前面有左转弯？",
+        "choices": [
+          {
+            "a": "sign_47.png"
+          },
+          {
+            "c": "sign_102.png"
+          },
+          {
+            "b": "sign_80.png"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 31,
+        "question": "以下哪个标志告诉您，前面有交通讯号？",
+        "choices": [
+          {
+            "b": "sign_27.png"
+          },
+          {
+            "a": "sign_17.png"
+          },
+          {
+            "c": "sign_2.png"
+          }
+        ],
+        "correctAnswer": "a",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 32,
+        "question": "以下哪个标志告诉您，减速车辆必须使用避让区域？",
+        "choices": [
+          {
+            "a": "sign_54.png"
+          },
+          {
+            "c": "sign_49.png"
+          },
+          {
+            "b": "sign_62.png"
+          }
+        ],
+        "correctAnswer": "b",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 33,
+        "question": "以下哪个标志告诉您，前面道路有人施工？",
+        "choices": [
+          {
+            "b": "sign_72.png"
+          },
+          {
+            "c": "sign_113.png"
+          },
+          {
+            "a": "sign_20.png"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 34,
+        "question": "以下哪个标志告诉您，有多少铁轨横跨前方道路？",
+        "choices": [
+          {
+            "a": "sign_85.png"
+          },
+          {
+            "c": "sign_11.png"
+          },
+          {
+            "b": "sign_5.png"
+          }
+        ],
+        "correctAnswer": "c",
+        "userAnswer": "",
+        "hasSign": false,
+        "signName": ""
+      },
+      {
+        "no": 35,
+        "question": "以下哪个标志告诉您，此处不准作任何转弯？",
         "choices": [
           {
             "c": "sign_114.png"

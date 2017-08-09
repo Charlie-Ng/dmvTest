@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import { PopoverController } from 'ionic-angular';
 
 @Injectable()
 export class AppService {
@@ -23,6 +24,7 @@ export class AppService {
   finishedSignTest: boolean = false;
   finishedTheoryTest: boolean = false;
   finishedAllTests: boolean = false;
+  hasSeenTheFirstResult: boolean = false;
 
   isLastQuestion: boolean =false;
 
@@ -35,6 +37,13 @@ export class AppService {
   // study
   currentTheoryIndex: number = 0;
   currentSignIndex: number = 0;
+
+  // traditional, simplified
+  isTraditional: boolean = true;
+
+  constructor(public popoverCtrl: PopoverController) {
+
+  }
 
   resetCorrect() {
     this.firstCorrect = false;
@@ -74,6 +83,8 @@ export class AppService {
     this.lastOpenTest = "";
     this.testHaveBeenStarted = false;
     this.finishedAllTests = false;
+    this.hasSeenTheFirstResult = false;
   }
+
 
 }

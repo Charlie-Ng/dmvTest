@@ -2,4 +2,31 @@
   opacity: 1 !important;
 }
 
+@media screen and (max-width: 412px) {
+  .shared-title-padding {
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+  }
 
+}
+
+@media screen and (min-width: 768px) {
+  .responsive-small-screen {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .responsive-big-screen {
+    display: none !important;
+  }
+}
+
+ion-icon[name="menu"] {
+  color: #488aff;
+}
+
+.shared-title-big-screen {
+  float: left;
+  margin-top: 8px;
+}

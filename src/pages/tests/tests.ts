@@ -26,10 +26,7 @@ export class TestsPage {
     public appService: AppService,
     public ngZone: NgZone,
     public app: App) {
-  }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TestsPage');
     if(!this.appService.testsSelectDialogOpen && !this.appService.testHaveBeenStarted){
       this.ngZone.run(() => {
         this.appService.testsSelectDialogOpen = true;
@@ -38,7 +35,7 @@ export class TestsPage {
     }else if(this.appService.lastOpenTest === "theory"){
 
       // this.navCtrl.setRoot(TestsTheoryPage);
-        this.navCtrl.setRoot(TestsTheoryPage);
+      this.navCtrl.setRoot(TestsTheoryPage);
 
 
     }else{ //sign
@@ -48,34 +45,86 @@ export class TestsPage {
     }
   }
 
+  ionViewDidLoad() {
+    // maybe move this logic to constructor?
+    console.log('ionViewDidLoad TestsPage');
+    // if(!this.appService.testsSelectDialogOpen && !this.appService.testHaveBeenStarted){
+    //   this.ngZone.run(() => {
+    //     this.appService.testsSelectDialogOpen = true;
+    //     this.resetSelection();
+    //   });
+    // }else if(this.appService.lastOpenTest === "theory"){
+    //
+    //   // this.navCtrl.setRoot(TestsTheoryPage);
+    //     this.navCtrl.setRoot(TestsTheoryPage);
+    //
+    //
+    // }else{ //sign
+    //
+    //   this.navCtrl.setRoot(TestsSignsPage);
+    //
+    // }
+  }
+
   resetSelection() {
-    let alert = this.alertCtrl.create({
-      title: '模擬測驗',
-      message: '要先測驗哪部分?',
-      enableBackdropDismiss: false,
-      buttons: [
-        {
-          text: '理論題',
-          handler: () => {
-            this.appService.testsSelectDialogOpen = false;
-            this.appService.lastOpenTest = "theory";
-            this.navCtrl.setRoot(TestsTheoryPage);
-        }},
-        {
-          text: '圖標題',
-          handler: () => {
-            this.appService.testsSelectDialogOpen = false;
-            this.appService.lastOpenTest = "sign";
-            this.navCtrl.setRoot(TestsSignsPage);
-          }},
-        {
-          text: '取消',
-          handler: () => {
-            this.menuCtrl.open();
-            this.appService.testsSelectDialogOpen = false;
-          }}
-      ]
-    });
+    let alert;
+    if(this.appService.isTraditional) {
+      alert = this.alertCtrl.create({
+        title: '模擬測驗',
+        message: '要先測驗哪部分?',
+        enableBackdropDismiss: false,
+        buttons: [
+          {
+            text: '理論題',
+            handler: () => {
+              this.appService.testsSelectDialogOpen = false;
+              this.appService.lastOpenTest = "theory";
+              this.navCtrl.setRoot(TestsTheoryPage);
+            }},
+          {
+            text: '圖標題',
+            handler: () => {
+              this.appService.testsSelectDialogOpen = false;
+              this.appService.lastOpenTest = "sign";
+              this.navCtrl.setRoot(TestsSignsPage);
+            }},
+          {
+            text: '取消',
+            handler: () => {
+              this.menuCtrl.open();
+              this.appService.testsSelectDialogOpen = false;
+            }}
+        ]
+      });
+    }else{
+      alert = this.alertCtrl.create({
+        title: '模拟测验',
+        message: '要先测验哪部分?',
+        enableBackdropDismiss: false,
+        buttons: [
+          {
+            text: '理论题',
+            handler: () => {
+              this.appService.testsSelectDialogOpen = false;
+              this.appService.lastOpenTest = "theory";
+              this.navCtrl.setRoot(TestsTheoryPage);
+            }},
+          {
+            text: '图标题',
+            handler: () => {
+              this.appService.testsSelectDialogOpen = false;
+              this.appService.lastOpenTest = "sign";
+              this.navCtrl.setRoot(TestsSignsPage);
+            }},
+          {
+            text: '取消',
+            handler: () => {
+              this.menuCtrl.open();
+              this.appService.testsSelectDialogOpen = false;
+            }}
+        ]
+      });
+    }
     alert.present();
   }
 

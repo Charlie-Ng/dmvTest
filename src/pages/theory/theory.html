@@ -5,11 +5,33 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar>
+  <ion-navbar class="responsive-small-screen">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>理論題 ({{currentTheoryStudy.no}}/186)</ion-title>
+    <ion-title class="shared-title-padding">{{appService.isTraditional ? "理論題": "理论题"}} ({{currentTheoryStudy.no}}/186)</ion-title>
+  </ion-navbar>
+
+
+  <ion-navbar class="text-align-right responsive-big-screen">
+    <ion-title class="shared-title-big-screen">{{appService.isTraditional ? "理論題": "理论题"}} ({{currentTheoryStudy.no}}/186)</ion-title>
+
+    <button ion-button outline (click)="openHome()">
+      <ion-icon name="home"></ion-icon>
+      &nbsp;{{appService.isTraditional ? "主頁" : "主页"}}
+    </button>
+    <button ion-button outline (click)="openTest()">
+      <ion-icon name="clipboard"></ion-icon>
+      &nbsp;{{appService.isTraditional ? "模擬測驗" : "模拟测验"}}
+    </button>
+    <button ion-button outline (click)="presentPopover($event)">
+      <ion-icon name="book"></ion-icon>
+      &nbsp;{{appService.isTraditional? "學習" : "学习" }}
+    </button>
+    <button ion-button outline (click)="openContact()">
+      <ion-icon name="information-circle"></ion-icon>
+      &nbsp;{{appService.isTraditional ? "聯絡我們" : "联络我们"}}
+    </button>
   </ion-navbar>
 </ion-header>
 
@@ -21,13 +43,15 @@
     <div *ngIf="currentTheoryStudy.hasSign" class="text-align-center"><img [src]="'../../assets/signs/' + currentTheoryStudy.signName" height="120" width="120" /></div>
     <ion-list radio-group [(ngModel)]="currentTheoryStudy.correctAnswer">
 
-      <ion-item *ngFor="let choice of currentTheoryStudy.choices | keyValues; let i = index">
+      <ion-item *ngFor="let choice of currentTheoryStudy.choices | keyValues; let i = index" class="page-theory-large-padding">
+        <ion-radio [disabled]="true" [value]="choice.key"></ion-radio>
+
         <ion-label text-wrap *ngIf="i === 0">a. {{choice.value}}</ion-label>
         <ion-label text-wrap *ngIf="i === 1">b. {{choice.value}}</ion-label>
         <ion-label text-wrap *ngIf="i === 2">c. {{choice.value}}</ion-label>
-        <ion-radio [disabled]="true" [value]="choice.key"></ion-radio>
       </ion-item>
     </ion-list>
+
 
 </ion-content>
 
@@ -35,24 +59,24 @@
   <ion-toolbar>
 
     <ion-buttons class="text-align-center">
-      <button [disabled]="appService.currentTheoryIndex === 0" ion-button color="primary" (click)="previousQuestion()" class="float-left font-size-20">
+      <button [disabled]="appService.currentTheoryIndex === 0" ion-button color="primary" (click)="previousQuestion()" class="float-left">
         <div>
           <ion-icon name="arrow-round-back"></ion-icon>
-          <label class="page-tests-icon-label">上一題</label>
+          <label class="page-tests-icon-label">{{appService.isTraditional ? "上一題": "上一题"}}</label>
         </div>
       </button>
 
-      <button ion-button color="primary" (click)="jumpToQuestion()" class="font-size-20">
+      <button ion-button color="primary" (click)="jumpToQuestion()" class="">
         <div>
           <ion-icon name="share-alt"></ion-icon>
           <label class="page-tests-icon-label">跳至</label>
         </div>
       </button>
 
-      <button [disabled]="appService.currentTheoryIndex === 185" ion-button color="primary" (click)="nextQuestion()" class="float-right font-size-20">
+      <button [disabled]="appService.currentTheoryIndex === 185" ion-button color="primary" (click)="nextQuestion()" class="float-right">
         <div>
           <ion-icon name="arrow-round-forward"></ion-icon>
-          <label class="page-tests-icon-label">下一題</label>
+          <label class="page-tests-icon-label">{{appService.isTraditional ? "下一題": "下一题"}}</label>
         </div>
       </button>
     </ion-buttons>
