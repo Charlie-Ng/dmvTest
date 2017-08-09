@@ -1,9 +1,15 @@
 import { Component, NgZone, ChangeDetectorRef} from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, PopoverController} from 'ionic-angular';
 import { TestsService } from '../../app/app.tests.service';
 import { AppService} from '../../app/app.service';
 import { TestsPage } from '../tests/tests'
 import {TestsSignsPage} from "../tests-signs/tests-signs";
+
+import {StudyDropdownPage} from "../study-dropdown/study-dropdown";
+import {SignsPage} from "../signs/signs";
+import {TheoryPage} from "../theory/theory";
+import {ContactPage} from "../contact/contact";
+import {HomePage} from "../home/home";
 
 /**
  * Generated class for the TestsTheoryPage page.
@@ -18,10 +24,37 @@ import {TestsSignsPage} from "../tests-signs/tests-signs";
 })
 export class TestsTheoryPage {
 
+  pages: Array<{title: string, titleSimplified: string, component: any}>;
+  studyPages: Array<{title: string, titleSimplified: string, component: any}>;
+  currentPage: any;
+  contactPage: {title: string, titleSimplified: string, component: any};
+
   theoryTestSet: Array<{no: number, question: string, choices: Array<{[key: string]: string}>, correctAnswer: string, userAnswer: string, hasSign: boolean, signName: string}>;
   currentTheoryTest: {no: number, question: string, choices: Array<{[key: string]: string}>, correctAnswer: string, userAnswer: string, hasSign: boolean, signName: string};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private testsService: TestsService, public alertCtrl: AlertController, public appService: AppService, public ngZone: NgZone, public changeDetectorRef: ChangeDetectorRef) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private testsService: TestsService,
+              public alertCtrl: AlertController,
+              public appService: AppService,
+              public ngZone: NgZone,
+              public changeDetectorRef: ChangeDetectorRef,
+              public popoverCtrl: PopoverController) {
+
+    this.pages = [
+      { title: "主頁", titleSimplified: "主页", component: HomePage },
+      { title: '模擬測驗', titleSimplified: "模拟测验", component: TestsPage }
+    ];
+
+    this.currentPage = this.pages[0];
+
+    this.studyPages = [
+      { title: '理論題', titleSimplified: "理论题", component: TheoryPage },
+      { title: '圖標題', titleSimplified: "图标题", component: SignsPage }
+    ];
+
+    this.contactPage = {title: '聯絡我們', titleSimplified: "联络我们", component: ContactPage};
+
     if(!this.appService.testHaveBeenStarted) {
         this.appService.testHaveBeenStarted = true;
         // this.appService.lastTheorySet = this.testsService.newTheoryTestSet();
@@ -60,7 +93,7 @@ export class TestsTheoryPage {
       }
 
       this.currentTheoryTest = this.theoryTestSet[nextQuestionIndex];
-      if(nextQuestionIndex + 1 === 3) {
+      if(nextQuestionIndex + 1 === 36) {
         this.appService.isLastQuestion = true;
       }
 
@@ -201,6 +234,29 @@ export class TestsTheoryPage {
       this.appService.resetAll();
       this.navCtrl.setRoot(TestsPage);
     });
+  }
+
+  presentPopover(myEvent) {
+
+    let popover = this.popoverCtrl.create(StudyDropdownPage, {}, {cssClass: "study-dropdown"});
+    popover.present({
+      ev: myEvent
+    });
+  }
+
+  openHome() {
+    this.currentPage = this.pages[0];
+    this.navCtrl.setRoot(HomePage);
+  }
+
+  openTest() {
+    this.currentPage = this.pages[1];
+    this.navCtrl.setRoot(TestsPage);
+  }
+
+  openContact() {
+    this.currentPage = this.contactPage;
+    this.navCtrl.setRoot(ContactPage);
   }
 
 

@@ -12,10 +12,8 @@ import { SignsPage } from '../pages/signs/signs';
 import { ContactPage} from '../pages/contact/contact';
 import { AppService } from './app.service';
 
-
 @Component({
   templateUrl: 'app.html'
-  // providers: [AppService]
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
@@ -35,7 +33,7 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: '簡介', titleSimplified: "简介", component: HomePage },
+      { title: "主頁", titleSimplified: "主页", component: HomePage },
       { title: '模擬測驗', titleSimplified: "模拟测验", component: TestsPage }
     ];
 

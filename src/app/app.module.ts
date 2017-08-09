@@ -11,6 +11,7 @@ import { SignsPage } from '../pages/signs/signs';
 import { TestsTheoryPage } from '../pages/tests-theory/tests-theory';
 import { TestsSignsPage } from '../pages/tests-signs/tests-signs';
 import { ContactPage} from '../pages/contact/contact';
+import { StudyDropdownPage } from '../pages/study-dropdown/study-dropdown'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -28,12 +29,13 @@ import { KeyValuesPipe } from "./key-values.pipe";
     TestsTheoryPage,
     TestsSignsPage,
     ContactPage,
-    KeyValuesPipe
+    KeyValuesPipe,
+    StudyDropdownPage
   ],
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp,{tabsPlacement: 'top'})
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -44,7 +46,8 @@ import { KeyValuesPipe } from "./key-values.pipe";
     SignsPage,
     TestsTheoryPage,
     ContactPage,
-    TestsSignsPage
+    TestsSignsPage,
+    StudyDropdownPage
   ],
   providers: [
     StatusBar,

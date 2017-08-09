@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import { PopoverController } from 'ionic-angular';
 
 @Injectable()
 export class AppService {
@@ -40,6 +41,10 @@ export class AppService {
   // traditional, simplified
   isTraditional: boolean = true;
 
+  constructor(public popoverCtrl: PopoverController) {
+
+  }
+
   resetCorrect() {
     this.firstCorrect = false;
     this.firstIncorrect = false;
@@ -80,5 +85,6 @@ export class AppService {
     this.finishedAllTests = false;
     this.hasSeenTheFirstResult = false;
   }
+
 
 }

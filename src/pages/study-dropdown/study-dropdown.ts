@@ -1,32 +1,34 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
+import {Component, NgZone} from '@angular/core';
+import { App, IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { AppService} from '../../app/app.service';
 
-import {StudyDropdownPage} from "../study-dropdown/study-dropdown";
+import {HomePage} from "../home/home";
 import {TestsPage} from "../tests/tests";
 import {TheoryPage} from "../theory/theory";
 import {SignsPage} from "../signs/signs";
-import {HomePage} from "../home/home";
+import {ContactPage} from "../contact/contact";
 
 /**
- * Generated class for the ContactPage page.
+ * Generated class for the StudyDropdownPage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
+
 @IonicPage()
 @Component({
-  selector: 'page-contact',
-  templateUrl: 'contact.html',
+  selector: 'page-study-dropdown',
+  templateUrl: 'study-dropdown.html',
 })
-export class ContactPage {
+export class StudyDropdownPage {
+
 
   pages: Array<{title: string, titleSimplified: string, component: any}>;
   studyPages: Array<{title: string, titleSimplified: string, component: any}>;
   currentPage: any;
   contactPage: {title: string, titleSimplified: string, component: any};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public appService: AppService, public popoverCtrl: PopoverController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public appService: AppService, public ngZone: NgZone, public app: App) {
 
     this.pages = [
       { title: "主頁", titleSimplified: "主页", component: HomePage },
@@ -44,30 +46,24 @@ export class ContactPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ContactPage');
+    console.log('ionViewDidLoad StudyDropdownPage');
   }
 
-  presentPopover(myEvent) {
+  openTheoryStudy() {
 
-    let popover = this.popoverCtrl.create(StudyDropdownPage, {}, {cssClass: "study-dropdown"});
-    popover.present({
-      ev: myEvent
+    this.viewCtrl.dismiss().then(() => {
+      this.currentPage = this.studyPages[0];
+      this.app.getRootNav().setRoot(TheoryPage);
+
+
     });
   }
 
-  openHome() {
-    this.currentPage = this.pages[0];
-    this.navCtrl.setRoot(HomePage);
-  }
-
-  openTest() {
-    this.currentPage = this.pages[1];
-    this.navCtrl.setRoot(TestsPage);
-  }
-
-  openContact() {
-    this.currentPage = this.contactPage;
-    this.navCtrl.setRoot(ContactPage);
+  openSignsStudy() {
+    this.viewCtrl.dismiss().then(() => {
+      this.currentPage = this.studyPages[1];
+      this.app.getRootNav().setRoot(SignsPage);
+    });
   }
 
 }

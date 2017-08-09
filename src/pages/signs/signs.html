@@ -5,11 +5,32 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar>
+  <ion-navbar class="responsive-small-screen">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title class="shared-title-padding">{{appService.isTraditional ? "圖標題": "图标题"}} ({{currentSignStudy.no}}/35)</ion-title>
+  </ion-navbar>
+
+  <ion-navbar class="text-align-right responsive-big-screen">
+    <ion-title class="shared-title-big-screen">{{appService.isTraditional ? "圖標題": "图标题"}} ({{currentSignStudy.no}}/35)</ion-title>
+
+    <button ion-button outline (click)="openHome()">
+      <ion-icon name="home"></ion-icon>
+      &nbsp;{{appService.isTraditional ? "主頁" : "主页"}}
+    </button>
+    <button ion-button outline (click)="openTest()">
+      <ion-icon name="clipboard"></ion-icon>
+      &nbsp;{{appService.isTraditional ? "模擬測驗" : "模拟测验"}}
+    </button>
+    <button ion-button outline (click)="presentPopover($event)">
+      <ion-icon name="book"></ion-icon>
+      &nbsp;{{appService.isTraditional? "學習" : "学习" }}
+    </button>
+    <button ion-button outline (click)="openContact()">
+      <ion-icon name="information-circle"></ion-icon>
+      &nbsp;{{appService.isTraditional ? "聯絡我們" : "联络我们"}}
+    </button>
   </ion-navbar>
 </ion-header>
 
@@ -40,21 +61,21 @@
   <ion-toolbar>
 
     <ion-buttons class="text-align-center">
-      <button [disabled]="appService.currentSignIndex === 0" ion-button color="primary" (click)="previousQuestion()" class="float-left font-size-20">
+      <button [disabled]="appService.currentSignIndex === 0" ion-button color="primary" (click)="previousQuestion()" class="float-left">
         <div>
           <ion-icon name="arrow-round-back"></ion-icon>
           <label class="page-tests-icon-label">{{appService.isTraditional ? "上一題": "上一题"}}</label>
         </div>
       </button>
 
-      <button ion-button color="primary" (click)="jumpToQuestion()" class="font-size-20">
+      <button ion-button color="primary" (click)="jumpToQuestion()" class="">
         <div>
           <ion-icon name="share-alt"></ion-icon>
           <label class="page-tests-icon-label">跳至</label>
         </div>
       </button>
 
-      <button [disabled]="appService.currentSignIndex === 34" ion-button color="primary" (click)="nextQuestion()" class="float-right font-size-20">
+      <button [disabled]="appService.currentSignIndex === 34" ion-button color="primary" (click)="nextQuestion()" class="float-right">
         <div>
           <ion-icon name="arrow-round-forward"></ion-icon>
           <label class="page-tests-icon-label">{{appService.isTraditional ? "上一題": "上一题"}}</label>

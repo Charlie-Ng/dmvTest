@@ -1,9 +1,16 @@
 import { Component } from '@angular/core';
-import {NavController, LoadingController, AlertController, MenuController} from 'ionic-angular';
+import { App, NavController, LoadingController, AlertController, MenuController, PopoverController} from 'ionic-angular';
 import { Http } from '@angular/http';
 import { AppService} from '../../app/app.service';
 import { TestsTheoryPage } from '../tests-theory/tests-theory';
 import { TestsSignsPage } from "../tests-signs/tests-signs";
+
+import {StudyDropdownPage} from "../study-dropdown/study-dropdown";
+import {TestsPage} from "../tests/tests";
+import {TheoryPage} from "../theory/theory";
+import {SignsPage} from "../signs/signs";
+import {ContactPage} from "../contact/contact";
+
 
 import 'rxjs/add/operator/map';
 
@@ -12,24 +19,36 @@ import 'rxjs/add/operator/map';
   templateUrl: 'home.html'
 })
 export class HomePage {
+
+  pages: Array<{title: string, titleSimplified: string, component: any}>;
+  studyPages: Array<{title: string, titleSimplified: string, component: any}>;
   currentPage: any;
+  contactPage: {title: string, titleSimplified: string, component: any};
 
   httpTest: any;
-
   constructor(public navCtrl: NavController,
               public appService: AppService,
               public loadingCtrl: LoadingController,
               public alertCtrl: AlertController,
               public menuCtrl: MenuController,
-              public http: Http) {
+              public http: Http,
+              public popoverCtrl: PopoverController,
+              public app: App) {
 
-    // this.http.get('http://chinesedmvapis.azurewebsites.net/api/testnumber').map(res => res.json())
-    //   .subscribe(data => {
-    //     this.httpTest = data;
-    //   },
-    //   err => {
-    //     console.log(err)
-    //   });
+    this.pages = [
+      { title: "主頁", titleSimplified: "主页", component: HomePage },
+      { title: '模擬測驗', titleSimplified: "模拟测验", component: TestsPage }
+    ];
+
+    this.currentPage = this.pages[0];
+
+    this.studyPages = [
+      { title: '理論題', titleSimplified: "理论题", component: TheoryPage },
+      { title: '圖標題', titleSimplified: "图标题", component: SignsPage }
+    ];
+
+    this.contactPage = {title: '聯絡我們', titleSimplified: "联络我们", component: ContactPage};
+
   }
 
   changeLanguage() {
@@ -109,6 +128,29 @@ export class HomePage {
       });
     }
     alert.present();
+  }
+
+  // study popover menu
+  presentPopover(myEvent) {
+
+    let popover = this.popoverCtrl.create(StudyDropdownPage, {}, {cssClass: "study-dropdown"});
+    popover.present({
+      ev: myEvent
+    });
+  }
+
+  openHome() {
+
+  }
+
+  openTest() {
+    this.currentPage = this.pages[1];
+    this.navCtrl.setRoot(TestsPage);
+  }
+
+  openContact() {
+    this.currentPage = this.contactPage;
+    this.navCtrl.setRoot(ContactPage);
   }
 
 

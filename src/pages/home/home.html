@@ -1,13 +1,35 @@
 <ion-header>
-  <ion-navbar>
+
+  <ion-navbar class="responsive-small-screen">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title class="shared-title-padding">{{appService.isTraditional ? "簡介" : "简介"}}</ion-title>
+    <ion-title class="shared-title-padding">{{appService.isTraditional ? "主頁" : "主页"}}</ion-title>
   </ion-navbar>
-</ion-header>
 
+
+  <ion-navbar class="text-align-right responsive-big-screen">
+    <button ion-button outline>
+      <ion-icon name="home"></ion-icon>
+      &nbsp;{{appService.isTraditional ? "主頁" : "主页"}}
+    </button>
+    <button ion-button outline (click)="openTest()">
+      <ion-icon name="clipboard"></ion-icon>
+      &nbsp;{{appService.isTraditional ? "模擬測驗" : "模拟测验"}}
+    </button>
+    <button ion-button outline (click)="presentPopover($event)">
+      <ion-icon name="book"></ion-icon>
+      &nbsp;{{appService.isTraditional? "學習" : "学习" }}
+    </button>
+    <button ion-button outline (click)="openContact()">
+      <ion-icon name="information-circle"></ion-icon>
+      &nbsp;{{appService.isTraditional ? "聯絡我們" : "联络我们"}}
+    </button>
+  </ion-navbar>
+
+</ion-header>
 <ion-content padding>
+
   <h3 class="text-align-center">{{appService.isTraditional ? "加州 DMV 筆試測驗練習" : "加州 DMV 笔试测验练习"}}</h3>
 
   <p>
@@ -23,6 +45,7 @@
     <!--<button ion-button round (click)="startTest()">{{appService.isTraditional ? "開始測驗" : "开始测验"}}</button>-->
 
     <!--</div>-->
+  <p class="responsive-small-screen">{{appService.isTraditional ? "請點擊左上  " : "请点击左上  "}}<ion-icon name="menu"></ion-icon>{{appService.isTraditional ? "  開始" : "  开始"}}</p>
 
 
   <ion-fab bottom right>
