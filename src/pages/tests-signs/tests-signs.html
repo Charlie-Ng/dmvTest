@@ -43,13 +43,13 @@
 
       <ion-item *ngFor="let choice of currentSignTest.choices | keyValues; let i = index">
         <ion-label text-wrap *ngIf="i === 0" [ngClass]="{'color-success': appService.firstCorrect, 'color-danger': appService.firstIncorrect}">
-          <b class="tests-signs-question-no">a.</b> <img [src]="'../../assets/signs/' + choice.value" height="120" width="120" />
+          <b class="tests-signs-question-no">a.</b> <img [src]="'assets/signs/' + choice.value" height="120" width="120" />
         </ion-label>
         <ion-label text-wrap *ngIf="i === 1" [ngClass]="{'color-success': appService.secondCorrect, 'color-danger': appService.secondIncorrect}">
-          <b class="tests-signs-question-no">b.</b> <img [src]="'../../assets/signs/' + choice.value" height="120" width="120" />
+          <b class="tests-signs-question-no">b.</b> <img [src]="'assets/signs/' + choice.value" height="120" width="120" />
         </ion-label>
         <ion-label text-wrap *ngIf="i === 2" [ngClass]="{'color-success': appService.thirdCorrect, 'color-danger': appService.thirdIncorrect}">
-          <b class="tests-signs-question-no">c.</b> <img [src]="'../../assets/signs/' + choice.value" height="120" width="120" />
+          <b class="tests-signs-question-no">c.</b> <img [src]="'assets/signs/' + choice.value" height="120" width="120" />
         </ion-label>
         <ion-radio [value]="choice.key" [disabled]="appService.hasAnswered" (click)="loadView(i)"></ion-radio>
       </ion-item>

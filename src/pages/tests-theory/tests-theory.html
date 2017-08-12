@@ -37,7 +37,7 @@
 <ion-content padding>
   <div padding *ngIf="!appService.finishedTheoryTest">
     <p class="font-size-16">{{currentTheoryTest.no}}. {{currentTheoryTest.question}}</p>
-    <div *ngIf="currentTheoryTest.hasSign" class="text-align-center"><img [src]="'../../assets/signs/' + currentTheoryTest.signName" height="120" width="120" /></div>
+    <div *ngIf="currentTheoryTest.hasSign" class="text-align-center"><img [src]="'assets/signs/' + currentTheoryTest.signName" height="120" width="120" /></div>
     <ion-list radio-group [(ngModel)]="currentTheoryTest.userAnswer">
 
       <ion-item *ngFor="let choice of currentTheoryTest.choices | keyValues; let i = index" class="page-tests-theory-large-padding">

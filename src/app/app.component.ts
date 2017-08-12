@@ -78,7 +78,7 @@ export class MyApp {
     }
   }
 
-  practiceMenuHondler() {
+  practiceMenuHandler() {
     this.showSubmenu = !this.showSubmenu;
   }
 }

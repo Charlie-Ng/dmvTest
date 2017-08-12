@@ -12,12 +12,10 @@
       </button>
 
       <!-- practice master -->
-      <ion-item class="clickable" (click)="practiceMenuHondler()">{{appService.isTraditional? "學習" : "学习" }}</ion-item>
-      <ion-item-group submenu [class.visible]="showSubmenu">
-        <ion-item menuClose *ngFor="let studyPage of studyPages" (click)="openPage(studyPage)" class="clickable">
-          {{appService.isTraditional ? studyPage.title : studyPage.titleSimplified}}
-        </ion-item>
-      </ion-item-group>
+      <button class="clickable" ion-item (click)="practiceMenuHandler()">{{appService.isTraditional? "學習" : "学习" }}</button>
+      <button submenu [class.visible]="showSubmenu" menuClose *ngFor="let studyPage of studyPages" (click)="openPage(studyPage)" class="clickable">
+        {{appService.isTraditional ? studyPage.title : studyPage.titleSimplified}}
+      </button>
 
       <button menuClose ion-item (click)="openPage(contactPage)">
         {{appService.isTraditional ? contactPage.title : contactPage.titleSimplified}}

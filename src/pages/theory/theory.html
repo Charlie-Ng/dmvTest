@@ -40,7 +40,7 @@
 <ion-content padding>
 
     <p class="font-size-16">{{currentTheoryStudy.no}}. {{currentTheoryStudy.question}}</p>
-    <div *ngIf="currentTheoryStudy.hasSign" class="text-align-center"><img [src]="'../../assets/signs/' + currentTheoryStudy.signName" height="120" width="120" /></div>
+    <div *ngIf="currentTheoryStudy.hasSign" class="text-align-center"><img [src]="'assets/signs/' + currentTheoryStudy.signName" height="120" width="120" /></div>
     <ion-list radio-group [(ngModel)]="currentTheoryStudy.correctAnswer">
 
       <ion-item *ngFor="let choice of currentTheoryStudy.choices | keyValues; let i = index" class="page-theory-large-padding">

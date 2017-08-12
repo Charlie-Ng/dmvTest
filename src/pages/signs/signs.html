@@ -43,13 +43,13 @@
 
     <ion-item *ngFor="let choice of currentSignStudy.choices | keyValues; let i = index">
       <ion-label text-wrap *ngIf="i === 0">
-        <b class="tests-signs-question-no">a.</b> <img [src]="'../../assets/signs/' + choice.value" height="120" width="120" />
+        <b class="tests-signs-question-no">a.</b> <img [src]="'assets/signs/' + choice.value" height="120" width="120" />
       </ion-label>
       <ion-label text-wrap *ngIf="i === 1">
-        <b class="tests-signs-question-no">b.</b> <img [src]="'../../assets/signs/' + choice.value" height="120" width="120" />
+        <b class="tests-signs-question-no">b.</b> <img [src]="'assets/signs/' + choice.value" height="120" width="120" />
       </ion-label>
       <ion-label text-wrap *ngIf="i === 2">
-        <b class="tests-signs-question-no">c.</b> <img [src]="'../../assets/signs/' + choice.value" height="120" width="120" />
+        <b class="tests-signs-question-no">c.</b> <img [src]="'assets/signs/' + choice.value" height="120" width="120" />
       </ion-label>
       <ion-radio [disabled]="true" [value]="choice.key"></ion-radio>
     </ion-item>
@@ -78,7 +78,7 @@
       <button [disabled]="appService.currentSignIndex === 34" ion-button color="primary" (click)="nextQuestion()" class="float-right">
         <div>
           <ion-icon name="arrow-round-forward"></ion-icon>
-          <label class="page-tests-icon-label">{{appService.isTraditional ? "上一題": "上一题"}}</label>
+          <label class="page-tests-icon-label">{{appService.isTraditional ? "下一題": "下一题"}}</label>
         </div>
       </button>
     </ion-buttons>
