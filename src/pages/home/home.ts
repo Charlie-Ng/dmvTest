@@ -4,6 +4,7 @@ import { Http, RequestOptions, Headers } from '@angular/http';
 import { AppService} from '../../app/app.service';
 import { TestsTheoryPage } from '../tests-theory/tests-theory';
 import { TestsSignsPage } from "../tests-signs/tests-signs";
+import { Platform } from 'ionic-angular';
 
 import {StudyDropdownPage} from "../study-dropdown/study-dropdown";
 import {TestsPage} from "../tests/tests";
@@ -24,6 +25,7 @@ export class HomePage {
   studyPages: Array<{title: string, titleSimplified: string, component: any}>;
   currentPage: any;
   contactPage: {title: string, titleSimplified: string, component: any};
+  isIOS: boolean = false;
 
   finishedTestTotal: number;
   constructor(public navCtrl: NavController,
@@ -33,7 +35,8 @@ export class HomePage {
               public menuCtrl: MenuController,
               public http: Http,
               public popoverCtrl: PopoverController,
-              public app: App) {
+              public app: App,
+              public platform: Platform) {
 
     this.pages = [
       { title: "主頁", titleSimplified: "主页", component: HomePage },
@@ -53,6 +56,7 @@ export class HomePage {
       this.finishedTestTotal = data;
     });
 
+    this.isIOS = platform.is("ios");
 
 
 
