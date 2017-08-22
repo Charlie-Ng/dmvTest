@@ -30,7 +30,6 @@
 
 </ion-header>
 <ion-content padding>
-
   <h3 class="text-align-center">{{appService.isTraditional ? "加州 DMV 筆試測驗練習" : "加州 DMV 笔试测验练习"}}</h3>
 
   <p>
@@ -41,6 +40,8 @@
   <p>
     {{appService.isTraditional ? "注意: DMV筆試，初次申請者，不可超過6個錯。換領駕照申請者，不可超過3個錯誤。" : "注意: DMV笔试，初次申请者，不可超过6个错。换领驾照申请者，不可超过3个错误。"}}
   </p>
+
+  <p>{{finishedTestTotal >=0 && appService.isTraditional ? "已完成的模擬測驗次數" : "已完成的模拟测验次数"}}: {{finishedTestTotal}}。</p>
 
   <!--<div text-center>-->
     <!--<button ion-button round (click)="startTest()">{{appService.isTraditional ? "開始測驗" : "开始测验"}}</button>-->

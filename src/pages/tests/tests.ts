@@ -4,6 +4,8 @@ import { MenuController, App } from 'ionic-angular';
 import { AppService } from '../../app/app.service'
 import { TestsTheoryPage } from '../tests-theory/tests-theory';
 import { TestsSignsPage } from '../tests-signs/tests-signs';
+import { Platform } from 'ionic-angular';
+import {HomePage} from "../home/home";
 
 /**
  * Generated class for the TestsPage page.
@@ -25,7 +27,8 @@ export class TestsPage {
     public menuCtrl: MenuController,
     public appService: AppService,
     public ngZone: NgZone,
-    public app: App) {
+    public app: App,
+    public platform: Platform) {
 
     if(!this.appService.testsSelectDialogOpen && !this.appService.testHaveBeenStarted){
       this.ngZone.run(() => {
@@ -91,8 +94,12 @@ export class TestsPage {
           {
             text: '取消',
             handler: () => {
-              this.menuCtrl.open();
               this.appService.testsSelectDialogOpen = false;
+              if(this.platform.width() <= 767) {
+                this.menuCtrl.open();
+              }else{
+                this.navCtrl.setRoot(HomePage);
+              }
             }}
         ]
       });
@@ -119,8 +126,13 @@ export class TestsPage {
           {
             text: '取消',
             handler: () => {
-              this.menuCtrl.open();
               this.appService.testsSelectDialogOpen = false;
+              if(this.platform.width() <= 767) {
+                this.menuCtrl.open();
+              }else{
+                this.navCtrl.setRoot(HomePage);
+              }
+
             }}
         ]
       });

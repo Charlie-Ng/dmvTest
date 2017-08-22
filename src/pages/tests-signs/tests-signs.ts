@@ -4,6 +4,8 @@ import { TestsService } from '../../app/app.tests.service';
 import { AppService} from '../../app/app.service';
 import { TestsPage } from '../tests/tests'
 import {TestsTheoryPage} from "../tests-theory/tests-theory";
+import { Http, RequestOptions, Headers } from '@angular/http';
+import 'rxjs/add/operator/map';
 
 import {StudyDropdownPage} from "../study-dropdown/study-dropdown";
 import {SignsPage} from "../signs/signs";
@@ -40,7 +42,8 @@ export class TestsSignsPage {
               public appService: AppService,
               public ngZone: NgZone,
               public changeDetectorRef: ChangeDetectorRef,
-              public popoverCtrl: PopoverController) {
+              public popoverCtrl: PopoverController,
+              public http: Http) {
 
     this.pages = [
       { title: "主頁", titleSimplified: "主页", component: HomePage },
@@ -106,9 +109,20 @@ export class TestsSignsPage {
     this.ngZone.run(() => {
       if(this.appService.isLastQuestion) {
         this.appService.finishedSignTest = true;
+
       }
       if(this.appService.finishedTheoryTest && this.appService.finishedSignTest) {
         this.appService.finishedAllTests = true;
+
+        let body =  {};
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        this.http.put("https://dmvapis.herokuapp.com/testnumber/599a2cadf36d2820968fa0e4", body, options).subscribe(
+          response => {
+          },
+          error => {
+
+          });
       }
     });
   }

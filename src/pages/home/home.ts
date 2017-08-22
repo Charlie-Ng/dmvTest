@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { App, NavController, LoadingController, AlertController, MenuController, PopoverController} from 'ionic-angular';
-import { Http } from '@angular/http';
+import { Http, RequestOptions, Headers } from '@angular/http';
 import { AppService} from '../../app/app.service';
 import { TestsTheoryPage } from '../tests-theory/tests-theory';
 import { TestsSignsPage } from "../tests-signs/tests-signs";
@@ -25,7 +25,7 @@ export class HomePage {
   currentPage: any;
   contactPage: {title: string, titleSimplified: string, component: any};
 
-  httpTest: any;
+  finishedTestTotal: number;
   constructor(public navCtrl: NavController,
               public appService: AppService,
               public loadingCtrl: LoadingController,
@@ -48,6 +48,14 @@ export class HomePage {
     ];
 
     this.contactPage = {title: '聯絡我們', titleSimplified: "联络我们", component: ContactPage};
+
+    this.http.get("https://dmvapis.herokuapp.com/testnumber/599a2cadf36d2820968fa0e4").map(res => res.json()).subscribe(data => {
+      this.finishedTestTotal = data;
+    });
+
+
+
+
 
   }
 
