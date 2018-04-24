@@ -13,4 +13,4 @@ Then, to run it
 $ ionic serve
 ```
 
-(http://chinesedmvca.com)
+http://chinesedmvca.com
