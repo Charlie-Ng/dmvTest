@@ -12,3 +12,5 @@ Then, to run it
 ```bash
 $ ionic serve
 ```
+
+(http://chinesedmvca.com)
